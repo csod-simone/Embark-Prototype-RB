@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="RGB_expanded" data-name="RGB expanded" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fa4616;
+      }
+    </style>
+  </defs>
+  <path d="M17,39.79c-.26,0-.52-.05-.77-.15-.75-.31-1.23-1.04-1.23-1.85v-4.59h-3c-2.21,0-4-1.79-4-4V12.21c0-2.21,1.79-4,4-4h24c2.21,0,4,1.79,4,4v17c0,2.21-1.79,4-4,4h-11.59l-6,6c-.38.38-.89.59-1.41.59ZM12,10.21c-1.1,0-2,.9-2,2v17c0,1.1.9,2,2,2h5v6.59l6.59-6.59h12.41c1.1,0,2-.9,2-2V12.21c0-1.1-.9-2-2-2H12Z"/>
+  <rect class="cls-1" x="28.44" y="19.21" width="4" height="4"/>
+  <rect class="cls-1" x="22" y="19.21" width="4" height="4"/>
+  <rect class="cls-1" x="15.56" y="19.21" width="4" height="4"/>
+</svg>

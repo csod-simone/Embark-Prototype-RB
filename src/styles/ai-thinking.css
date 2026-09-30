@@ -1,0 +1,69 @@
+@keyframes ai-thinking-diamond-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes ai-thinking-label-shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes ai-thinking-message-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes ai-thinking-message-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ai-thinking-diamond {
+  animation: ai-thinking-diamond-breathe 2.8s ease-in-out infinite;
+}
+
+.ai-thinking-label {
+  background-size: 200% 100%;
+  animation: ai-thinking-label-shimmer 3.2s linear infinite;
+}
+
+.ai-thinking-message--out {
+  animation: ai-thinking-message-out 220ms ease-out forwards;
+}
+
+.ai-thinking-message--in {
+  animation: ai-thinking-message-in 220ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-thinking-diamond,
+  .ai-thinking-label,
+  .ai-thinking-message--out,
+  .ai-thinking-message--in {
+    animation: none !important;
+  }
+
+  .ai-thinking-diamond {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}

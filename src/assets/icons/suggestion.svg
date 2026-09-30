@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="RGB_expanded" data-name="RGB expanded" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #fa4616;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M6,34.81c-.55,0-1,.45-1,1v5c0,.55.45,1,1,1h36c.55,0,1-.45,1-1v-5c0-.55-.45-1-1-1h-2v-2h2c1.66,0,3,1.34,3,3v5c0,1.66-1.34,3-3,3H6c-1.66,0-3-1.34-3-3v-5c0-1.66,1.34-3,3-3h2v2h-2Z"/>
+  <path class="cls-2" d="M38,39.81H10V3.81h21.88l6.12,7v29ZM31,15.81h-14v2h14v-2ZM17,20.81h14v2h-14v-2ZM31,25.81h-14v2h14v-2Z"/>
+</svg>

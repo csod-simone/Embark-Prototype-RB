@@ -1,0 +1,935 @@
+/*
+ * ============================================================
+ *  DESIGN SYSTEM — Single Source of Truth
+ * ============================================================
+ *
+ *  Every visual token used in this application is defined here.
+ *  Components must reference these tokens via Tailwind utilities
+ *  (which read from these CSS variables) or via direct
+ *  `var(--token)` references. Never hard-code hex, HSL, px
+ *  font-sizes, or magic numbers in component files.
+ *
+ *  Tailwind config (`tailwind.config.ts`) maps each variable
+ *  to a utility class so you can write `bg-primary`, `text-sm`,
+ *  `rounded-card`, etc.
+ *
+ *  DARK MODE: Every color token has a dark-mode override in the
+ *  `.dark` block below. Components don't need conditional logic.
+ * ============================================================
+ */
+
+/* ─── 1. COLOR PALETTE ──────────────────────────────────────── */
+
+:root, .light {
+  /* ── Core surfaces ── */
+  --background:           0 0% 98%;          /* zinc-50 #FAFAFA */
+  --foreground:           240 10% 4%;        /* zinc-950 #09090B */
+
+  --card:                 0 0% 100%;         /* white */
+  --card-foreground:      240 10% 4%;
+  --card-hover:           240 5% 96%;        /* zinc-100 */
+
+  --popover:              0 0% 100%;
+  --popover-foreground:   240 10% 4%;
+
+  /* ── Brand / interactive ── */
+  --primary:              251 33% 54%;       /* peri-600 #7160B4 */
+  --primary-foreground:   0 0% 100%;         /* white */
+  --primary-hover-foreground: 0 0% 100%;
+
+  /* ── Neutral fills ── */
+  --secondary:            240 5% 96%;        /* zinc-100 */
+  --secondary-foreground: 240 10% 4%;        /* zinc-950 */
+
+  --muted:                240 5% 96%;        /* zinc-100 */
+  --muted-foreground:     240 5% 26%;        /* zinc-700 */
+
+  --accent:               254 71% 94%;       /* peri-100 #EBE6FA */
+  --accent-foreground:    251 31% 42%;       /* peri-700 #56498B */
+
+  /* ── Design system scale (legacy — kept for existing components) ── */
+  --ds-100:               254 71% 94%;
+  --ds-300:               250 60% 88%;
+  --ds-500:               251 33% 54%;
+  --ds-700:               251 31% 42%;
+  --red-400:              0 91% 71%;
+  --red-700:              0 74% 42%;
+  --amber-700:            35 92% 33%;
+  --figma-c1:             250 60% 88%;
+  --figma-c3:             254 71% 94%;
+  --chat:                 252 83% 98%;        /* #F6F4FE — user chat bubble */
+  --chat-foreground:      240 10% 4%;        /* zinc-950 */
+  --tab-active-border:    251 33% 54%;
+
+  /* ── Semantic neutrals ── */
+  --dot-separator:        240 5% 65%;        /* zinc-400 */
+  --icon:                 240 4% 46%;        /* zinc-500 */
+  --icon-selected:        251 33% 54%;       /* peri-600 */
+
+  /* ── Semantic status ── */
+  --destructive:            0 93% 82%;       /* red-300 */
+  --destructive-foreground: 0 62% 30%;       /* red-900 */
+  --destructive-dark:       0 74% 42%;        /* red-700 — stronger text/icon */
+
+  --success:              141 79% 85%;       /* green-200 */
+  --success-foreground:   145 32% 20%;       /* green-900 */
+  --success-dark:         142 72% 29%;       /* green-700 */
+  --success-muted:        141 79% 85%;
+
+  --warning:              53 98% 77%;        /* yellow-200 */
+  --warning-foreground:   35 92% 26%;        /* yellow-900 */
+  --warning-dark:         35 92% 33%;        /* yellow-700 */
+
+  --caution:              25 95% 50%;
+  --caution-foreground:   25 95% 30%;
+
+  --star:                 45 93% 47%;
+
+  --info:                 240 4% 46%;
+
+  /* ── Borders & inputs ── */
+  --border:               240 5% 65%;       /* zinc-400 */
+  --input:                240 5% 65%;       /* zinc-400 */
+  --input-foreground:     240 10% 4%;
+  --ring:                 224 76% 48%;      /* blue-700 */
+
+
+  /* ── Sidebar chrome ── */
+  --sidebar-background:       0 0% 100%;    /* white */
+  --sidebar-foreground:       240 10% 4%;   /* zinc-950 */
+  --sidebar-primary:          254 71% 94%;  /* peri-100 */
+  --sidebar-primary-foreground: 251 31% 42%;
+  --sidebar-primary-border:   251 33% 54%;
+  --sidebar-accent:           254 71% 94%;
+  --sidebar-accent-foreground: 251 31% 42%;
+  --sidebar-border:           240 5% 65%;
+  --sidebar-ring:             224 76% 48%;
+  --sidebar-handle:           240 5% 65%;
+  --sidebar-selected-border:  250 60% 88%;
+
+  /* ── Legacy sidebar aliases ── */
+  --sidebar-bg:           0 0% 100%;
+  --sidebar-text:         240 10% 4%;
+  --sidebar-text-active:  240 10% 4%;
+  --sidebar-hover:        240 5% 96%;
+  --sidebar-active:       240 5% 96%;
+
+  /* ── Avatar ── */
+  --avatar-bg:            240 5% 96%;       /* zinc-100 */
+  --avatar-text:          240 10% 4%;       /* zinc-950 */
+
+  /* ── Shadows ── */
+  --card-shadow:        0 0 0 1px hsl(240 5% 65%),
+                        0 2px 4px rgba(0,0,0,0.05),
+                        0 12px 24px -12px rgba(0,0,0,0.05);
+  --card-shadow-hover:  0 0 0 1px hsl(251 33% 54% / 0.2),
+                        0 8px 16px -4px rgba(0,0,0,0.1);
+  --shadow-card-hover:  0 6px 12px -2px rgba(0,0,0,0.1),
+                        0 4px 8px -3px rgba(0,0,0,0.07);
+
+  /* ── Roleplay teleprompter (B1 mock) ── */
+  --roleplay-ink:             222 28% 15%;   /* #1c2333 */
+  --roleplay-ink-soft:        220 16% 35%;   /* #4a5468 */
+  --roleplay-muted:           222 12% 54%;   /* #7a8398 */
+  --roleplay-line:            225 18% 91%;   /* #e4e7ee */
+  --roleplay-line-soft:       228 22% 95%;   /* #eef0f5 */
+  --roleplay-accent:          243 54% 49%;   /* #4f46b8 */
+  --roleplay-accent-2:        244 54% 61%;   /* #6d64d6 */
+  --roleplay-accent-tint:     248 56% 95%;   /* #eeecfa */
+  --roleplay-canvas-from:     255 60% 99%;
+  --roleplay-canvas-to:       252 40% 96%;
+  --roleplay-t-hero:          1.85rem;
+  --roleplay-radius:          1rem;
+}
+
+
+/* ─── 2. DARK MODE OVERRIDES ─────────────────────────────────── */
+
+.dark {
+  --background:           240 10% 4%;        /* zinc-950 */
+  --foreground:           0 0% 98%;          /* zinc-50 */
+
+  --card:                 0 0% 0%;           /* black */
+  --card-foreground:      0 0% 98%;
+  --card-hover:           240 4% 16%;        /* zinc-800 */
+
+  --popover:              0 0% 0%;
+  --popover-foreground:   0 0% 98%;
+
+  --primary:              251 58% 72%;       /* peri-400 #9F8EE1 */
+  --primary-foreground:   240 10% 4%;        /* zinc-950 */
+  --primary-hover-foreground: 240 10% 4%;
+
+  --secondary:            240 4% 16%;        /* zinc-800 */
+  --secondary-foreground: 0 0% 98%;
+
+  --muted:                240 5% 26%;        /* zinc-700 */
+  --muted-foreground:     240 5% 96%;        /* zinc-100 */
+
+  --accent:               250 60% 88%;       /* peri-200 */
+  --accent-foreground:    251 31% 42%;       /* peri-700 */
+
+  --ds-100:               250 60% 88%;
+  --ds-300:               251 58% 72%;
+  --ds-500:               251 58% 72%;
+  --ds-700:               251 31% 42%;
+  --red-400:              0 91% 71%;
+  --red-700:              0 74% 42%;
+  --amber-700:            35 92% 33%;
+  --figma-c1:             240 4% 16%;
+  --figma-c3:             240 4% 16%;
+  --chat:                 252 50% 25%;
+  --chat-foreground:      0 0% 98%;
+  --tab-active-border:    251 58% 72%;
+
+  --destructive:            0 91% 71%;       /* red-400 */
+  --destructive-foreground: 0 62% 30%;      /* red-900 */
+  --destructive-dark:       0 74% 42%;       /* red-700 */
+
+  --success:              142 69% 58%;       /* green-400 */
+  --success-foreground:   145 32% 20%;       /* green-900 */
+  --success-dark:         142 72% 29%;       /* green-700 */
+  --success-muted:        142 69% 58%;       /* green-400 */
+
+  --warning:              48 96% 53%;        /* yellow-400 */
+  --warning-foreground:   35 92% 26%;        /* yellow-900 */
+  --warning-dark:         35 92% 33%;        /* yellow-700 */
+
+  --caution:              25 95% 50%;
+  --caution-foreground:   25 95% 45%;
+
+  --star:                 45 93% 47%;
+
+  --info:                 240 5% 65%;
+
+  --border:               240 4% 46%;       /* zinc-500 */
+  --input:                240 4% 46%;       /* zinc-500 */
+  --ring:                 213 94% 68%;      /* blue-400 */
+
+
+  --sidebar-background:       0 0% 0%;      /* black */
+  --sidebar-foreground:       0 0% 98%;     /* zinc-50 */
+  --sidebar-primary:          250 60% 88%;  /* peri-200 */
+  --sidebar-primary-foreground: 251 31% 42%;
+  --sidebar-primary-border:   251 58% 72%;
+  --sidebar-accent:           240 4% 16%;
+  --sidebar-accent-foreground: 251 58% 72%;
+  --sidebar-border:           240 4% 46%;
+  --sidebar-ring:             213 94% 68%;
+
+  --sidebar-bg:           0 0% 0%;
+  --sidebar-text:         0 0% 98%;
+  --sidebar-text-active:  0 0% 98%;
+  --sidebar-hover:        240 4% 16%;
+  --sidebar-active:       240 4% 16%;
+
+  --avatar-bg:            240 5% 96%;
+  --avatar-text:          240 10% 4%;
+
+  --card-shadow:        0 0 0 1px hsl(240 4% 46%),
+                        0 2px 4px rgba(0,0,0,0.2),
+                        0 12px 24px -12px rgba(0,0,0,0.3);
+  --card-shadow-hover:  0 0 0 1px hsl(251 58% 72% / 0.3),
+                        0 8px 16px -4px rgba(0,0,0,0.3);
+  --shadow-card-hover:  0 6px 12px -2px rgba(0,0,0,0.45),
+                        0 4px 8px -3px rgba(0,0,0,0.35);
+
+  --roleplay-ink:             0 0% 98%;
+  --roleplay-ink-soft:        220 14% 75%;
+  --roleplay-muted:           222 10% 60%;
+  --roleplay-line:            225 12% 22%;
+  --roleplay-line-soft:       228 12% 18%;
+  --roleplay-accent:          243 54% 68%;
+  --roleplay-accent-2:        244 54% 72%;
+  --roleplay-accent-tint:     248 30% 18%;
+  --roleplay-canvas-from:     250 20% 10%;
+  --roleplay-canvas-to:       252 18% 8%;
+}
+
+
+/* ─── 3. BORDER RADIUS ───────────────────────────────────────── */
+/*
+ *  Token            Value       Tailwind class     Use for
+ *  ─────────────    ─────────   ──────────────     ──────────────────
+ *  --radius         0.75rem     rounded-lg         Default controls
+ *  (derived)        0.5rem      rounded-md         Inner elements
+ *  (derived)        0.25rem     rounded-sm         Small chips/tags
+ *  --radius-card    1.5rem      rounded-card       Cards, dialogs
+ *  --radius-sidebar 2rem        rounded-sidebar    Sidebar shell
+ *  --radius-pill    6.25rem     rounded-pill       Pills, chat bubbles
+ *  (native)         9999px      rounded-full       Avatars, dots
+ */
+:root {
+  --radius:         0.75rem;
+  --radius-card:    1.5rem;
+  --radius-sidebar: 2rem;
+  --radius-pill:    6.25rem;
+}
+
+
+/* ─── 4. TYPOGRAPHY SCALE ────────────────────────────────────── */
+/*
+ *  All sizes map to Tailwind's default scale.
+ *  Custom font-size tokens are NOT needed — use Tailwind classes.
+ *
+ *  Class        Size      Line-height   Use for
+ *  ──────────   ────────  ───────────   ──────────────────────
+ *  text-xs      0.75rem   1rem          Captions, timestamps
+ *  text-sm      0.875rem  1.25rem       Body small, labels
+ *  text-base    1rem      1.5rem        Default body copy
+ *  text-lg      1.125rem  1.75rem       Section subtitles
+ *  text-xl      1.25rem   1.75rem       Dialog titles
+ *  text-2xl     1.5rem    2rem          Page sub-headings
+ *  text-3xl     1.875rem  2.25rem       Page headings
+ *  text-4xl     2.25rem   2.5rem        Hero / large headings
+ *
+ *  Font family:  font-sans  → 'Lato', sans-serif  (headings + body)
+ *                font-mono  → monospace            (code / resume)
+ *
+ *  Font weights (Tailwind):
+ *    font-light    300
+ *    font-normal   400
+ *    font-medium   500
+ *    font-semibold 600
+ *    font-bold     700
+ *    font-black    900
+ *
+ *  RULE: minimum font size is text-xs (12px / 0.75rem).
+ *        Avatar initials may use a smaller size via --text-avatar.
+ */
+:root {
+  --text-avatar: 0.625rem;   /* 10px — only for 24px avatar initials */
+}
+
+
+/* ─── 5. SPACING SCALE ───────────────────────────────────────── */
+/*
+ *  Use Tailwind's spacing scale (multiples of 0.25rem / 4px).
+ *  Avoid arbitrary values like p-[14px] — use the nearest step.
+ *
+ *  Common layout tokens (not CSS vars, just conventions):
+ *
+ *  Token / pattern                   Value       Usage
+ *  ──────────────────────────────    ──────────  ──────────────────
+ *  Sidebar width                    300px       w-[300px] (structural)
+ *  Sidebar collapsed                68px        w-[68px]  (structural)
+ *  Content max-width                1040px       max-w-[1040px] (layout)
+ *  Nav item height                  52px        h-[52px]  (structural)
+ *  Nav item padding-x               14px        px-3.5    (use scale)
+ *  Page vertical padding            96px        py-24     (use scale)
+ *
+ *  RULE: Structural widths/heights (sidebar, nav items, content
+ *  max-width) may use arbitrary values since they are one-off
+ *  layout measurements. Spacing around content (margin, padding,
+ *  gap) should always use the Tailwind 4px scale.
+ */
+
+
+/* ─── 6. SHADOWS ─────────────────────────────────────────────── */
+/*
+ *  Token               Tailwind shortcut          Use for
+ *  ──────────────────  ─────────────────────────  ─────────────────
+ *  --card-shadow       shadow-[var(--card-shadow)] Card resting state
+ *  --card-shadow-hover shadow-[var(--card-shadow-hover)] Card hover
+ *  (native)            shadow-sm / shadow-md      Generic elevation
+ *
+ *  Avoid inline boxShadow. The heatmap glow in JobMatch.tsx is
+ *  acceptable because it is data-driven (size × opacity).
+ */
+
+
+/* ─── 7. ANIMATION TOKENS ────────────────────────────────────── */
+/*
+ *  Defined in tailwind.config.ts keyframes/animation:
+ *
+ *  animate-accordion-down    Accordion expand
+ *  animate-accordion-up      Accordion collapse
+ *  animate-shimmer-border    Shimmer gradient sweep
+ *
+ *  Runtime animation overrides (animationDuration, animationDelay)
+ *  are acceptable as inline styles when they depend on dynamic data
+ *  or stagger indices.
+ */
+
+
+/* ─── 8. COMPONENT CLASSES ───────────────────────────────────── */
+/*
+ *  Reusable component class: Filter pill
+ *  ────────────────────────────────────────────────────────────
+ *  Token            Value
+ *  ─────────────    ─────────────────────────────────────────
+ *  border-color     hsl(var(--input))   (gray/500)
+ *  background       hsl(var(--background))
+ *  text-color       hsl(var(--foreground)) (gray/900)
+ *  font-size        0.875rem (text-sm)
+ *  font-weight      400 (normal)
+ *  padding          8px 12px
+ *  border-radius    9999px (full)
+ *
+ *  Usage:  <button class="ds-filter">Label</button>
+ */
+.ds-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  border: 1px solid hsl(var(--input));
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  transition: background-color 150ms ease;
+}
+
+.ds-filter:hover {
+  background-color: hsl(var(--card));
+}
+
+/*
+ *  Reusable component class: Filter dropdown
+ *  ────────────────────────────────────────────────────────────
+ *  Container, item, selected, hover and check styling for the
+ *  filter dropdown menu used by Filter pills.
+ *
+ *  Token            Value
+ *  ─────────────    ─────────────────────────────────────────
+ *  container bg     hsl(var(--popover))
+ *  container border hsl(var(--border))
+ *  container radius 0.5rem (rounded-lg)
+ *  container pad    8px
+ *  item gap         4px
+ *  item radius      0.25rem (rounded)
+ *  item padding     6px 12px
+ *  item text size   1rem (text-base)
+ *  item text weight 500 (font-medium)
+ *  item text color  hsl(var(--popover-foreground))
+ *  selected bg      hsl(var(--card-hover))
+ *  hover bg         hsl(var(--secondary))   (gray/100)
+ *  check icon       16x16, hsl(var(--foreground))
+ *
+ *  Usage:
+ *    <div class="ds-filter-menu">
+ *      <button class="ds-filter-menu-item ds-filter-menu-item-selected">
+ *        <span class="ds-filter-menu-check"><Check /></span>
+ *        <span>Label</span>
+ *      </button>
+ *      <button class="ds-filter-menu-item">
+ *        <span class="ds-filter-menu-check"></span>
+ *        <span>Label</span>
+ *      </button>
+ *    </div>
+ */
+.ds-filter-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  background-color: hsl(var(--popover));
+}
+
+.ds-filter-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 6px 12px;
+  border-radius: 0.25rem;
+  text-align: left;
+  cursor: pointer;
+  color: hsl(var(--popover-foreground));
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  background-color: transparent;
+  transition: background-color 150ms ease;
+}
+
+.ds-filter-menu-item:hover {
+  background-color: hsl(var(--secondary));
+}
+
+.ds-filter-menu-item-selected {
+  background-color: hsl(var(--muted));
+}
+
+.ds-filter-menu-item-selected:hover {
+  background-color: hsl(var(--card-hover) / 0.8);
+}
+
+.ds-filter-menu-check {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: hsl(var(--foreground));
+}
+
+/*
+ *  Reusable component class: Page layout
+ *  ────────────────────────────────────────────────────────────
+ *  Standard page wrapper used by every top-level route alongside
+ *  the AppSidebar. Establishes 800px content width, padding, and
+ *  the header row that holds the title and inline actions.
+ *
+ *  Usage:
+ *    <div class="ds-page">
+ *      <AppSidebar />
+ *      <main class="ds-page-main">
+ *        <div class="ds-page-container">
+ *          <div class="ds-page-header-row">
+ *            <h1 class="ds-page-title">Title</h1>
+ *            <div class="ds-page-header-actions">
+ *              <button class="ds-filter">…</button>
+ *              <Button>Primary CTA</Button>
+ *            </div>
+ *          </div>
+ *          <div class="ds-page-body">…</div>
+ *        </div>
+ *      </main>
+ *    </div>
+ */
+.ds-page {
+  display: flex;
+  flex: 1 1 0%;
+  overflow: hidden;
+  padding: 48px;
+  gap: 24px;
+}
+
+.ds-page-main {
+  flex: 1 1 0%;
+  overflow-y: auto;
+}
+
+.ds-page-container {
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.ds-page-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ds-page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ds-page-title {
+  font-size: 1.875rem;       /* text-3xl */
+  line-height: 2.25rem;
+  font-weight: 600;          /* font-semibold */
+  color: hsl(var(--foreground));
+}
+
+/*
+ *  Reusable component class: Section header
+ *  ────────────────────────────────────────────────────────────
+ *  Use for in-page section titles (groups of cards, table sections,
+ *  etc.). Always reach for this class instead of re-styling an h2
+ *  so every section header stays consistent.
+ *
+ *  Usage:
+ *    <h2 class="ds-section-title">Focus</h2>
+ */
+.ds-section-title {
+  font-size: 1.25rem;        /* text-xl */
+  line-height: 1.75rem;
+  font-weight: 600;          /* font-semibold */
+  color: hsl(var(--foreground));
+}
+
+.ds-page-body {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/*
+ *  Reusable component class: List card
+ *  ────────────────────────────────────────────────────────────
+ *  Container card used in list-style pages (Upskilling,
+ *  Reflections). Three rows: header (title + icon actions),
+ *  optional description, footer (meta + badge).
+ *
+ *  Token            Value
+ *  ─────────────    ─────────────────────────────────────────
+ *  background       hsl(var(--secondary))   (gray/100)
+ *  border           1px solid hsl(var(--border))
+ *  radius           24px
+ *  padding          16px
+ *  vertical gap     12px between rows
+ *  title            text-xl, font-medium, hsl(var(--foreground))
+ *  description      text-sm, font-normal, hsl(var(--muted-foreground))
+ *  meta             text-sm, font-normal, hsl(var(--muted-foreground))
+ *  icon button      24x24, color hsl(var(--icon))
+ *  icon hover       hsl(var(--foreground))
+ *
+ *  Usage:
+ *    <article class="ds-list-card">
+ *      <div class="ds-list-card-header">
+ *        <p class="ds-list-card-title">Title</p>
+ *        <div class="ds-list-card-actions">
+ *          <button class="ds-list-card-icon-button"><MoreHorizontal /></button>
+ *        </div>
+ *      </div>
+ *      <p class="ds-list-card-description">Optional description</p>
+ *      <div class="ds-list-card-footer">
+ *        <p class="ds-list-card-meta">Created 2 days ago</p>
+ *        <Badge variant="outline">Status</Badge>
+ *      </div>
+ *    </article>
+ */
+.ds-list-card {
+  width: 100%;
+  border-radius: 24px;
+  padding: 16px;
+  background-color: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 200ms ease;
+}
+
+.ds-list-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.ds-list-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ds-list-card-title {
+  font-size: 1.25rem;        /* text-xl */
+  line-height: 1.75rem;
+  font-weight: 400;          /* font-normal */
+  color: hsl(var(--foreground));
+}
+
+.ds-list-card-description {
+  font-size: 0.875rem;       /* text-sm */
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: hsl(var(--muted-foreground));
+}
+
+.ds-list-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ds-list-card-meta {
+  font-size: 0.875rem;       /* text-sm */
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: hsl(var(--muted-foreground));
+}
+
+.ds-list-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ds-list-card-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: hsl(var(--icon));
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.ds-list-card-icon-button:hover {
+  color: hsl(var(--foreground));
+}
+
+
+/* ============================================
+   Home Card Pattern
+   ============================================ */
+
+.ds-home-card {
+  background: hsl(var(--background));
+  border-radius: 24px;
+  border: 1px solid hsl(var(--border));
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 200ms ease;
+}
+
+.ds-home-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Reusable utility for non-ds card surfaces (prompt cards, action cards) */
+.ds-card-hover {
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 200ms ease;
+}
+
+.ds-card-hover:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.ds-home-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ds-home-card-title {
+  font-size: 1rem;        /* text-base */
+  font-weight: 400;       /* font-normal */
+  color: hsl(var(--foreground));
+}
+
+.ds-home-card-description {
+  font-size: 0.875rem;    /* text-sm */
+  line-height: 1.25rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.ds-home-card-divider {
+  border-top: 1px solid hsl(var(--border));
+}
+
+.ds-home-card-stat {
+  margin-top: auto;
+  padding-top: 4px;
+  font-size: 1rem;
+  color: hsl(var(--foreground));
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ds-home-card-stat-value {
+  font-size: 1.5rem;      /* text-2xl */
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.ds-home-card-stat-value-success {
+  color: hsl(var(--success-foreground));
+}
+
+
+/* ============================================
+   Prompt Card Pattern
+   ────────────────────────────────────────────
+   Reusable card used for suggestion / prompt rows
+   (e.g. "Try deep research", "Explore team activity").
+   Fixed dimensions, leading icon, single-line label
+   that wraps to a max of two lines.
+
+   Usage:
+     <button class="ds-prompt-card">
+       <Search class="ds-prompt-card-icon" />
+       <p class="ds-prompt-card-label">Explore team activity signals</p>
+     </button>
+   ============================================ */
+
+.ds-prompt-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 256px;
+  height: 84px;
+  padding: 16px;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: 24px;
+  cursor: pointer;
+  text-align: left;
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 200ms ease, transform 100ms ease;
+}
+
+.ds-prompt-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.ds-prompt-card:active {
+  transform: scale(0.98);
+}
+
+.ds-prompt-card-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: hsl(var(--accent));
+}
+
+.ds-prompt-card-label {
+  font-size: 1rem;          /* text-base */
+  font-weight: 400;         /* font-normal */
+  color: hsl(var(--foreground));
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+/* ============================================
+   Icon Card Pattern
+   ────────────────────────────────────────────
+   Horizontal card with a leading status icon,
+   a title + description block, and a trailing
+   chevron. Used for Focus rows on /team-home
+   and similar list-style action cards.
+
+   Usage:
+     <button class="ds-icon-card">
+       <AlertTriangle class="ds-icon-card-icon ds-icon-card-icon-danger" />
+       <div class="ds-icon-card-body">
+         <h3 class="ds-icon-card-title">Title</h3>
+         <p class="ds-icon-card-description">Description</p>
+       </div>
+       <ChevronRight class="ds-icon-card-chevron" />
+     </button>
+   ============================================ */
+
+.ds-icon-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 20px;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: 24px;
+  cursor: pointer;
+  text-align: left;
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 200ms ease;
+}
+
+.ds-icon-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.ds-icon-card-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  stroke-width: 1.5;
+  color: hsl(var(--foreground));
+}
+
+.ds-icon-card-icon-danger {
+  color: hsl(var(--red-700));
+}
+
+.ds-icon-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ds-icon-card-title {
+  font-size: 1rem;        /* text-base */
+  font-weight: 500;       /* font-medium */
+  color: hsl(var(--foreground));
+}
+
+.ds-icon-card-description {
+  font-size: 0.875rem;    /* text-sm */
+  line-height: 1.25rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.ds-icon-card-chevron {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  stroke-width: 1.5;
+  color: hsl(var(--foreground));
+}
+
+/* ==========================================================================
+ * Secondary button — outline style, full corner radius
+ * Matches the "Secondary" variant in the /design-system Button section.
+ * ========================================================================== */
+.ds-button-secondary {
+  padding: 8px 12px;
+  font-size: 0.875rem;       /* text-sm */
+  font-weight: 500;      /* font-medium */
+  border-radius: 9999px; /* full */
+  border: none;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--figma-c1));
+  transition: background-color 150ms ease, opacity 150ms ease;
+}
+
+.ds-button-secondary:hover {
+  background-color: hsl(var(--figma-c1));
+  opacity: 0.85;
+}
+
+.ds-button-secondary:disabled {
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+ * Grey button — neutral surface, medium corner radius
+ * ========================================================================== */
+.ds-button-grey {
+  font-size: 0.875rem;     /* text-sm */
+  font-weight: 500;        /* font-medium */
+  border-radius: calc(var(--radius) - 2px); /* medium */
+  border: none;
+  color: hsl(var(--foreground));
+  background-color: #F3F5F8;
+  transition: background-color 150ms ease, opacity 150ms ease;
+}
+
+.ds-button-grey:hover {
+  background-color: #EDEFF6;
+}
+
+.ds-button-grey:disabled {
+  opacity: 0.5;
+}
+
+/* ── Primary button hover text ──────────────────────────────
+ * Default white text on primary buttons; shift to black on
+ * hover across every brand theme.  Zero-specificity :where()
+ * keeps explicit hover:text-* utilities (e.g. calendar) intact.
+ * ─────────────────────────────────────────────────────────── */
+:where(button.bg-primary.text-primary-foreground:hover,
+       a.bg-primary.text-primary-foreground:hover) {
+  color: hsl(var(--primary-hover-foreground));
+}
+
