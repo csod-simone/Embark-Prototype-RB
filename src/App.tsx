@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -49,7 +50,7 @@ import ReadinessHistory from "@/pages/embark/readiness/History";
 import ReadinessEvents from "@/pages/embark/readiness/Events";
 import ReadinessHandsRaised from "@/pages/embark/readiness/HandsRaised";
 
-import Login from "@/pages/embark/auth/Login";
+import Login, { isPrototypeSignedIn } from "@/pages/embark/auth/Login";
 import FirstLogin from "@/pages/embark/auth/FirstLogin";
 import Transparency from "@/pages/embark/auth/Transparency";
 import RoleSelect from "@/pages/embark/auth/RoleSelect";
@@ -124,36 +125,16 @@ import { OrgTextSwap } from "@/components/embark/OrgTextSwap";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-    <OrganisationProvider>
-    <BrandProvider>
-    <CornerstoneIntegrationProvider>
-    <DailyRecapsProvider>
-    <LearnerPreferencesProvider>
-    <RaiseHandOptionsProvider>
-    <AssessmentSettingsProvider>
-    <LinesOfBusinessProvider>
-    <AssessmentTypeDefaultsProvider>
-    <WeightagesProvider>
-    <BrandingProvider>
-    <CohortSettingsProvider>
-    <BusinessLeadersProvider>
-    <EventRegistrationProvider>
-    <ExperienceContentProvider>
-    <CohortWelcomeProvider>
-    <FeatureFlagsProvider>
-    <TrainerViewProvider>
-    <TooltipProvider>
-      <OrgTextSwap />
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AuthLayout />}>
+function PrototypeGate() {
+  const [signedIn, setSignedIn] = useState(isPrototypeSignedIn);
+  if (!signedIn) {
+    return <Login onSuccess={() => setSignedIn(true)} />;
+  }
+  return (
+    <Routes>
+      <Route element={<AuthLayout />}>
             <Route path="/" element={<RoleSelect />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Navigate to="/" replace />} />
             <Route path="/first-login" element={<FirstLogin />} />
             <Route path="/transparency" element={<Transparency />} />
             <Route path="/dev/ai-thinking" element={<AIThinkingDemo />} />
@@ -275,7 +256,37 @@ const App = () => (
           </Route>
 
           <Route path="*" element={<NotFound />} />
-        </Routes>
+    </Routes>
+  );
+}
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
+    <OrganisationProvider>
+    <BrandProvider>
+    <CornerstoneIntegrationProvider>
+    <DailyRecapsProvider>
+    <LearnerPreferencesProvider>
+    <RaiseHandOptionsProvider>
+    <AssessmentSettingsProvider>
+    <LinesOfBusinessProvider>
+    <AssessmentTypeDefaultsProvider>
+    <WeightagesProvider>
+    <BrandingProvider>
+    <CohortSettingsProvider>
+    <BusinessLeadersProvider>
+    <EventRegistrationProvider>
+    <ExperienceContentProvider>
+    <CohortWelcomeProvider>
+    <FeatureFlagsProvider>
+    <TrainerViewProvider>
+    <TooltipProvider>
+      <OrgTextSwap />
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <PrototypeGate />
       </BrowserRouter>
     </TooltipProvider>
     </TrainerViewProvider>
