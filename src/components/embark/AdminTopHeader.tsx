@@ -242,7 +242,7 @@ export function AdminTopHeader() {
                 <HelpCircle size={16} className="text-muted-foreground" />
                 <span>Get help</span>
               </DropdownMenuItem>
-              <DropdownMenuItem className="px-3 py-2 gap-3">
+              <DropdownMenuItem onClick={() => navigate("/", { replace: true })} className="px-3 py-2 gap-3">
                 <LogOut size={16} className="text-muted-foreground" />
                 <span>Logout</span>
               </DropdownMenuItem>

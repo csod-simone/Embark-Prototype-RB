@@ -132,9 +132,9 @@ function PrototypeGate() {
   }
   return (
     <Routes>
+      <Route path="/" element={<RoleSelect />} />
+      <Route path="/login" element={<Navigate to="/" replace />} />
       <Route element={<AuthLayout />}>
-            <Route path="/" element={<RoleSelect />} />
-            <Route path="/login" element={<Navigate to="/" replace />} />
             <Route path="/first-login" element={<FirstLogin />} />
             <Route path="/transparency" element={<Transparency />} />
             <Route path="/dev/ai-thinking" element={<AIThinkingDemo />} />

@@ -1,150 +1,160 @@
+import { FormEvent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Briefcase,
-  ChevronRight,
-  GraduationCap,
-  Users,
-  Presentation,
-  ShieldCheck,
-  Sparkles,
-  type LucideIcon,
-} from "lucide-react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useOrganisation, type OrgId, ORG_LABEL } from "@/hooks/use-organisation";
-import { NEXUS_USERS } from "@/data/nexusTerms";
-import { BrandLogo } from "@/components/embark/BrandLogo";
 import { RATHBONES_USERS } from "@/data/rathbonesTerms";
-import { getReadinessUser } from "@/data/readinessJourney";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-type Role = {
-  icon: LucideIcon;
-  title: string;
-  subLabel: string;
+type Identity = {
+  id: string;
+  name: string;
+  role: string;
   to: string;
 };
 
-const ROLES: Role[] = [
-  { icon: GraduationCap, title: "Learner", subLabel: "Jordan Kim · CSR · Medicare LOB", to: "/first-login" },
-  { icon: Users, title: "Manager", subLabel: "Taylor Reyes · CSR Manager · Medicare & Commercial LOB", to: "/manager/overview" },
-  { icon: Presentation, title: "Trainer", subLabel: "Alex Morgan · L&D Trainer · Medicare LOB", to: "/trainer/home" },
-  { icon: ShieldCheck, title: "Admin", subLabel: "Sam Patel · L&D Administrator · CVS Health / Aetna", to: "/admin/cohorts" },
-  { icon: GraduationCap, title: "Graduating Learner", subLabel: "Alex Morgan · Learner · Medicare CSR Cohort B", to: "/learner/graduating" },
-  { icon: Sparkles, title: "Up-skiller", subLabel: "Riley Chen · CSR · Medicare LOB · Upskilling", to: "/upskiller/intro" },
-];
-
-const NEXUS_ROLES: Role[] = [
-  { icon: GraduationCap, title: "Learner", subLabel: `${NEXUS_USERS.learner.name} · ${NEXUS_USERS.learner.title}`, to: "/first-login" },
-  { icon: Users, title: "Manager", subLabel: `${NEXUS_USERS.manager.name} · ${NEXUS_USERS.manager.title}`, to: "/manager/overview" },
-  { icon: Presentation, title: "Trainer", subLabel: `${NEXUS_USERS.trainer.name} · ${NEXUS_USERS.trainer.title}`, to: "/trainer/home" },
-  { icon: ShieldCheck, title: "Admin", subLabel: `${NEXUS_USERS.admin.name} · ${NEXUS_USERS.admin.title}`, to: "/admin/cohorts" },
-  { icon: GraduationCap, title: "Graduating Learner", subLabel: `${NEXUS_USERS.graduating.name} · ${NEXUS_USERS.graduating.title}`, to: "/learner/graduating" },
-  { icon: Sparkles, title: "Up-skiller", subLabel: `${NEXUS_USERS.upskiller.name} · ${NEXUS_USERS.upskiller.title}`, to: "/upskiller/intro" },
+const IDENTITIES: Identity[] = [
   {
-    icon: Briefcase,
-    title: "Project Readiness",
-    subLabel: `${getReadinessUser("nexus").name} · ${getReadinessUser("nexus").title}`,
-    to: "/readiness/intro",
-  },
-];
-
-const RATHBONES_ROLES: Role[] = [
-  {
-    icon: GraduationCap,
-    title: "Learner",
-    subLabel: `${RATHBONES_USERS.learner.name} · ${RATHBONES_USERS.learner.title}`,
+    id: "learner",
+    name: RATHBONES_USERS.learner.name,
+    role: "Learner",
     to: "/first-login",
   },
   {
-    icon: Users,
-    title: "Manager",
-    subLabel: `${RATHBONES_USERS.manager.name} · ${RATHBONES_USERS.manager.title}`,
+    id: "manager",
+    name: RATHBONES_USERS.manager.name,
+    role: "Manager",
     to: "/manager/overview",
   },
   {
-    icon: ShieldCheck,
-    title: "Admin",
-    subLabel: `${RATHBONES_USERS.admin.name} · ${RATHBONES_USERS.admin.title}`,
+    id: "admin",
+    name: RATHBONES_USERS.admin.name,
+    role: "Admin",
     to: "/admin/cohorts",
   },
   {
-    icon: GraduationCap,
-    title: "Graduating",
-    subLabel: `${RATHBONES_USERS.graduating.name} · ${RATHBONES_USERS.graduating.title}`,
+    id: "graduating",
+    name: RATHBONES_USERS.graduating.name,
+    role: "Graduating",
     to: "/learner/graduating",
   },
 ];
 
-function rolesFor(org: OrgId): Role[] {
-  if (org === "nexus") return NEXUS_ROLES;
-  if (org === "rathbones") return RATHBONES_ROLES;
-  return ROLES;
+function labelFor(identity: Identity): string {
+  return `${identity.name} — ${identity.role}`;
 }
 
 export default function RoleSelect() {
   const navigate = useNavigate();
-  const roles = RATHBONES_ROLES;
+  const [selectedId, setSelectedId] = useState("");
+  const [query, setQuery] = useState("");
+
+  const matches = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return [];
+    return IDENTITIES.filter((identity) => {
+      const haystack = `${identity.name} ${identity.role}`.toLowerCase();
+      return haystack.includes(needle);
+    });
+  }, [query]);
+
+  const chosen =
+    IDENTITIES.find((identity) => identity.id === selectedId) ??
+    (matches.length === 1 ? matches[0] : undefined);
+
+  const submit = (event: FormEvent) => {
+    event.preventDefault();
+    if (!chosen) return;
+    navigate(chosen.to, { replace: true });
+  };
 
   return (
-    <div className="w-full flex flex-col gap-8">
-      <div className="flex flex-col items-center gap-1">
-        <BrandLogo className="h-10" />
-        <div className="text-xs text-muted-foreground">Rathbones Institute</div>
-      </div>
-
-      <div className="flex flex-col gap-1 text-center">
-        <h2 className="text-xl font-medium text-foreground">Welcome to Embark</h2>
-        <p className="text-sm text-muted-foreground">
-          Investment Management pilot. Select a persona to explore.
+    <div className="min-h-screen w-full bg-[#f3f1ec] flex items-center justify-center px-4 py-10" data-org-raw>
+      <form
+        onSubmit={submit}
+        className="w-full max-w-[440px] rounded-xl bg-white px-8 py-8 shadow-[0_8px_30px_rgba(28,28,28,0.06)] border border-[#eceae4]"
+      >
+        <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#5e6a7d]">Sign in</p>
+        <h1 className="mt-3 text-[32px] font-semibold leading-tight text-[#1c1c1c]">Rathbones Institute</h1>
+        <p className="mt-2 text-[12px] font-medium uppercase tracking-[0.14em] text-[#8b95a1]">
+          Cornerstone Workforce AI
         </p>
-      </div>
 
-      <div className="flex flex-col gap-4 w-full max-w-[540px] mx-auto">
-        <h3 data-org-raw className="text-sm font-semibold text-foreground">
-          {ORG_LABEL.rathbones}
-        </h3>
+        <div className="my-6 border-t border-[#e6e4de]" />
 
-        <div className="flex flex-col gap-3" data-org-raw>
-          {roles.map((role) => {
-            const Icon = role.icon;
-            return (
-              <button
-                key={role.title}
-                type="button"
-                onClick={() => navigate(role.to, { replace: true })}
-                className="w-full flex items-center gap-4 p-4 rounded-lg bg-card border border-border hover:border-primary hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors text-left"
-              >
-                <Icon size={32} className="text-primary flex-shrink-0" aria-hidden="true" />
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-foreground">{role.title}</div>
-                  <div className="text-xs text-muted-foreground truncate">{role.subLabel}</div>
-                </div>
-                <ChevronRight size={18} className="text-muted-foreground flex-shrink-0" aria-hidden="true" />
-              </button>
-            );
-          })}
+        <label htmlFor="identity" className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#5e6a7d]">
+          Select your identity
+        </label>
+        <Select value={selectedId || undefined} onValueChange={setSelectedId}>
+          <SelectTrigger
+            id="identity"
+            className="mt-2 h-12 rounded-lg border-[#e4e0d6] bg-[#f6f4ef] px-3 text-sm text-[#3a3a3a] focus:ring-0 focus:ring-offset-0"
+          >
+            <SelectValue placeholder="— choose —" />
+          </SelectTrigger>
+          <SelectContent>
+            {IDENTITIES.map((identity) => (
+              <SelectItem key={identity.id} value={identity.id}>
+                {labelFor(identity)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <div className="my-5 flex items-center gap-3">
+          <div className="h-px flex-1 bg-[#e6e4de]" />
+          <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#9aa3af]">Or search</span>
+          <div className="h-px flex-1 bg-[#e6e4de]" />
         </div>
-      </div>
 
-      <div className="border-t border-border" />
+        <label htmlFor="identity-search" className="sr-only">
+          Search by name or role
+        </label>
+        <input
+          id="identity-search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search by name, role, or employee id..."
+          className="h-11 w-full rounded-lg border border-[#e5e2dc] bg-white px-3 text-sm text-[#1c1c1c] outline-none placeholder:text-[#9aa3af] focus:border-[#c9c4b8]"
+        />
+        {query.trim().length > 0 && (
+          <ul className="mt-2 overflow-hidden rounded-lg border border-[#e5e2dc] bg-white">
+            {matches.length === 0 ? (
+              <li className="px-3 py-2 text-sm text-[#8b95a1]">No matching identity</li>
+            ) : (
+              matches.map((identity) => (
+                <li key={identity.id}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedId(identity.id);
+                      setQuery("");
+                    }}
+                    className="w-full px-3 py-2 text-left text-sm text-[#1c1c1c] hover:bg-[#f6f4ef]"
+                  >
+                    {labelFor(identity)}
+                  </button>
+                </li>
+              ))
+            )}
+          </ul>
+        )}
 
-      <div className="flex flex-col items-center gap-2">
-        <p className="text-xs text-muted-foreground text-center">
-          This is a prototype for demonstration purposes only. No real data is used.
-        </p>
         <button
-          type="button"
-          onClick={() => {
-            if (window.confirm("Reset demo? This will clear all saved progress and reload the page.")) {
-              window.localStorage.clear();
-              window.sessionStorage.clear();
-              window.location.reload();
-            }
-          }}
-          className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors"
+          type="submit"
+          disabled={!chosen}
+          className="mt-4 h-12 w-full rounded-lg bg-[#8e969f] text-sm font-medium text-white transition-colors enabled:hover:bg-[#7a828b] disabled:cursor-not-allowed"
         >
-          Reset demo
+          Enter →
         </button>
-      </div>
+
+        <p className="mt-4 text-center text-[13px] leading-relaxed text-[#8b95a1]">
+          No password — auto-login for the demo. You’ll see the view that matches your role.
+        </p>
+      </form>
     </div>
   );
 }

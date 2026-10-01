@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell,
   Check,
@@ -50,6 +50,7 @@ const userEmail = "alex.morgan@company.com";
 const userInitials = "AM";
 
 export function GraduatingTopHeader() {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { theme, toggleTheme } = useTheme();
   const { brand, setBrand } = useBrand();
@@ -234,7 +235,7 @@ export function GraduatingTopHeader() {
                 <HelpCircle size={16} className="text-muted-foreground" />
                 <span>Get help</span>
               </DropdownMenuItem>
-              <DropdownMenuItem className="px-3 py-2 gap-3">
+              <DropdownMenuItem onClick={() => navigate("/", { replace: true })} className="px-3 py-2 gap-3">
                 <LogOut size={16} className="text-muted-foreground" />
                 <span>Logout</span>
               </DropdownMenuItem>
