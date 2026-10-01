@@ -35,6 +35,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { RATHBONES_USERS } from "@/data/rathbonesTerms";
 
 export function LearnerTopHeader({
   onAskSage,
@@ -53,9 +54,9 @@ export function LearnerTopHeader({
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifItems, setNotifItems] = useState<Notification[]>(mockNotifications);
   const unread = notifItems.filter((n) => !n.read).length;
-  const userName = "David Lin";
-  const userEmail = "david.lin@company.com";
-  const userInitials = "DL";
+  const userName = RATHBONES_USERS.learner.name;
+  const userEmail = "andrew.burton@rathbones.com";
+  const userInitials = "AB";
 
   const brandOptions: { id: Brand; label: string; dot: string }[] = [];
 

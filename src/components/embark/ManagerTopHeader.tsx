@@ -17,6 +17,7 @@ import { useBrand, type Brand } from "@/hooks/use-brand";
 import { DemoUserSwitcher } from "@/components/embark/DemoUserSwitcher";
 import { NotificationPanel } from "@/components/embark/NotificationPanel";
 import { notifications as mockNotifications, type Notification } from "@/data/mockData";
+import { RATHBONES_USERS } from "@/data/rathbonesTerms";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
   DropdownMenu,
@@ -54,9 +55,9 @@ const MANAGER_TABS: ManagerTab[] = [
   { label: "Analytics", route: "/manager/analytics", match: "/manager/analytics" },
 ];
 
-const userName = "Priya Rao";
-const userEmail = "priya.rao@company.com";
-const userInitials = "PR";
+const userName = RATHBONES_USERS.manager.name;
+const userEmail = "phoebe.kapoor@rathbones.com";
+const userInitials = "PK";
 
 export function ManagerTopHeader() {
   const navigate = useNavigate();

@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/embark/BrandLogo";
+import { RATHBONES_USERS } from "@/data/rathbonesTerms";
 
 type GradTab = {
   label: string;
@@ -45,9 +46,9 @@ const GRAD_TABS: GradTab[] = [
   { label: "My History", route: "/learner/graduating/history", match: "/learner/graduating/history" },
 ];
 
-const userName = "Alex Morgan";
-const userEmail = "alex.morgan@company.com";
-const userInitials = "AM";
+const userName = RATHBONES_USERS.graduating.name;
+const userEmail = "matteo.wu@rathbones.com";
+const userInitials = "MW";
 
 export function GraduatingTopHeader() {
   const navigate = useNavigate();

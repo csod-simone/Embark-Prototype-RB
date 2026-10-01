@@ -42,6 +42,7 @@ import {
 import { cn } from "@/lib/utils";
 import { PageContainer } from "@/components/embark/layouts/PageContainer";
 import { useOrganisation } from "@/hooks/use-organisation";
+import { RATHBONES_USERS } from "@/data/rathbonesTerms";
 
 const tabs: TabBarTab[] = [
   { id: "current", label: "Dashboard" },
@@ -110,9 +111,9 @@ export default function Home() {
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifItems, setNotifItems] = useState<Notification[]>(mockNotifications);
   const unread = notifItems.filter((n) => !n.read).length;
-  const userName = "David Lin";
-  const userEmail = "david.lin@company.com";
-  const userInitials = "DL";
+  const userName = RATHBONES_USERS.learner.name;
+  const userEmail = "andrew.burton@rathbones.com";
+  const userInitials = "AB";
 
   const brandOptions: { id: Brand; label: string; dot: string }[] = [];
 

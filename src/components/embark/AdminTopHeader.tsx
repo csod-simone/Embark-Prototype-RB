@@ -17,6 +17,7 @@ import { useBrand, type Brand } from "@/hooks/use-brand";
 import { DemoUserSwitcher } from "@/components/embark/DemoUserSwitcher";
 import { NotificationPanel } from "@/components/embark/NotificationPanel";
 import { notifications as mockNotifications, type Notification } from "@/data/mockData";
+import { RATHBONES_USERS } from "@/data/rathbonesTerms";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
   DropdownMenu,
@@ -48,8 +49,8 @@ const ADMIN_TABS: AdminTab[] = [
   { label: "Configuration", route: "/admin/config", match: "/admin/config" },
 ];
 
-const userName = "Alex Reyes";
-const userEmail = "alex.reyes@company.com";
+const userName = RATHBONES_USERS.admin.name;
+const userEmail = "alex.reyes@rathbones.com";
 const userInitials = "AR";
 
 export function AdminTopHeader() {
