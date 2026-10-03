@@ -9,6 +9,7 @@ export function LearnerSurface({
   className,
   contentClassName,
   tone = "dashboard",
+  flush = false,
 }: {
   header?: ReactNode;
   children: ReactNode;
@@ -17,12 +18,14 @@ export function LearnerSurface({
   contentClassName?: string;
   /** Open dashboard canvas, or the earlier framed chapter card. */
   tone?: "framed" | "dashboard";
+  /** Drop the content inset so an expanded panel can fill the area under the header. */
+  flush?: boolean;
 }) {
   const dashboard = tone === "dashboard";
   return (
     <div className={cn("flex min-h-0 flex-1 flex-col", dashboard ? "bg-[#f4f5f8]" : "rb-chapter", className)}>
       {header}
-      <div className={cn("flex min-h-0 flex-1", dashboard ? "gap-4 px-4 pb-4 lg:px-8" : "gap-3 p-3")}>
+      <div className={cn("flex min-h-0 flex-1", !flush && (dashboard ? "gap-4 px-4 pb-4 lg:px-8" : "gap-3 p-3"))}>
         <div className={cn(
           "flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden",
           !dashboard && "rb-chapter-rise rounded-xl border border-border border-l-4 border-l-primary bg-card",

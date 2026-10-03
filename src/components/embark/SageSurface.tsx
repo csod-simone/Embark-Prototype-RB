@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useAskAI } from "@/components/embark/AskAIContext";
@@ -23,17 +24,24 @@ export function SageSurface({
   const conversation = useTutorConversation();
   const { pathname } = useLocation();
   const ownChrome = pathname.includes("/article");
+  const [sageWide, setSageWide] = useState(false);
+
+  useEffect(() => {
+    if (!askAI.open) setSageWide(false);
+  }, [askAI.open]);
 
   if (ownChrome) {
     return (
       <div className="flex min-h-0 flex-1">
-        <div className={cn("flex min-h-0 min-w-0 flex-1 flex-col", askAI.open && "hidden lg:flex")}>
+        <div className={cn("flex min-h-0 min-w-0 flex-1 flex-col", askAI.open && (sageWide ? "hidden" : "hidden lg:flex"))}>
           {children}
         </div>
         {askAI.open && (
-          <div className="flex min-h-0 flex-1 p-3 lg:flex-none lg:pl-0">
+          <div className={cn("flex min-h-0 min-w-0", sageWide ? "flex-1" : "flex-1 p-3 lg:flex-none lg:pl-0")}>
             <AskSagePanel
               variant="beside"
+              wide={sageWide}
+              onWideChange={setSageWide}
               conversation={conversation}
               onClose={askAI.closeAskAI}
               userName={userName.split(" ")[0]}
@@ -47,11 +55,11 @@ export function SageSurface({
   return (
     <div className="flex min-h-0 flex-1 flex-col bg-[#f4f5f8]">
       {header}
-      <div className="flex min-h-0 flex-1 gap-4 px-4 pb-4 lg:px-8">
+      <div className={cn("flex min-h-0 flex-1", !sageWide && "gap-4 px-4 pb-4 lg:px-8")}>
         <div
           className={cn(
             "flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden",
-            askAI.open && "hidden lg:flex",
+            askAI.open && (sageWide ? "hidden" : "hidden lg:flex"),
           )}
         >
           {children}
@@ -59,6 +67,8 @@ export function SageSurface({
         {askAI.open && (
           <AskSagePanel
             variant="beside"
+            wide={sageWide}
+            onWideChange={setSageWide}
             conversation={conversation}
             onClose={askAI.closeAskAI}
             userName={userName.split(" ")[0]}

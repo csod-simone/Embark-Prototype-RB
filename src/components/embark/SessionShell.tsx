@@ -101,6 +101,7 @@ export function SessionShell({
   const { org } = useOrganisation();
   const chapter = org === "rathbones";
   const [sageOpen, setSageOpen] = useState(() => (chapter ? readFlag(SAGE_KEY, true) : false));
+  const [sageWide, setSageWide] = useState(false);
   const [journeyOpen, setJourneyOpen] = useState(() => readFlag(JOURNEY_KEY, true));
   const sagePanel = useRef<HTMLDivElement>(null);
   const focusSage = useRef(false);
@@ -127,6 +128,7 @@ export function SessionShell({
   }, [sageOpen]);
 
   const toggleSage = () => {
+    setSageWide(false);
     setSageOpen((open) => {
       const next = !open;
       if (next) focusSage.current = true;
@@ -231,8 +233,8 @@ export function SessionShell({
 
       {titlePlacement === "full" ? sessionTitleBar : null}
 
-      <div className={cn("flex min-h-0 flex-1", chapter && "gap-4 p-4 lg:px-8")}>
-        {(!chapter || journeyOpen) && (
+      <div className={cn("flex min-h-0 flex-1", chapter && !sageWide && "gap-4 p-4 lg:px-8")}>
+        {(!chapter || journeyOpen) && !sageWide && (
           <SessionStepsSidebar
             title={stepsTitle ?? "Journey steps"}
             meta={stepsMeta}
@@ -245,6 +247,7 @@ export function SessionShell({
         <div className={cn(
           "flex min-h-0 flex-1 flex-col bg-card",
           chapter && "overflow-hidden rounded-2xl border border-border shadow-sm",
+          sageWide && "hidden",
         )}>
           {titlePlacement === "content" ? sessionTitleBar : null}
           <div className="flex min-h-0 flex-1 flex-col [&_button]:scroll-mb-24 [&_input]:scroll-mb-24 [&_textarea]:scroll-mb-24">
@@ -263,10 +266,13 @@ export function SessionShell({
         </div>
 
         {sageOpen && sagePrompts && (
-          <div ref={sagePanel} className="flex min-h-0">
+          <div ref={sagePanel} className={cn("flex min-h-0", sageWide && "min-w-0 flex-1")}>
             <SessionAskSagePanel
               prompts={contextPrompts}
+              wide={sageWide}
+              onWideChange={setSageWide}
               onClose={() => {
+                setSageWide(false);
                 setSageOpen(false);
                 if (chapter) writeFlag(SAGE_KEY, false);
               }}

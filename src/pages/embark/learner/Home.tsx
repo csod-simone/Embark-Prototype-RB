@@ -83,6 +83,11 @@ export default function Home() {
 
   const conversation = useTutorConversation();
   const askAI = useAskAI();
+  const [sageWide, setSageWide] = useState(false);
+
+  useEffect(() => {
+    if (!askAI.open) setSageWide(false);
+  }, [askAI.open]);
   const { progress } = useModule3Progress();
   const mod3Complete = progress.rolePlayDone;
   const modulesDone = mod3Complete ? 3 : 2;
@@ -294,12 +299,15 @@ export default function Home() {
     <>
     <LearnerSurface
       header={TopHeader}
-      contentClassName={askAI.open ? "hidden lg:flex" : undefined}
+      flush={sageWide}
+      contentClassName={askAI.open ? (sageWide ? "hidden" : "hidden lg:flex") : undefined}
       aside={
         askAI.open ? (
-          <div className="flex min-h-0 flex-1 lg:flex-none">
+          <div className={cn("flex min-h-0 min-w-0", sageWide ? "flex-1" : "flex-1 lg:flex-none")}>
             <AskSagePanel
               variant="beside"
+              wide={sageWide}
+              onWideChange={setSageWide}
               conversation={conversation}
               onClose={askAI.closeAskAI}
               userName={userName.split(" ")[0]}

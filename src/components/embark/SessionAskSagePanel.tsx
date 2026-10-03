@@ -1,4 +1,4 @@
-import { X, Send, Maximize2 } from "lucide-react";
+import { X, Send, Maximize2, Minimize2 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { AiFlag } from "@/components/embark/AiFlag";
 import { AiMarkedContent } from "@/components/embark/AiMarkedContent";
@@ -20,6 +20,8 @@ export function SessionAskSagePanel({
   prompts,
   onClose,
   onExpand,
+  wide = false,
+  onWideChange,
   seed,
   className,
   disclaimer,
@@ -30,6 +32,9 @@ export function SessionAskSagePanel({
   prompts: SagePrompt[];
   onClose: () => void;
   onExpand?: () => void;
+  /** Panel fills the session area. The host hides the lesson. */
+  wide?: boolean;
+  onWideChange?: (wide: boolean) => void;
   seed?: SageTurn[];
   className?: string;
   disclaimer?: ReactNode;
@@ -42,10 +47,12 @@ export function SessionAskSagePanel({
 }) {
   const [turns, setTurns] = useState<SageTurn[]>(seed ?? []);
   const [input, setInput] = useState("");
+  const [promptsOpen, setPromptsOpen] = useState(false);
 
   const send = (text: string, presetReply?: string) => {
     const trimmed = text.trim();
     if (!trimmed) return;
+    if (!wide) setPromptsOpen(false);
     const id = crypto.randomUUID();
     const matched = matchSageResponse(trimmed);
     setTurns((prev) => [
@@ -84,6 +91,7 @@ export function SessionAskSagePanel({
       className={cn(
         "flex flex-col w-[380px] flex-shrink-0 border-l border-border bg-card",
         chapter && "overflow-hidden rounded-2xl border border-border shadow-sm",
+        wide && "w-full min-w-0 flex-1 shrink rounded-none border-0 shadow-none",
         className,
       )}
     >
@@ -94,14 +102,16 @@ export function SessionAskSagePanel({
           {headerFlag}
         </div>
         <div className="flex items-center gap-1">
-          {onExpand && (
+          {(onWideChange || onExpand) && (
             <button
               type="button"
-              onClick={onExpand}
-              aria-label="Expand"
+              onClick={() => (onWideChange ? onWideChange(!wide) : onExpand?.())}
+              aria-pressed={onWideChange ? wide : undefined}
+              aria-label={wide ? "Return Sage to the side panel" : "Expand Sage to the full window"}
+              title={wide ? "Side panel" : "Full window"}
               className="h-8 w-8 inline-flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
             >
-              <Maximize2 className="h-4 w-4" />
+              {wide ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
             </button>
           )}
           <button
@@ -159,7 +169,7 @@ export function SessionAskSagePanel({
       {prompts.length > 0 && (
         <div className="flex-shrink-0 px-4 pt-3 pb-4">
           <div className="flex flex-wrap gap-1.5">
-            {prompts.map((p) => (
+            {(wide || promptsOpen ? prompts : prompts.slice(0, 2)).map((p) => (
               <button
                 key={p.label}
                 type="button"
@@ -172,6 +182,16 @@ export function SessionAskSagePanel({
                 {p.label}
               </button>
             ))}
+            {!wide && prompts.length > 2 && (
+              <button
+                type="button"
+                aria-expanded={promptsOpen}
+                onClick={() => setPromptsOpen((open) => !open)}
+                className="rounded-full px-2 py-1 text-xs font-medium text-primary hover:bg-accent"
+              >
+                {promptsOpen ? "Show less" : "Show more"}
+              </button>
+            )}
           </div>
         </div>
       )}
