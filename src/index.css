@@ -274,6 +274,56 @@
   box-shadow: none;
 }
 
+/* Learner chapter. Light working surface, official gradient as a background wash only.
+   Character Blue stays the majority; Rathbones Blue is the last quarter. */
+.rb-chapter {
+  background-color: #e6e9f8;
+  position: relative;
+}
+.rb-chapter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(45deg, hsl(233 100% 39% / 0.16) 0%, hsl(233 100% 39% / 0.08) 55%, hsl(222 88% 13% / 0.12) 100%);
+  background-size: 160% 160%;
+  background-position: 80% 0%;
+  animation: rb-chapter-wash 22s ease-in-out infinite alternate;
+}
+.rb-chapter > * {
+  position: relative;
+}
+.rb-chapter-rise {
+  animation: rb-chapter-rise 420ms ease both;
+}
+.rb-chapter ol > li {
+  animation: rb-chapter-rise 420ms ease both;
+}
+.rb-chapter ol > li:nth-child(2) { animation-delay: 40ms; }
+.rb-chapter ol > li:nth-child(3) { animation-delay: 80ms; }
+.rb-chapter ol > li:nth-child(4) { animation-delay: 120ms; }
+.rb-chapter ol > li:nth-child(n + 5) { animation-delay: 160ms; }
+.rb-chapter-sage .rb-chapter-chip {
+  animation: rb-chapter-rise 420ms ease both;
+}
+@keyframes rb-chapter-wash {
+  from { background-position: 80% 0%; }
+  to { background-position: 20% 100%; }
+}
+@keyframes rb-chapter-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rb-chapter::before,
+  .rb-chapter-rise,
+  .rb-chapter ol > li,
+  .rb-chapter-sage .rb-chapter-chip {
+    animation: none;
+  }
+}
+
 /* Roleplay B1 teleprompter — fade prior turns at top of scroll */
 .roleplay-dialogue-scroll {
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 72px);

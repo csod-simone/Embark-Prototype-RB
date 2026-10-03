@@ -1,6 +1,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RATHBONES_USERS } from "@/data/rathbonesTerms";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -154,6 +155,31 @@ export default function RoleSelect() {
         <p className="mt-4 text-center text-[13px] leading-relaxed text-[#8b95a1]">
           No password — auto-login for the demo. You’ll see the view that matches your role.
         </p>
+        <div className="mt-3 flex justify-center">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="text-[#8b95a1]"
+            onClick={() => {
+              if (!window.confirm("Reset the demo? This clears saved progress and returns you to this screen.")) {
+                return;
+              }
+              let signedIn: string | null = null;
+              try {
+                signedIn = sessionStorage.getItem("embark:rathbones-signed-in");
+                localStorage.clear();
+                sessionStorage.clear();
+                if (signedIn) sessionStorage.setItem("embark:rathbones-signed-in", signedIn);
+              } catch {
+                /* storage can be blocked; still return to this screen */
+              }
+              window.location.assign("/");
+            }}
+          >
+            Reset
+          </Button>
+        </div>
       </form>
     </div>
   );

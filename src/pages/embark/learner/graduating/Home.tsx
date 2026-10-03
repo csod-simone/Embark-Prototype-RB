@@ -1,18 +1,46 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight, Lock } from "lucide-react";
-import { StatTile } from "@/components/embark/StatTile";
 import { AskSageIcon } from "@/components/embark/AskSageIcon";
+import { useAskAI } from "@/components/embark/AskAIContext";
 import { ModuleStatusIcon } from "@/components/embark/ModuleStatusIcon";
-import { LeftBorderCard } from "@/components/embark/LeftBorderCard";
 import { CompletionSummary } from "@/components/embark/CompletionSummary";
 import { InlineExpandRow } from "@/components/embark/InlineExpandRow";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { TutorBottomDrawer } from "../home/TutorBottomDrawer";
 import { useTutorConversation, type TutorMsg } from "../home/useTutorConversation";
 import { PageContainer } from "@/components/embark/layouts/PageContainer";
+import { RATHBONES_USERS } from "@/data/rathbonesTerms";
+
+function dayPart() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "morning";
+  if (hour < 17) return "afternoon";
+  return "evening";
+}
+
+function ModuleRing({ done, total }: { done: number; total: number }) {
+  const pct = total === 0 ? 0 : Math.min(100, Math.round((done / total) * 100));
+  return (
+    <div
+      className="relative h-[72px] w-[72px] shrink-0 rounded-full"
+      style={{
+        background: `conic-gradient(hsl(233 100% 39%) ${pct * 3.6}deg, hsl(233 100% 39% / 0.16) 0deg)`,
+      }}
+      role="img"
+      aria-label={`${done} of ${total} modules complete`}
+    >
+      <div className="absolute inset-[7px] flex flex-col items-center justify-center rounded-full bg-accent">
+        <span className="text-lg font-semibold leading-none text-foreground">{done}</span>
+        <span className="mt-0.5 text-[10px] text-muted-foreground">of {total}</span>
+      </div>
+    </div>
+  );
+}
 
 const seed: TutorMsg[] = [
   {
@@ -92,7 +120,7 @@ function CurrentTab() {
       {/* Program modules */}
       <div className="space-y-3">
         <div className="space-y-1">
-          <h3 className="text-base font-semibold text-foreground">Investment Manager Full Onboarding Journey</h3>
+          <h3 className="text-base font-semibold text-foreground">Your pathway</h3>
           <p className="text-sm text-muted-foreground">
             IM Intake Cohort A · Matteo Wu · Manager: Phoebe Kapoor
           </p>
@@ -100,7 +128,7 @@ function CurrentTab() {
 
         <div className="space-y-3">
           {/* Current track section */}
-          <div className="rounded-xl border border-border bg-card overflow-hidden border-l-4 border-l-warning">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <button
               type="button"
               onClick={() => setTrackOpen((v) => !v)}
@@ -111,8 +139,8 @@ function CurrentTab() {
               <div className="flex items-center justify-between gap-3 pl-5 pr-2 py-4">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center rounded-full bg-warning/15 px-2 py-0.5 text-xs font-semibold text-warning-dark">
-                      Current track
+                    <span className="inline-flex items-center rounded-full bg-accent px-2 py-0.5 text-xs font-semibold text-primary">
+                      Current path
                     </span>
                   </div>
                   <div className="text-sm font-semibold text-foreground mt-1.5">
@@ -288,86 +316,97 @@ function GraduatingItemRow({ item }: { item: Item }) {
 
 export default function GraduatingHome() {
   const conversation = useTutorConversation(seed);
+  const askAI = useAskAI();
+  const firstName = RATHBONES_USERS.graduating.name.split(" ")[0];
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-background">
-      {/* Page content */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6">
-        <PageContainer as="div">
-          <div className="space-y-6">
-            {/* Where you left off */}
-            <div className="space-y-2">
-              <h2 className="text-sm font-semibold text-foreground">Where you left off</h2>
-              <LeftBorderCard borderVariant="brand" padding="sm">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0 space-y-2">
-                    <span className="inline-flex items-center rounded-full bg-primary/10 text-primary px-2.5 py-0.5 text-[11px] font-semibold tracking-wide">
-                      Article
-                    </span>
-                    <div className="text-lg font-semibold text-foreground">
-                      Dispute Resolution &amp; Appeals
+    <>
+      <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+        <PageContainer as="div" className="max-w-[880px] space-y-8 pb-10 pt-8">
+          <header className="space-y-2 text-center">
+            <p className="text-sm text-muted-foreground">
+              Good {dayPart()}, {firstName}
+            </p>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              Your onboarding
+            </h1>
+            <div className="flex items-center justify-center gap-2">
+              <h2 className="text-xl font-semibold tracking-tight text-foreground">Personalized for you</h2>
+              <Badge variant="ai" className="gap-1 border-transparent px-2.5 py-0.5 text-xs font-medium">
+                <AskSageIcon size={14} />
+                AI
+              </Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">Investment Manager Full Onboarding Journey</p>
+          </header>
+
+          <div className="grid items-stretch gap-4 lg:grid-cols-2">
+            <Card className="h-full rounded-2xl border-0 bg-accent p-6 shadow-none sm:p-7">
+              <p className="text-sm text-muted-foreground">Where you are now</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
+                Advice documentation
+              </h2>
+              <div className="mt-6 flex items-center gap-5">
+                <ModuleRing done={3} total={4} />
+                <ul className="min-w-0 flex-1 space-y-2 text-sm text-foreground">
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-primary" aria-hidden />
+                    94% complete · Almost there
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-primary/40" aria-hidden />
+                    In progress · Dispute Resolution &amp; Appeals
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-muted-foreground/50" aria-hidden />
+                    Average score 88%
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-foreground/30" aria-hidden />
+                    4 days until 30 September
+                  </li>
+                </ul>
+              </div>
+              <p className="mt-4 text-xs text-muted-foreground">↑ +12% this week</p>
+            </Card>
+
+            <div className="flex flex-col gap-4">
+              <Card className="flex-1 rounded-2xl border-border p-6 shadow-sm">
+                <p className="text-sm text-muted-foreground">Where you left off</p>
+                <h2 className="mt-2 text-xl font-semibold tracking-tight text-foreground">
+                  Dispute Resolution &amp; Appeals
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Claims &amp; Billing · Outstanding — not yet read
+                </p>
+                <Button asChild className="mt-6 px-5">
+                  <Link to="/learner/graduating/article/dispute-resolution">Continue</Link>
+                </Button>
+              </Card>
+
+              <Card className="rounded-2xl border-0 bg-accent p-5 shadow-none">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 text-base font-semibold text-foreground">
+                      <AskSageIcon size={18} className="text-primary" />
+                      Ask Sage
                     </div>
-                    <div className="text-xs text-muted-foreground">
-                      Claims &amp; Billing · Outstanding — not yet read
-                    </div>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Get guidance on your next step, anytime.
+                    </p>
                   </div>
-                  <Button asChild>
-                    <Link to="/learner/graduating/article/dispute-resolution">Continue →</Link>
+                  <Button className="px-5" onClick={askAI.toggleAskAI}>
+                    Start a conversation
                   </Button>
                 </div>
-              </LeftBorderCard>
+              </Card>
             </div>
-
-            {/* Journey title */}
-            <div className="space-y-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-xl font-bold text-primary">Personalized for you</h2>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary px-3 py-1 text-xs font-semibold">
-                  <AskSageIcon size={14} />
-                  AI
-                </span>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Personalised for you ·{" "}
-                <span className="font-semibold text-foreground">IM Intake Cohort A</span> · 4
-                modules ·{" "}
-                <span className="font-semibold text-foreground">1 article outstanding</span>
-              </p>
-            </div>
-
-            {/* Stat tiles */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <StatTile
-                label="Overall completion"
-                value="94%"
-                variant="brand"
-                subLabel="Almost there!"
-                supporting="↑ +12% this week"
-              />
-              <StatTile
-                label="Current module"
-                value="Module 4"
-                subLabel="Claims & Billing"
-              />
-              <StatTile
-                label="Avg assessment score"
-                value="88%"
-                variant="success"
-                subLabel="Across all submitted assessments"
-              />
-              <StatTile
-                label="Days until deadline"
-                value={4}
-                subLabel="30 September target"
-              />
-            </div>
-
-            <CurrentTab />
           </div>
+
+          <CurrentTab />
         </PageContainer>
       </div>
-
       <TutorBottomDrawer conversation={conversation} />
-    </div>
+    </>
   );
 }

@@ -90,7 +90,7 @@ export function HistoryView({
               <Card
                 key={m.label}
                 className={cn(
-                  "flex-1 min-w-[140px] p-4 flex flex-col items-center gap-2 text-center",
+                  "flex-1 min-w-[140px] rounded-2xl p-4 flex flex-col items-center gap-2 text-center shadow-sm",
                   !m.earned && "opacity-70",
                 )}
               >
@@ -112,7 +112,7 @@ export function HistoryView({
       {/* Section 1: Journey Progress */}
       <section className="space-y-4">
         <SectionHeading>Journey Progress</SectionHeading>
-        <Card className="p-5 space-y-4">
+        <Card className="space-y-4 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div className="flex items-center gap-3">
               <span className="text-sm font-medium text-foreground">{journeyName}</span>
@@ -159,7 +159,7 @@ export function HistoryView({
       {/* Section 2: Assessment History */}
       <section className="space-y-4">
         <SectionHeading>Assessment History</SectionHeading>
-        <Card className="p-0 overflow-hidden">
+        <Card className="overflow-hidden rounded-2xl p-0 shadow-sm">
           <Table>
             <TableHeader>
               <TableRow>
@@ -205,7 +205,7 @@ export function HistoryView({
           <SectionHeading>Completed Content</SectionHeading>
           <Badge variant="secondary" className="text-xs">{data.completedContent.length} items completed</Badge>
         </div>
-        <Card className="divide-y divide-border">
+        <Card className="divide-y divide-border overflow-hidden rounded-2xl shadow-sm">
           {data.completedContent.map((c) => (
             <div key={c.title} className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-muted/40 transition-colors">
               <div className="flex items-center gap-3 min-w-0">
@@ -243,7 +243,7 @@ export function HistoryView({
         </div>
         <div className="space-y-3">
           {data.handsRaised.map((h, i) => (
-            <Card key={i} className="p-4 space-y-2">
+            <Card key={i} className="space-y-2 rounded-2xl p-4 shadow-sm">
               <div className="flex items-center justify-between gap-3 flex-wrap">
                 <div className="flex items-center gap-2 min-w-0">
                   <Hand size={16} className="text-primary shrink-0" aria-hidden />
@@ -288,7 +288,7 @@ export function HistoryView({
         </div>
         <div className="space-y-3">
           {data.conversations.map((c, i) => (
-            <Card key={i} className="p-4 space-y-2">
+            <Card key={i} className="space-y-2 rounded-2xl p-4 shadow-sm">
               <div className="flex items-center justify-between gap-3">
                 <span className="text-xs text-muted-foreground">{c.date}</span>
                 <Badge variant="secondary" className="text-[11px]">{c.module}</Badge>

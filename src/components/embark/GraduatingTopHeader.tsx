@@ -74,7 +74,7 @@ export function GraduatingTopHeader() {
   };
 
   return (
-    <header className="grid grid-cols-[minmax(0,1fr)_minmax(0,max-content)_minmax(0,1fr)] items-center gap-3 px-4 sm:px-6 h-14 border-b border-border bg-card flex-shrink-0">
+    <header className="grid grid-cols-[minmax(0,1fr)_minmax(0,max-content)_minmax(0,1fr)] items-center gap-3 px-4 sm:px-8 h-16 border-b border-border bg-card flex-shrink-0">
       <div className="col-start-1 flex items-center gap-3 min-w-0 justify-self-start">
         <a href="/learner/graduating" aria-label="Rathbones home" className="inline-flex items-center">
           <BrandLogo />
@@ -126,10 +126,7 @@ export function GraduatingTopHeader() {
           onClick={askAI.toggleAskAI}
           aria-label="Ask Sage"
           aria-pressed={askAI.open}
-          className={cn(
-            "gap-1.5 rounded-full border text-primary hover:bg-primary/25 shadow-none font-semibold",
-            askAI.open ? "border-primary bg-primary/25" : "border-primary/30 bg-primary/15",
-          )}
+          className="gap-1.5 px-4"
         >
           <AskSageIcon size={14} />
           Ask Sage

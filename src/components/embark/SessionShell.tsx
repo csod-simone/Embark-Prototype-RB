@@ -1,6 +1,6 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useLocation } from "react-router-dom";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, PanelLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -16,6 +16,30 @@ import {
 import { SessionAskSagePanel, type SagePrompt } from "./SessionAskSagePanel";
 import { resolveSageContext } from "@/pages/embark/learner/home/sageContext";
 import { buildSagePrompts } from "@/pages/embark/learner/home/sagePrompts";
+import { useOrganisation } from "@/hooks/use-organisation";
+import { cn } from "@/lib/utils";
+
+const JOURNEY_KEY = "embark:chapter-journey-open";
+const SAGE_KEY = "embark:chapter-sage-open";
+
+function readFlag(key: string, fallback: boolean): boolean {
+  try {
+    const value = sessionStorage.getItem(key);
+    if (value === "0") return false;
+    if (value === "1") return true;
+  } catch {
+    /* keep the fallback */
+  }
+  return fallback;
+}
+
+function writeFlag(key: string, open: boolean) {
+  try {
+    sessionStorage.setItem(key, open ? "1" : "0");
+  } catch {
+    /* the choice still applies for this view */
+  }
+}
 
 export type NavAction = {
   label?: string;
@@ -74,10 +98,18 @@ export function SessionShell({
   titlePlacement = "full",
   children,
 }: SessionShellProps) {
-  const [sageOpen, setSageOpen] = useState(false);
+  const { org } = useOrganisation();
+  const chapter = org === "rathbones";
+  const [sageOpen, setSageOpen] = useState(() => (chapter ? readFlag(SAGE_KEY, true) : false));
+  const [journeyOpen, setJourneyOpen] = useState(() => readFlag(JOURNEY_KEY, true));
+  const sagePanel = useRef<HTMLDivElement>(null);
+  const focusSage = useRef(false);
   const { pathname } = useLocation();
   const contextPrompts: SagePrompt[] = useMemo(() => {
     const all = buildSagePrompts(resolveSageContext(pathname));
+    if (chapter) {
+      return all.map((prompt) => ({ label: prompt.label, response: prompt.response }));
+    }
     const summarize = all.find((p) => /summar/i.test(p.label));
     const raise = all.find((p) => p.isRaiseHand);
     return [
@@ -86,7 +118,33 @@ export function SessionShell({
         : { label: "Summarise this" },
       ...(raise ? [{ label: raise.label, response: raise.response }] : []),
     ];
-  }, [pathname]);
+  }, [pathname, chapter]);
+
+  useEffect(() => {
+    if (!focusSage.current || !sageOpen) return;
+    focusSage.current = false;
+    sagePanel.current?.querySelector("input")?.focus();
+  }, [sageOpen]);
+
+  const toggleSage = () => {
+    setSageOpen((open) => {
+      const next = !open;
+      if (next) focusSage.current = true;
+      if (chapter) writeFlag(SAGE_KEY, next);
+      return next;
+    });
+  };
+
+  const hideJourney = () => {
+    setJourneyOpen(false);
+    writeFlag(JOURNEY_KEY, false);
+  };
+
+  const showJourney = () => {
+    setJourneyOpen(true);
+    writeFlag(JOURNEY_KEY, true);
+  };
+
   const nextDisabled = !next || !!next.disabled;
   const nextButton = (
     <Button className="gap-1.5" disabled={nextDisabled} onClick={next?.onClick}>
@@ -131,7 +189,10 @@ export function SessionShell({
   );
 
   const sessionTitleBar = (
-    <div className="flex flex-shrink-0 items-center gap-3 border-b border-border bg-card px-4 py-3 sm:px-6">
+    <div className={cn(
+      "flex flex-shrink-0 items-center gap-3 px-4 py-3 sm:px-6",
+      chapter ? "bg-transparent" : "border-b border-border bg-card",
+    )}>
       {onBack && (
         <button
           type="button"
@@ -146,17 +207,23 @@ export function SessionShell({
         <div className="truncate text-base font-semibold text-foreground">{title}</div>
         {subtitle && <div className="truncate text-xs text-muted-foreground">{subtitle}</div>}
       </div>
+      {chapter && !journeyOpen && (
+        <Button type="button" variant="ghost" size="sm" onClick={showJourney}>
+          <PanelLeft className="h-4 w-4" />
+          Show journey
+        </Button>
+      )}
       {topSlot}
     </div>
   );
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-background">
+    <div className={cn("flex-1 flex flex-col min-h-0 bg-background", chapter && "bg-[#f4f5f8]")}>
       {topHeader !== undefined ? (
         topHeader
       ) : (
         <LearnerTopHeader
-          onAskSage={sagePrompts ? () => setSageOpen((v) => !v) : undefined}
+          onAskSage={sagePrompts ? toggleSage : undefined}
           sageActive={sagePrompts ? sageOpen : undefined}
           showNavTabs={headerNavTabs}
         />
@@ -164,14 +231,21 @@ export function SessionShell({
 
       {titlePlacement === "full" ? sessionTitleBar : null}
 
-      <div className="flex min-h-0 flex-1">
-        <SessionStepsSidebar
-          title={stepsTitle ?? "Journey steps"}
-          meta={stepsMeta}
-          steps={steps}
-        />
+      <div className={cn("flex min-h-0 flex-1", chapter && "gap-4 p-4 lg:px-8")}>
+        {(!chapter || journeyOpen) && (
+          <SessionStepsSidebar
+            title={stepsTitle ?? "Journey steps"}
+            meta={stepsMeta}
+            steps={steps}
+            onHide={chapter ? hideJourney : undefined}
+            className={chapter ? "rounded-2xl border border-border bg-card shadow-sm" : undefined}
+          />
+        )}
 
-        <div className="flex min-h-0 flex-1 flex-col bg-card">
+        <div className={cn(
+          "flex min-h-0 flex-1 flex-col bg-card",
+          chapter && "overflow-hidden rounded-2xl border border-border shadow-sm",
+        )}>
           {titlePlacement === "content" ? sessionTitleBar : null}
           <div className="flex min-h-0 flex-1 flex-col [&_button]:scroll-mb-24 [&_input]:scroll-mb-24 [&_textarea]:scroll-mb-24">
             {children}
@@ -189,13 +263,19 @@ export function SessionShell({
         </div>
 
         {sageOpen && sagePrompts && (
-          <SessionAskSagePanel
-            prompts={contextPrompts}
-            onClose={() => setSageOpen(false)}
-            disclaimer={sageDisclaimer}
-            aiFlag={sageAiFlag}
-            aiFlagSurface="roleplay_sage"
-          />
+          <div ref={sagePanel} className="flex min-h-0">
+            <SessionAskSagePanel
+              prompts={contextPrompts}
+              onClose={() => {
+                setSageOpen(false);
+                if (chapter) writeFlag(SAGE_KEY, false);
+              }}
+              disclaimer={sageDisclaimer}
+              aiFlag={sageAiFlag}
+              aiFlagSurface="roleplay_sage"
+              chapter={chapter}
+            />
+          </div>
         )}
       </div>
     </div>

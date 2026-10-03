@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import { StatTile } from "@/components/embark/StatTile";
 import { LeftBorderCard } from "@/components/embark/LeftBorderCard";
 import { CompletionSummary } from "@/components/embark/CompletionSummary";
@@ -31,6 +33,35 @@ import {
 import { useOrganisation } from "@/hooks/use-organisation";
 import { applyAdaptation, useJourneyAdaptation } from "@/hooks/use-journey-adaptation";
 import { useAssessmentAttempts } from "@/hooks/use-assessment-attempts";
+import { RATHBONES_USERS } from "@/data/rathbonesTerms";
+
+function dayPart() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "morning";
+  if (hour < 17) return "afternoon";
+  return "evening";
+}
+
+function SessionRing({ done, total }: { done: number; total: number }) {
+  const pct = total === 0 ? 0 : Math.min(100, Math.round((done / total) * 100));
+  return (
+    <div className="flex items-center gap-3">
+      <div
+        className="relative h-[72px] w-[72px] rounded-full"
+        style={{
+          background: `conic-gradient(hsl(233 100% 39%) ${pct * 3.6}deg, hsl(233 100% 39% / 0.16) 0deg)`,
+        }}
+        role="img"
+        aria-label={`${done} of ${total} sessions complete`}
+      >
+        <div className="absolute inset-[7px] flex flex-col items-center justify-center rounded-full bg-accent">
+          <span className="text-lg font-semibold leading-none text-foreground">{done}</span>
+          <span className="mt-0.5 text-[10px] text-muted-foreground">of {total}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const modalityLabel: Record<Session["modality"], string> = {
   video: "Video",
@@ -585,8 +616,10 @@ export function applyModuleOverrides(list: Module[], p: Mod3Progress): Module[] 
 
 function CurrentTab({
   programHeader,
+  onAskSage,
 }: {
   programHeader?: { title: string; day: string; modulesDone: number; sessionsDone: number };
+  onAskSage?: () => void;
 }) {
   const navigate = useNavigate();
   const { org } = useOrganisation();
@@ -653,7 +686,7 @@ function CurrentTab({
 
   return (
 
-    <div className="space-y-6">
+    <div className={cn("space-y-6", isRathbones && "mx-auto w-full max-w-[880px] space-y-8 pb-10")}>
       {isRathbones && pausedAssessments.length > 0 && (
         <LeftBorderCard borderVariant="danger">
           <div className="space-y-1">
@@ -692,7 +725,98 @@ function CurrentTab({
         </LeftBorderCard>
       )}
 
-      {/* Where you left off + primary CTA */}
+      {isRathbones && (
+        <div className="space-y-8 pt-8">
+          <header className="space-y-2 text-center">
+            <p className="text-sm text-muted-foreground">
+              Good {dayPart()}, {RATHBONES_USERS.learner.name.split(" ")[0]}
+            </p>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              Your onboarding
+            </h1>
+            <div className="flex items-center justify-center gap-2">
+              <h2 className="text-xl font-semibold tracking-tight text-foreground">Personalized for you</h2>
+              <Badge variant="ai" className="gap-1 border-transparent px-2.5 py-0.5 text-xs font-medium">
+                <AskSageIcon size={14} />
+                AI
+              </Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">Investment Manager Full Onboarding Journey</p>
+          </header>
+
+          <div className="grid items-stretch gap-4 lg:grid-cols-2">
+            <Card className="h-full rounded-2xl border-0 bg-accent p-6 shadow-none sm:p-7">
+              <p className="text-sm text-muted-foreground">Where you are now</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
+                IM Intake Pathway
+              </h2>
+              <div className="mt-6 flex items-center gap-5">
+                <SessionRing done={sessionsDone} total={sessionsTotal} />
+                <ul className="min-w-0 flex-1 space-y-2 text-sm text-foreground">
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-primary" aria-hidden />
+                    {sessionsDone} sessions complete
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-primary/40" aria-hidden />
+                    {currentSession ? `In progress · ${currentSession.name}` : "Nothing in progress"}
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-muted-foreground/50" aria-hidden />
+                    {LATER_PATHS.length} paths still locked
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-foreground/30" aria-hidden />
+                    {remainingTime} remaining
+                  </li>
+                </ul>
+              </div>
+            </Card>
+
+            <div className="flex flex-col gap-4">
+              <Card className="flex-1 rounded-2xl border-border p-6 shadow-sm">
+                <p className="text-sm text-muted-foreground">
+                  {currentSession ? (journeyStarted ? "Where you left off" : "Up next") : "This path"}
+                </p>
+                <h2 className="mt-2 text-xl font-semibold tracking-tight text-foreground">
+                  {currentSession
+                    ? currentSession.name
+                    : "IM Intake Pathway is complete"}
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {currentSession
+                    ? `Session ${currentIndex + 1} of ${mod3Sessions.length} · ${leftOffChip(currentSession)}`
+                    : "All sessions in this path are complete."}
+                </p>
+                {currentSession && (
+                  <Button className="mt-6 px-5" onClick={() => navigate(routeForSession(currentSession))}>
+                    {journeyStarted ? "Continue" : "Start"}
+                  </Button>
+                )}
+              </Card>
+
+              <Card className="rounded-2xl border-0 bg-accent p-5 shadow-none">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 text-base font-semibold text-foreground">
+                      <AskSageIcon size={18} className="text-primary" />
+                      Ask Sage
+                    </div>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Get guidance on your next step, anytime.
+                    </p>
+                  </div>
+                  <Button className="px-5" onClick={onAskSage} disabled={!onAskSage}>
+                    Start a conversation
+                  </Button>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!isRathbones && (
       <div className="space-y-2">
         <h2 className="text-sm font-semibold text-foreground">Where you left off</h2>
 
@@ -795,8 +919,9 @@ function CurrentTab({
           )}
         </LeftBorderCard>
       </div>
+      )}
 
-      {/* Journey title */}
+      {!isRathbones && (
       <div className="space-y-1">
         <div className="flex flex-wrap items-center gap-2">
           <h2 className="text-xl font-bold text-primary">Personalized for you</h2>
@@ -821,8 +946,9 @@ function CurrentTab({
           )}
         </p>
       </div>
+      )}
 
-      {/* Stat tiles */}
+      {!isRathbones && (
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <StatTile
           label="Journey"
@@ -856,12 +982,15 @@ function CurrentTab({
           supporting="Across the journey"
         />
       </div>
+      )}
 
-      {/* RN Dialysis Onboarding · ICHD */}
+      {/* Pathway */}
       <div className="space-y-3">
         {programHeader && (
           <div className="space-y-1">
-            <h3 className="text-base font-semibold text-foreground">{programHeader.title}</h3>
+            <h3 className="text-base font-semibold text-foreground">
+              {isRathbones ? "Your pathway" : programHeader.title}
+            </h3>
             <p className="text-sm text-muted-foreground">
               {isRathbones
                 ? `IM Intake Pathway · ${sessionsDone}/${sessionsTotal} sessions`
@@ -870,7 +999,10 @@ function CurrentTab({
           </div>
         )}
 
-        <div className="rounded-xl border border-border bg-card overflow-hidden border-l-4 border-l-warning">
+        <div className={cn(
+          "overflow-hidden rounded-2xl border border-border bg-card",
+          !isRathbones && "rounded-xl border-l-4 border-l-warning",
+        )}>
               <button
                 type="button"
                 onClick={() => setTrackOpen((v) => !v)}
@@ -881,8 +1013,11 @@ function CurrentTab({
                 <div className="flex items-center justify-between gap-3 pl-5 pr-2 py-4">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center rounded-full bg-warning/15 px-2 py-0.5 text-xs font-semibold text-warning-dark">
-                        Current track
+                      <span className={cn(
+                        "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold",
+                        isRathbones ? "bg-accent text-primary" : "bg-warning/15 text-warning-dark",
+                      )}>
+                        {isRathbones ? "Current path" : "Current track"}
                       </span>
                     </div>
                     <div className="text-sm font-semibold text-foreground mt-1.5">
@@ -1007,7 +1142,7 @@ function CurrentTab({
           LATER_PATHS.map((path) => {
             const open = !!laterOpen[path.id];
             return (
-              <div key={path.id} className="rounded-xl border border-border bg-card overflow-hidden">
+              <div key={path.id} className="overflow-hidden rounded-2xl border border-border bg-card">
                 <button
                   type="button"
                   onClick={() => setLaterOpen((cur) => ({ ...cur, [path.id]: !cur[path.id] }))}
@@ -1061,8 +1196,12 @@ function LiveEventsTab() {
   };
 
   return (
-    <>
-      <LeftBorderCard borderVariant="brand">
+    <div className="mx-auto w-full max-w-[880px] space-y-6 pb-10 pt-8">
+      <header className="space-y-2">
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground">Live events</h1>
+        <p className="text-sm text-muted-foreground">Sessions scheduled as part of your onboarding.</p>
+      </header>
+      <Card className="rounded-2xl border-border p-6 shadow-sm">
         <div className="space-y-2">
           <div className="text-sm font-semibold text-foreground">
             Investment Management intake workshop
@@ -1088,7 +1227,7 @@ function LiveEventsTab() {
             </button>
           </div>
         </div>
-      </LeftBorderCard>
+      </Card>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-[560px] max-h-[85vh] overflow-y-auto gap-0 p-0">
@@ -1189,7 +1328,7 @@ function LiveEventsTab() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }
 
@@ -1198,7 +1337,8 @@ function JourneyTab() {
   const overridden = applyModuleOverrides(modules, progress);
   const mod4Unlocked = progress.rolePlayDone;
   return (
-    <div className="rounded-md border border-border bg-card divide-y divide-border">
+    <div className="mx-auto w-full max-w-[880px] pb-10 pt-8">
+      <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
       {overridden.map((m) => {
         const isMod4Unlocked = m.id === "mod4" && mod4Unlocked;
         return (
@@ -1211,6 +1351,7 @@ function JourneyTab() {
           </div>
         );
       })}
+    </div>
     </div>
   );
 }
@@ -1411,18 +1552,18 @@ function HandsRaisedTab() {
   const visibleResolved = showAllResolved ? resolvedItems : resolvedItems.slice(0, 5);
 
   return (
-    <div className="space-y-6">
-      <section className="space-y-2">
-        <Button className="w-full sm:w-auto" onClick={() => setRaiseOpen(true)}>
-          <Hand className="h-4 w-4" />
-          Raise a Hand
-        </Button>
+    <div className="mx-auto w-full max-w-[880px] space-y-6 pb-10 pt-8">
+      <header className="space-y-2">
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground">Hands raised</h1>
         <p className="text-sm text-muted-foreground">
           Raise a hand to let your line manager know you need support.
         </p>
-      </section>
+      </header>
 
-      <div className="border-t border-border" />
+      <Button className="w-full sm:w-auto" onClick={() => setRaiseOpen(true)}>
+        <Hand className="h-4 w-4" />
+        Raise a Hand
+      </Button>
 
       <section className="space-y-3">
         <div className="space-y-1">
@@ -1439,7 +1580,7 @@ function HandsRaisedTab() {
             </p>
           </div>
         ) : (
-          <div className="rounded-md border border-border bg-card divide-y divide-border">
+          <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             {active.map((hand) => (
               <HandRow key={hand.id} hand={hand} onViewDetails={() => setDetail(hand)} />
             ))}
@@ -1465,7 +1606,7 @@ function HandsRaisedTab() {
           </div>
         ) : (
           <>
-            <div className="rounded-md border border-border bg-card divide-y divide-border">
+            <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
               {visibleResolved.map((hand) => (
                 <HandRow key={hand.id} hand={hand} muted onViewDetails={() => setDetail(hand)} />
               ))}
@@ -1490,19 +1631,25 @@ function HandsRaisedTab() {
 }
 
 function MyHistoryTab() {
-  return <HistoryView data={historyData} journeyName="Investment Manager Full Onboarding Journey" />;
+  return (
+    <div className="mx-auto w-full max-w-[880px] pb-10">
+      <HistoryView data={historyData} journeyName="Investment Manager Full Onboarding Journey" />
+    </div>
+  );
 }
 
 export function JourneyTabContent({
   activeTab,
   programHeader,
+  onAskSage,
 }: {
   activeTab: string;
   programHeader?: { title: string; day: string; modulesDone: number; sessionsDone: number };
+  onAskSage?: () => void;
 }) {
   switch (activeTab) {
     case "current":
-      return <CurrentTab programHeader={programHeader} />;
+      return <CurrentTab programHeader={programHeader} onAskSage={onAskSage} />;
     case "live_events":
       return <LiveEventsTab />;
     case "journey":

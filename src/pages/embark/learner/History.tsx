@@ -1,6 +1,7 @@
 import { GlobalHeader } from "@/components/embark/GlobalHeader";
 import { HistoryView, type HistoryData } from "./history/HistoryView";
 import { PageContainer } from "@/components/embark/layouts/PageContainer";
+import { LearnerSurface } from "@/components/embark/layouts/LearnerSurface";
 
 export const historyData: HistoryData = {
   status: "in-progress",
@@ -57,9 +58,12 @@ export const historyData: HistoryData = {
 
 export default function History() {
   return (
-    <PageContainer as="div">
-      <GlobalHeader title="My History" />
-      <HistoryView data={historyData} journeyName="Investment Manager Full Onboarding Journey" />
-    </PageContainer>
+    <LearnerSurface header={<GlobalHeader title="My History" />}>
+      <div className="flex-1 overflow-y-auto">
+        <PageContainer as="div" className="max-w-[880px] py-6">
+          <HistoryView data={historyData} journeyName="Investment Manager Full Onboarding Journey" />
+        </PageContainer>
+      </div>
+    </LearnerSurface>
   );
 }

@@ -1038,8 +1038,10 @@ export function RolePlayExperience({
   // B1 Teleprompter focus mode — no LMS session chrome
   if (isLive) {
     return (
-      <div className="flex flex-1 min-h-0 flex-col">
-        <TeleprompterConversation
+      <div className="flex min-h-0 flex-1 flex-col bg-[#f4f5f8]">
+        <div className="flex min-h-0 flex-1 p-3 lg:p-4">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+            <TeleprompterConversation
           scenario={CONFIG}
           turns={turns.map((t) => ({ id: t.id, role: t.role, text: t.text }))}
           turnState={turnState}
@@ -1061,7 +1063,9 @@ export function RolePlayExperience({
             clearPersisted();
             onBack();
           }}
-        />
+          />
+          </div>
+        </div>
       </div>
     );
   }

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import { GlobalHeader } from "@/components/embark/GlobalHeader";
-import { LeftBorderCard } from "@/components/embark/LeftBorderCard";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { PageContainer } from "@/components/embark/layouts/PageContainer";
+import { LearnerSurface } from "@/components/embark/layouts/LearnerSurface";
 
 export default function Events() {
   const [registered, setRegistered] = useState(true);
@@ -18,12 +19,10 @@ export default function Events() {
   };
 
   return (
-    <>
-      <GlobalHeader title="Live Events" />
-      <div className="px-4 sm:px-6 py-6">
-        <PageContainer as="div">
-          <LeftBorderCard borderVariant="brand">
-            <div className="space-y-5">
+    <LearnerSurface header={<GlobalHeader title="Live Events" />}>
+      <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+        <PageContainer as="div" className="max-w-[880px] pb-10 pt-2">
+          <Card className="space-y-5 rounded-2xl border-border p-6 shadow-sm">
               <div className="space-y-3">
                 <h2 className="text-lg font-semibold text-foreground">
                   Investment Management intake workshop
@@ -122,10 +121,9 @@ export default function Events() {
                   )}
                 </div>
               </div>
-            </div>
-          </LeftBorderCard>
+          </Card>
         </PageContainer>
       </div>
-    </>
+    </LearnerSurface>
   );
 }

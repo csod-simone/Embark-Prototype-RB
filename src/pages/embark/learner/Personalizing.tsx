@@ -4,6 +4,7 @@ import { Check, Loader2, Sparkles } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { AskSageIcon } from "@/components/embark/AskSageIcon";
 import { PageContainer } from "@/components/embark/layouts/PageContainer";
+import { LearnerSurface } from "@/components/embark/layouts/LearnerSurface";
 import { cn } from "@/lib/utils";
 
 const STEPS = [
@@ -69,9 +70,10 @@ export default function LearnerPersonalizing() {
   const activeStep = Math.min(STEPS.length - 1, Math.floor((progress / 100) * STEPS.length));
 
   return (
-    <PageContainer as="div" className="flex-1 flex flex-col gap-6 py-6">
+    <LearnerSurface>
+      <PageContainer as="div" className="flex max-w-[880px] flex-1 flex-col gap-6 overflow-y-auto py-8">
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold text-foreground">Updating your journey</h1>
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground">Updating your journey</h1>
         <p className="text-sm text-muted-foreground">
           Applying what your latest results tell us about your learning plan.
         </p>
@@ -79,7 +81,7 @@ export default function LearnerPersonalizing() {
 
       <SageEntry />
 
-      <div className="rounded-lg border border-border bg-card p-6 sm:p-8 space-y-4 text-center">
+      <div className="space-y-4 rounded-2xl border border-border bg-card p-6 text-center shadow-sm sm:p-8">
         <div className="flex justify-center">
           <Sparkles className="h-10 w-10 text-primary animate-pulse" aria-hidden="true" />
         </div>
@@ -121,5 +123,6 @@ export default function LearnerPersonalizing() {
         </ul>
       </div>
     </PageContainer>
+    </LearnerSurface>
   );
 }

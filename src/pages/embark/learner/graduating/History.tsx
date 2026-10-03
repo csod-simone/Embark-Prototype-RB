@@ -80,8 +80,10 @@ const data: HistoryData = {
 
 export default function GraduatingHistory() {
   return (
-    <PageContainer as="div">
-      <HistoryView data={data} journeyName="Investment Manager Full Onboarding Journey" />
-    </PageContainer>
+    <div className="flex-1 overflow-y-auto">
+      <PageContainer as="div" className="max-w-[880px] py-6">
+        <HistoryView data={data} journeyName="Investment Manager Full Onboarding Journey" />
+      </PageContainer>
+    </div>
   );
 }

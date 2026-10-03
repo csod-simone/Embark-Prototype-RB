@@ -1,5 +1,6 @@
-import { BookOpen, Check, ClipboardCheck, FileText, Lock, MessageSquare, PlayCircle } from "lucide-react";
+import { BookOpen, Check, ClipboardCheck, FileText, Lock, MessageSquare, PanelLeftClose, PlayCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import type { Session } from "@/data/mockData";
 
 type Status = "completed" | "current" | "locked" | "upcoming" | "skipped";
@@ -26,18 +27,32 @@ export function SessionStepsSidebar({
   title = "Journey steps",
   meta,
   steps,
+  onHide,
+  className,
 }: {
   title?: string;
   meta?: string;
   steps: SessionStep[];
+  onHide?: () => void;
+  className?: string;
 }) {
   const completed = steps.filter((s) => s.status === "completed").length;
   return (
-    <aside className="hidden md:flex flex-col w-[300px] flex-shrink-0 border-r border-border bg-background">
+    <aside className={cn("hidden md:flex flex-col w-[300px] flex-shrink-0 border-r border-border bg-background", className)}>
       <div className="px-5 py-5 border-b border-border">
-        <div className="text-sm font-semibold text-foreground">{title}</div>
-        <div className="text-xs text-muted-foreground mt-1">
-          {meta ?? `${completed} of ${steps.length} complete`}
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <div className="text-sm font-semibold text-foreground">{title}</div>
+            <div className="text-xs text-muted-foreground mt-1">
+              {meta ?? `${completed} of ${steps.length} complete`}
+            </div>
+          </div>
+          {onHide && (
+            <Button type="button" variant="ghost" size="sm" className="flex-shrink-0" onClick={onHide}>
+              <PanelLeftClose className="h-4 w-4" />
+              Hide
+            </Button>
+          )}
         </div>
       </div>
       <nav className="flex-1 overflow-y-auto p-3">

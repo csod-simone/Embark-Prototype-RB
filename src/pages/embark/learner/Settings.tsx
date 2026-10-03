@@ -14,6 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { PageContainer } from "@/components/embark/layouts/PageContainer";
+import { LearnerSurface } from "@/components/embark/layouts/LearnerSurface";
 
 type Channel = "in_app" | "email";
 const CHANNEL_OPTIONS: Array<{ value: Channel; label: string }> = [
@@ -76,11 +77,10 @@ export default function Settings() {
   };
 
   return (
-    <>
-      <GlobalHeader title="Profile settings" />
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6">
-        <PageContainer as="div" className="space-y-6">
-          <Card>
+    <LearnerSurface header={<GlobalHeader title="Profile settings" />}>
+      <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+        <PageContainer as="div" className="max-w-[880px] space-y-6">
+          <Card className="rounded-2xl shadow-sm">
             <CardHeader>
               <CardTitle className="text-base">Notification Preferences</CardTitle>
               <p className="text-xs text-muted-foreground">
@@ -254,6 +254,6 @@ export default function Settings() {
           </Card>
         </PageContainer>
       </div>
-    </>
+    </LearnerSurface>
   );
 }

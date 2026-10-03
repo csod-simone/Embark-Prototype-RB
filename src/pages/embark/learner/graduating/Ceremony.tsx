@@ -32,7 +32,7 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
 export default function GraduatingCeremony() {
   const navigate = useNavigate();
   return (
-    <div className="fixed inset-0 z-50 bg-background overflow-y-auto">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#f4f5f8]">
       <style>{confettiKeyframes}</style>
       <div className="relative min-h-full flex flex-col items-center justify-center px-6 py-10">
         {/* Confetti */}
@@ -89,7 +89,7 @@ export default function GraduatingCeremony() {
         </PageContainer>
 
         {/* Summary card */}
-        <PageContainer as="div" className="mt-8 rounded-lg border border-border bg-card shadow-sm py-6">
+        <PageContainer as="div" className="mt-8 rounded-2xl border border-border bg-card py-6 shadow-sm">
           <div className="text-[11px] font-semibold tracking-wide text-muted-foreground text-center mb-3">
             Your journey summary
           </div>

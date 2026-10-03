@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ArrowUp, Mic, MessageSquarePlus, BookOpen, ArrowLeft } from "lucide-react";
+import { ArrowUp, Mic, MessageSquarePlus, BookOpen, ArrowLeft, X } from "lucide-react";
 import { AskSageIcon } from "@/components/embark/AskSageIcon";
 import { RaiseHandModal } from "@/components/embark/RaiseHandModal";
 import { TutorBubble } from "@/components/embark/TutorBubble";
@@ -105,10 +105,13 @@ export function AskSagePanel({
   conversation,
   onClose,
   userName = "David",
+  variant = "page",
 }: {
   conversation: TutorConversation;
   onClose: () => void;
   userName?: string;
+  /** Page replaces the screen. Beside keeps the screen and sits in a column. */
+  variant?: "page" | "beside";
 }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -148,6 +151,151 @@ export function AskSagePanel({
       send();
     }
   };
+
+  if (variant === "beside") {
+    return (
+      <div className="rb-chapter-sage flex h-full min-h-0 w-full flex-col overflow-hidden rounded-xl border border-border bg-card lg:w-[400px]">
+        <div
+          aria-hidden="true"
+          className="h-1.5 flex-shrink-0 bg-[linear-gradient(45deg,hsl(233_100%_39%)_0%,hsl(233_100%_39%)_75%,hsl(222_88%_13%)_100%)]"
+        />
+        <div className="flex flex-shrink-0 items-center justify-between gap-2 border-b border-border px-4 py-3">
+          <div className="text-sm font-semibold text-foreground">Ask Sage</div>
+          <div className="flex items-center gap-1">
+            <Button type="button" variant="ghost" size="sm" onClick={() => { setActiveHistory(null); setSidebarView("prompts"); }}>
+              New chat
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setSidebarView((view) => (view === "history" ? "prompts" : "history"))}
+            >
+              History
+            </Button>
+            <Button type="button" variant="ghost" size="icon" onClick={onClose} aria-label="Close">
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+
+        {sidebarView === "history" && !activeHistory ? (
+          <div className="min-h-0 flex-1 overflow-y-auto px-3 py-3">
+            <ul className="flex flex-col gap-0.5">
+              {CHAT_HISTORY.map((item) => (
+                <li key={item.id}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveHistory(item);
+                      setSidebarView("prompts");
+                    }}
+                    className="w-full rounded-md px-3 py-2 text-left hover:bg-muted"
+                  >
+                    <span className="block truncate text-sm text-foreground">{item.title}</span>
+                    <span className="block text-xs text-muted-foreground">{item.timestamp}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : showEmpty ? (
+          <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-4 text-center">
+            <AskSageIcon size={22} className="text-primary" />
+            <h2 className="mt-3 text-lg font-semibold text-foreground">Hi {userName}, I'm Sage.</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Ask me about your career, skills, or team.</p>
+          </div>
+        ) : (
+          <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
+            <div className="space-y-3">
+              {displayedMessages.map((m) => {
+                if (m.isTyping) {
+                  return (
+                    <div key={m.id} className="flex max-w-[80%] flex-col items-start">
+                      <TypingBubble />
+                    </div>
+                  );
+                }
+                if (m.role === "learner") {
+                  return <LearnerBubble key={m.id} message={m.text} timestamp={m.timestamp} />;
+                }
+                return (
+                  <div key={m.id} className="space-y-2">
+                    <TutorBubble
+                      message={m.text}
+                      citation={m.citation}
+                      isProactive={m.isProactive}
+                      timestamp={m.timestamp}
+                    />
+                    {m.inlineCta && (
+                      <div className="pl-2">
+                        <Button size="sm" onClick={() => navigate(m.inlineCta!.route)}>
+                          {m.inlineCta.label}
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {sidebarView !== "history" && (
+          <div className="flex flex-shrink-0 flex-wrap gap-1.5 px-4 pb-2">
+            {sagePrompts.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => (p.isRaiseHand ? raiseHand() : send(p.label, p.response))}
+                className="rb-chapter-chip rounded-full border-transparent bg-accent px-2.5 py-1.5 text-xs text-accent-foreground hover:bg-accent/80"
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="flex-shrink-0 px-4 pb-2">
+          <div className="flex h-12 items-center gap-2 rounded-full border border-border bg-background px-3 focus-within:ring-2 focus-within:ring-ring">
+            <AskSageIcon size={16} className="flex-shrink-0 text-primary" />
+            <input
+              ref={inputRef}
+              type="text"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              onKeyDown={onKeyDown}
+              placeholder="Ask about this"
+              className="h-full flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+            />
+            <button
+              type="button"
+              aria-label="Voice input"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-muted"
+            >
+              <Mic size={16} aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => send()}
+              aria-label="Send"
+              disabled={!value.trim()}
+              className={cn(
+                "inline-flex h-8 w-8 items-center justify-center rounded-full transition",
+                value.trim() ? "bg-primary text-primary-foreground hover:opacity-90" : "bg-muted text-muted-foreground",
+              )}
+            >
+              <ArrowUp size={16} aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+        <p className="flex-shrink-0 px-4 pb-3 text-center text-xs text-muted-foreground">
+          Generated by AI. Check for accuracy.
+        </p>
+        <RaiseHandModal open={raiseHandOpen} onClose={() => setRaiseHandOpen(false)} />
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 flex min-h-0 bg-background">

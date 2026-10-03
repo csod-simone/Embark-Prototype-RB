@@ -46,9 +46,9 @@ function Row({
 export default function Graduation() {
   const navigate = useNavigate();
   return (
-    <div className="fixed inset-0 z-50 bg-background overflow-y-auto">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#f4f5f8]">
       <style>{confettiKeyframes}</style>
-      <div className="relative min-h-full flex flex-col items-center justify-center px-6 py-10">
+      <div className="relative flex min-h-full flex-col items-center justify-center px-6 py-10">
         {/* Confetti overlay */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-40 overflow-hidden">
           {sparkles.map((s, i) => (
@@ -82,7 +82,7 @@ export default function Graduation() {
         </PageContainer>
 
         {/* Record card */}
-        <PageContainer as="div" className="mt-8 rounded-lg border border-border bg-card shadow-sm py-6 space-y-2">
+        <PageContainer as="div" className="mt-8 space-y-2 rounded-2xl border border-border bg-card py-6 shadow-sm">
           <div className="text-[11px] font-semibold tracking-wide text-muted-foreground mb-2">
             Graduation record
           </div>

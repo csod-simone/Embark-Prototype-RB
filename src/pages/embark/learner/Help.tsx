@@ -23,6 +23,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { helpRequests, coverageDeterminationTutorContext } from "@/data/mockData";
 import { PageContainer } from "@/components/embark/layouts/PageContainer";
+import { LearnerSurface } from "@/components/embark/layouts/LearnerSurface";
 
 type ViewState = "history" | "new_step1" | "confirmation";
 type Recipient = "manager";
@@ -232,16 +233,16 @@ function NewRequestStep1({
 
 
   return (
-    <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 bg-background">
-      <PageContainer as="div" className="space-y-5">
+    <div className="flex-1 overflow-y-auto px-4 py-8 sm:px-6">
+      <PageContainer as="div" className="max-w-[880px] space-y-5">
         <div>
-          <h2 className="text-xl font-bold text-foreground">Raise a hand</h2>
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground">Raise a hand</h2>
           <p className="text-xs text-muted-foreground mt-1">
             Your manager will receive this with full context attached.
           </p>
         </div>
 
-        <div className="rounded-md bg-muted/40 p-4 space-y-2">
+        <div className="space-y-2 rounded-2xl border border-border bg-card p-5 shadow-sm">
           <div className="text-[10px] font-semibold tracking-wide text-muted-foreground">
             Pre-populated context
           </div>
@@ -356,8 +357,8 @@ function Confirmation({ recipient }: { recipient: Recipient }) {
   const navigate = useNavigate();
   const copy = recipientCopy[recipient];
   return (
-    <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-10 bg-background">
-      <PageContainer as="div" className="rounded-lg border border-border bg-card shadow-sm py-8 text-center space-y-4">
+    <div className="flex-1 overflow-y-auto px-4 py-10 sm:px-6">
+      <PageContainer as="div" className="max-w-[880px] space-y-4 rounded-2xl border border-border bg-card py-8 text-center shadow-sm">
         <CheckCircle2 className="h-14 w-14 text-success-dark mx-auto" />
         <h2 className="text-xl font-bold text-foreground">{copy.confirmHeading}</h2>
         <p className="text-sm text-muted-foreground">{copy.confirmExpected}</p>
@@ -381,11 +382,14 @@ export default function Help() {
   const recipient: Recipient = "manager";
 
   return (
-    <>
-      <GlobalHeader
-        title="Raise Hand"
-        breadcrumb={[{ label: "Home", href: "/learner/home" }, { label: "Raise Hand" }]}
-      />
+    <LearnerSurface
+      header={
+        <GlobalHeader
+          title="Raise Hand"
+          breadcrumb={[{ label: "Home", href: "/learner/home" }, { label: "Raise Hand" }]}
+        />
+      }
+    >
       {view === "new_step1" && (
         <NewRequestStep1
           onCancel={() => navigate("/learner/home")}
@@ -393,7 +397,7 @@ export default function Help() {
         />
       )}
       {view === "confirmation" && <Confirmation recipient={recipient} />}
-    </>
+    </LearnerSurface>
   );
 }
 

@@ -2,9 +2,10 @@ import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowRight, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { ModuleStatusIcon } from "@/components/embark/ModuleStatusIcon";
 import { PageContainer } from "@/components/embark/layouts/PageContainer";
-import { LeftBorderCard } from "@/components/embark/LeftBorderCard";
+import { LearnerSurface } from "@/components/embark/layouts/LearnerSurface";
 import { useTutorName } from "@/hooks/use-branding";
 import { useModule3Progress } from "@/hooks/use-module3-progress";
 import { useOrganisation } from "@/hooks/use-organisation";
@@ -104,12 +105,13 @@ export default function LearnerPathSummary() {
   const next = ordered.find((session) => session.status === "in_progress");
 
   return (
-    <PageContainer as="div" className="flex-1 flex flex-col gap-6 py-6">
+    <LearnerSurface>
+    <PageContainer as="div" className="flex max-w-[880px] flex-1 flex-col gap-6 overflow-y-auto py-8">
       <header className="space-y-2">
-        <span className="inline-flex items-center rounded-full border border-border bg-background px-2.5 py-1 text-xs font-medium text-muted-foreground">
+        <span className="inline-flex items-center rounded-full border border-border bg-card px-2.5 py-1 text-xs font-medium text-muted-foreground">
           Personalized by {tutorName}
         </span>
-        <h1 className="text-2xl font-bold text-foreground">
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground">
           Based on your {sourceLabel}, we've personalized your learning path.
         </h1>
         <p className="text-sm text-muted-foreground max-w-[640px]">
@@ -120,7 +122,7 @@ export default function LearnerPathSummary() {
       </header>
 
       {skipped.length > 0 && (
-        <section className="rounded-lg border border-border bg-card p-5 space-y-2">
+        <section className="space-y-2 rounded-2xl border border-border bg-card p-6 shadow-sm">
           <h2 className="text-base font-semibold text-foreground">
             Content {tutorName} has marked as optional
           </h2>
@@ -137,7 +139,7 @@ export default function LearnerPathSummary() {
       )}
 
       {required.length > 0 && (
-        <section className="rounded-lg border border-border bg-card p-5 space-y-2">
+        <section className="space-y-2 rounded-2xl border border-border bg-card p-6 shadow-sm">
           <h2 className="text-base font-semibold text-foreground">Required content</h2>
           <p className="text-sm text-muted-foreground">
             This content is required and must be completed as part of your journey.
@@ -151,7 +153,7 @@ export default function LearnerPathSummary() {
       )}
 
       {assigned.length > 0 && (
-        <section className="rounded-lg border border-border bg-card p-5 space-y-2">
+        <section className="space-y-2 rounded-2xl border border-border bg-card p-6 shadow-sm">
           <h2 className="text-base font-semibold text-foreground">Content remaining in your path</h2>
           <p className="text-sm text-muted-foreground">
             This content remains part of your personalized learning experience.
@@ -164,7 +166,7 @@ export default function LearnerPathSummary() {
         </section>
       )}
 
-      <section className="rounded-lg border border-border bg-card p-5 space-y-2">
+      <section className="space-y-2 rounded-2xl border border-border bg-card p-6 shadow-sm">
         <h2 className="text-base font-semibold text-foreground">What happens next</h2>
         <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground">
           {NEXT_STEPS.map((step) => (
@@ -174,7 +176,7 @@ export default function LearnerPathSummary() {
       </section>
 
       {next && (
-        <LeftBorderCard borderVariant="brand">
+        <Card className="rounded-2xl border-border p-5 shadow-sm">
           <div className="flex items-center gap-3">
             <div className="min-w-0 flex-1">
               <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -189,7 +191,7 @@ export default function LearnerPathSummary() {
               </div>
             </div>
           </div>
-        </LeftBorderCard>
+        </Card>
       )}
 
       <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
@@ -202,5 +204,6 @@ export default function LearnerPathSummary() {
         </Button>
       </div>
     </PageContainer>
+    </LearnerSurface>
   );
 }

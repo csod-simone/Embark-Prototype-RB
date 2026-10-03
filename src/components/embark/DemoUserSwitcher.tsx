@@ -85,7 +85,7 @@ export function DemoUserSwitcher({ variant = "fixed" }: { variant?: "fixed" | "i
           type="button"
           className={
             isInline
-              ? "h-8 px-3 rounded-full bg-foreground text-background text-xs font-semibold hover:opacity-90 transition inline-flex items-center"
+              ? "h-8 shrink-0 whitespace-nowrap px-3 rounded-full bg-foreground text-background text-xs font-semibold hover:opacity-90 transition inline-flex items-center"
               : "fixed bottom-4 left-4 z-[60] h-11 md:h-9 px-4 rounded-full bg-foreground text-background text-xs font-semibold shadow-lg hover:opacity-90 transition"
           }
           aria-label={`Viewing as ${label}. Click to switch persona.`}

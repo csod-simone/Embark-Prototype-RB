@@ -41,6 +41,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { PageContainer } from "@/components/embark/layouts/PageContainer";
+import { LearnerSurface } from "@/components/embark/layouts/LearnerSurface";
 import { useOrganisation } from "@/hooks/use-organisation";
 import { RATHBONES_USERS } from "@/data/rathbonesTerms";
 
@@ -118,7 +119,7 @@ export default function Home() {
   const brandOptions: { id: Brand; label: string; dot: string }[] = [];
 
   const TopHeader = (
-    <header className="grid grid-cols-[minmax(0,1fr)_minmax(0,max-content)_minmax(0,1fr)] items-center gap-3 px-4 sm:px-6 h-14 border-b border-border bg-card">
+    <header className="grid grid-cols-[minmax(0,1fr)_minmax(0,max-content)_minmax(0,1fr)] items-center gap-3 px-4 sm:px-8 h-16 border-b border-border bg-card">
       <div className="col-start-1 flex items-center gap-3 min-w-0 justify-self-start">
         <a href="#" aria-label="Rathbones home" className="inline-flex items-center">
           <BrandLogo />
@@ -170,10 +171,7 @@ export default function Home() {
           onClick={askAI.toggleAskAI}
           aria-label="Ask Sage"
           aria-pressed={askAI.open}
-          className={cn(
-            "gap-1.5 rounded-full border text-primary hover:bg-primary/25 shadow-none font-semibold",
-            askAI.open ? "border-primary bg-primary/25" : "border-primary/30 bg-primary/15",
-          )}
+          className="gap-1.5 px-4"
         >
           <AskSageIcon size={14} />
           Ask Sage
@@ -292,31 +290,33 @@ export default function Home() {
     </header>
   );
 
-  if (askAI.open) {
-    return (
-      <div className="flex-1 flex flex-col min-h-0 bg-background">
-        {TopHeader}
-        <AskSagePanel conversation={conversation} onClose={askAI.closeAskAI} userName={userName.split(" ")[0]} />
-      </div>
-    );
-  }
-
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-background">
-      {TopHeader}
-      <div className="flex-1 flex min-h-0">
-      {/* Right column */}
-      <div className="flex-1 min-w-0 flex flex-col">
-        {/* Mobile tabs */}
-        <div className="md:hidden px-4 sm:px-6 overflow-x-auto">
+    <>
+    <LearnerSurface
+      header={TopHeader}
+      contentClassName={askAI.open ? "hidden lg:flex" : undefined}
+      aside={
+        askAI.open ? (
+          <div className="flex min-h-0 flex-1 lg:flex-none">
+            <AskSagePanel
+              variant="beside"
+              conversation={conversation}
+              onClose={askAI.closeAskAI}
+              userName={userName.split(" ")[0]}
+            />
+          </div>
+        ) : undefined
+      }
+    >
+      <div className="flex min-h-0 flex-1 flex-col">
+        <div className="md:hidden overflow-x-auto px-4 sm:px-6">
           <TabBar tabs={tabs} activeTab={activeTab} onTabChange={(id) => setActiveTab(id as ValidTab)} />
         </div>
-
-        {/* Tab content */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6">
+        <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
           <PageContainer as="div">
             <JourneyTabContent
               activeTab={activeTab}
+              onAskSage={askAI.toggleAskAI}
               programHeader={{
                 title:
                   org === "rathbones"
@@ -329,46 +329,43 @@ export default function Home() {
             />
 
             {(showStartOfDayButton || showMidDayButton || showEndOfDayButton) && (
-              <div className="mt-8 pt-4 border-t border-border flex flex-wrap gap-2">
-              {showStartOfDayButton && (
-                <Button variant="ghost" size="sm" onClick={() => setOpenRecap("startOfDay")}>
-                  Preview: Start of Day Recap
-                </Button>
-              )}
-              {showMidDayButton && (
-                <Button variant="ghost" size="sm" onClick={() => setOpenRecap("midDay")}>
-                  Preview: Mid-Day Recap
-                </Button>
-              )}
-              {showEndOfDayButton && (
-                <Button variant="ghost" size="sm" onClick={() => setOpenRecap("endOfDay")}>
-                  Preview: End of Day Summary
-                </Button>
-              )}
+              <div className="mt-8 flex flex-wrap gap-2 border-t border-border pt-4">
+                {showStartOfDayButton && (
+                  <Button variant="ghost" size="sm" onClick={() => setOpenRecap("startOfDay")}>
+                    Preview: Start of Day Recap
+                  </Button>
+                )}
+                {showMidDayButton && (
+                  <Button variant="ghost" size="sm" onClick={() => setOpenRecap("midDay")}>
+                    Preview: Mid-Day Recap
+                  </Button>
+                )}
+                {showEndOfDayButton && (
+                  <Button variant="ghost" size="sm" onClick={() => setOpenRecap("endOfDay")}>
+                    Preview: End of Day Summary
+                  </Button>
+                )}
               </div>
             )}
           </PageContainer>
         </div>
       </div>
-      </div>
-
-      {/* Mobile bottom drawer */}
-      <TutorBottomDrawer conversation={conversation} />
-
-      {openRecap && (
-        <RecapInterstitial
-          variant={openRecap}
-          onDismiss={dismissRecap}
-          onSecondary={
-            openRecap === "endOfDay"
-              ? () => {
-                  setOpenRecap(null);
-                  navigate("/learner/history");
-                }
-              : undefined
-          }
-        />
-      )}
-    </div>
+    </LearnerSurface>
+    <TutorBottomDrawer conversation={conversation} />
+    {openRecap && (
+      <RecapInterstitial
+        variant={openRecap}
+        onDismiss={dismissRecap}
+        onSecondary={
+          openRecap === "endOfDay"
+            ? () => {
+                setOpenRecap(null);
+                navigate("/learner/history");
+              }
+            : undefined
+        }
+      />
+    )}
+  </>
   );
 }

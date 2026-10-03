@@ -25,6 +25,7 @@ export function SessionAskSagePanel({
   disclaimer,
   aiFlag = false,
   aiFlagSurface = "sage_panel",
+  chapter = false,
 }: {
   prompts: SagePrompt[];
   onClose: () => void;
@@ -36,6 +37,8 @@ export function SessionAskSagePanel({
   aiFlag?: boolean;
   /** Telemetry surface id when aiFlag is enabled. */
   aiFlagSurface?: string;
+  /** Rathbones chapter rail: gradient band and tinted prompt chips. */
+  chapter?: boolean;
 }) {
   const [turns, setTurns] = useState<SageTurn[]>(seed ?? []);
   const [input, setInput] = useState("");
@@ -77,8 +80,10 @@ export function SessionAskSagePanel({
 
   return (
     <aside
+      id="chapter-sage"
       className={cn(
         "flex flex-col w-[380px] flex-shrink-0 border-l border-border bg-card",
+        chapter && "overflow-hidden rounded-2xl border border-border shadow-sm",
         className,
       )}
     >
@@ -159,7 +164,10 @@ export function SessionAskSagePanel({
                 key={p.label}
                 type="button"
                 onClick={() => send(p.label, p.response)}
-                className="text-xs px-2.5 py-1.5 rounded-full border border-border bg-background hover:bg-muted text-foreground transition-colors"
+                className={cn(
+                  "text-xs px-2.5 py-1.5 rounded-full border border-border bg-background hover:bg-muted text-foreground transition-colors",
+                  chapter && "rb-chapter-chip border-transparent bg-accent text-accent-foreground hover:bg-accent/80",
+                )}
               >
                 {p.label}
               </button>
@@ -181,7 +189,7 @@ export function SessionAskSagePanel({
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask anything..."
+            placeholder={chapter ? "Ask about this chapter" : "Ask anything..."}
             className="flex-1 h-full bg-transparent text-sm outline-none placeholder:text-muted-foreground scroll-mb-24"
           />
           <Button
