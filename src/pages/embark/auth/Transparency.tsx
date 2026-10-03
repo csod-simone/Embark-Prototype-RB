@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { AskSageIcon } from "@/components/embark/AskSageIcon";
 import { BrandLogo } from "@/components/embark/BrandLogo";
 
 export default function Transparency() {
@@ -16,29 +17,32 @@ export default function Transparency() {
 
   return (
     <div className="w-full flex flex-col gap-6">
-      <div className="text-center">
+      <div className="flex flex-col items-center text-center">
         <BrandLogo className="h-10" />
         <div className="mt-1 text-[11px] font-semibold tracking-[0.18em] text-muted-foreground">
           Cornerstone Workforce AI
         </div>
       </div>
 
-      <div className="rounded-lg border border-border bg-card shadow-lg p-6 sm:p-8 space-y-5">
-        <div className="space-y-1.5">
-          <h2 className="text-xl font-bold text-foreground">
-            Here's what we used to personalise your learning path
-          </h2>
+      <div className="space-y-5 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+        <div className="space-y-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+              Here's what we used to personalise your learning path
+            </h2>
+            <Badge variant="ai" className="gap-1 border-transparent px-2.5 py-0.5 text-xs font-medium">
+              <AskSageIcon size={14} />
+              AI
+            </Badge>
+          </div>
           <p className="text-sm text-muted-foreground">
             This information comes from your HR profile.
           </p>
         </div>
 
-        <ul className="space-y-3">
-          {signals.map((text, i) => (
-            <li key={i} className="flex items-start gap-3">
-              <Check className="h-5 w-5 text-success-foreground flex-shrink-0 mt-0.5" aria-hidden="true" />
-              <span className="text-sm text-foreground">{text}</span>
-            </li>
+        <ul className="list-disc space-y-2 pl-5 text-sm text-foreground">
+          {signals.map((text) => (
+            <li key={text}>{text}</li>
           ))}
         </ul>
 
@@ -51,7 +55,7 @@ export default function Transparency() {
         </p>
 
         <Button
-          className="w-full h-11 text-base"
+          className="h-11 w-full text-base"
           onClick={() => navigate("/learner/home")}
         >
           Continue to your Action Centre →
