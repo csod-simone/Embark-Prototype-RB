@@ -177,7 +177,7 @@ export default function Cohorts() {
         {/* Header */}
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-foreground">Cohorts</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground">Cohorts</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Create and manage cohorts across all journeys. Assign trainers before publishing a cohort.
             </p>
@@ -223,7 +223,7 @@ export default function Cohorts() {
             </div>
           </div>
 
-          <div className="rounded-md border border-border overflow-x-auto">
+          <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -383,7 +383,7 @@ function StatBox({
   const color =
     tone === "success" ? "text-success-dark" : tone === "warning" ? "text-warning-foreground dark:text-warning" : "text-foreground";
   return (
-    <div className="rounded-md border border-border bg-background p-4">
+    <div className="rounded-2xl border border-border bg-card shadow-sm p-4">
       <div className="text-xs tracking-wide text-muted-foreground">{label}</div>
       <div className={`mt-1 text-2xl font-bold ${color}`}>{value}</div>
       <div className="mt-1 text-xs text-muted-foreground">{sub}</div>

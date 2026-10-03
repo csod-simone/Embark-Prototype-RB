@@ -207,7 +207,7 @@ function HandDetail({
       <div className="mt-3">
         <LeftBorderCard borderVariant="brand" padding="sm">
           <div className="flex items-center gap-1.5 text-sm font-medium text-primary">
-            <SageTag />
+            <SageTag label="AI" />
             Sage context:
           </div>
           <p className="mt-1 text-sm text-muted-foreground">{h.sage}</p>

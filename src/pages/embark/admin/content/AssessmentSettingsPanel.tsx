@@ -83,7 +83,7 @@ export function AssessmentSettingsPanel({
   };
 
   return (
-    <Collapsible defaultOpen={defaultOpen} className="rounded-md border border-border bg-background">
+    <Collapsible defaultOpen={defaultOpen} className="rounded-2xl border border-border bg-card shadow-sm">
       <CollapsibleTrigger className="group flex w-full items-center justify-between px-4 py-3 text-left">
         <h3 className="text-base font-semibold text-foreground">Assessment settings</h3>
         <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />

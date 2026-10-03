@@ -60,7 +60,7 @@ const flags = FEATURE_FLAGS;
 
 export function SectionCard({ id, title, subtitle, children }: { id?: string; title: string; subtitle?: string; children: React.ReactNode }) {
   return (
-    <section id={id} tabIndex={id ? -1 : undefined} className="rounded-lg border border-border bg-card p-6 scroll-mt-4 outline-none">
+    <section id={id} tabIndex={id ? -1 : undefined} className="rounded-2xl border border-border bg-card p-6 shadow-sm scroll-mt-4 outline-none">
       <h3 className="text-xs font-semibold tracking-wide text-muted-foreground">{title}</h3>
       {subtitle && <p className="text-xs italic text-muted-foreground mt-1">{subtitle}</p>}
       <div className="mt-4">{children}</div>
@@ -814,7 +814,7 @@ function SubCard({
     <div className="mt-6">
       <h4 className="text-sm font-semibold text-foreground">{title}</h4>
       <p className="text-xs text-muted-foreground mt-1 mb-3">{subtitle}</p>
-      <div className="rounded-lg border border-border bg-card p-6 space-y-5">
+      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm space-y-5">
         {children}
       </div>
     </div>

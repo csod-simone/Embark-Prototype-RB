@@ -290,7 +290,7 @@ export function AssessmentFlowPreviewDialog({
 
               {page.kind === "content" ? (
                 page.item ? (
-                  <div className="rounded-lg border border-border bg-card shadow-sm p-5 space-y-4">
+                  <div className="rounded-2xl border border-border bg-card shadow-sm p-5 space-y-4">
                     <div className="flex items-start gap-3">
                       <span className="mt-0.5 shrink-0 text-muted-foreground">
                         <ContentIcon className="h-4 w-4" />

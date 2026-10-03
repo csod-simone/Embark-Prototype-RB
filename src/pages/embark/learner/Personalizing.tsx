@@ -71,7 +71,7 @@ export default function LearnerPersonalizing() {
 
   return (
     <LearnerSurface>
-      <PageContainer as="div" className="flex max-w-[880px] flex-1 flex-col gap-6 overflow-y-auto py-8">
+      <PageContainer as="div" className="flex flex-1 flex-col gap-6 overflow-y-auto py-8">
       <header className="space-y-1">
         <h1 className="text-3xl font-semibold tracking-tight text-foreground">Updating your journey</h1>
         <p className="text-sm text-muted-foreground">

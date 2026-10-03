@@ -110,7 +110,7 @@ export function ExportPreviewDialog({
           <SectionHeading>Summary Statistics</SectionHeading>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {summaryStats.map((stat) => (
-              <div key={stat.label} className="rounded-lg border border-border bg-background px-4 py-3">
+              <div key={stat.label} className="rounded-2xl border border-border bg-card shadow-sm px-4 py-3">
                 <div className="text-[11px] font-semibold tracking-wide text-muted-foreground">
                   {stat.label}
                 </div>
@@ -129,7 +129,7 @@ export function ExportPreviewDialog({
         <section className="space-y-4">
           <SectionHeading>Analytics Overview</SectionHeading>
 
-          <div className="rounded-lg border border-border bg-background p-5">
+          <div className="rounded-2xl border border-border bg-card shadow-sm p-5">
             <div className="text-sm font-medium text-foreground">Completion Rate by Cohort</div>
             <div className="mt-4 space-y-4">
               {journeyGroups.map((group) => (
@@ -166,7 +166,7 @@ export function ExportPreviewDialog({
 
           <Separator />
 
-          <div className="rounded-lg border border-border bg-background p-5">
+          <div className="rounded-2xl border border-border bg-card shadow-sm p-5">
             <div className="text-sm font-medium text-foreground">Learner Risk Distribution</div>
             <div className="mt-4 flex h-3 w-full overflow-hidden rounded-full">
               {riskSegments.map((seg) => (
@@ -187,7 +187,7 @@ export function ExportPreviewDialog({
 
           <Separator />
 
-          <div className="rounded-lg border border-border bg-background p-5">
+          <div className="rounded-2xl border border-border bg-card shadow-sm p-5">
             <div className="text-sm font-medium text-foreground">
               Completion Trend — Organisation Wide ({snapshot.trendMode === "monthly" ? "Monthly" : "Weekly"})
             </div>
@@ -207,7 +207,7 @@ export function ExportPreviewDialog({
 
           <Separator />
 
-          <div className="overflow-hidden rounded-lg border border-border bg-background">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <div className="p-5 pb-0 text-sm font-medium text-foreground">
               Assessment Performance by Module
             </div>
@@ -245,7 +245,7 @@ export function ExportPreviewDialog({
         {/* Manager Performance */}
         <section className="space-y-4">
           <SectionHeading>Manager Performance</SectionHeading>
-          <div className="overflow-hidden rounded-lg border border-border bg-background">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -278,7 +278,7 @@ export function ExportPreviewDialog({
         {/* Cohort Summary */}
         <section className="space-y-4">
           <SectionHeading>Cohort Summary</SectionHeading>
-          <div className="overflow-hidden rounded-lg border border-border bg-background">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -306,7 +306,7 @@ export function ExportPreviewDialog({
             </Table>
           </div>
 
-          <div className="overflow-hidden rounded-lg border border-border bg-background">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <div className="p-5 pb-0 text-sm font-medium text-foreground">
               Skill Readiness by Cohort
             </div>

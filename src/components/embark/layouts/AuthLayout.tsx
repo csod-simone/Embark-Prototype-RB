@@ -11,7 +11,7 @@ export default function AuthLayout() {
     <div className={cn("min-h-screen w-full flex flex-col", canvas ? "bg-[#f4f5f8]" : "bg-background")}>
       <BrandBar />
       <div className="flex-1 w-full flex flex-col items-center justify-center px-6 py-10">
-        <PageContainer as="div" className="max-w-[800px]">
+        <PageContainer as="div">
           <Outlet />
         </PageContainer>
       </div>

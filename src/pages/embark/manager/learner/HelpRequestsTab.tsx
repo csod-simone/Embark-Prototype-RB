@@ -21,7 +21,7 @@ export function HelpRequestsTab({
 }) {
   if (learner.handsRaised.length === 0) {
     return (
-      <div className="rounded-md border border-border bg-background p-6 text-center text-sm text-muted-foreground">
+      <div className="rounded-2xl border border-border bg-card p-6 text-center text-sm text-muted-foreground shadow-sm">
         {learner.name} has no hands raised.
       </div>
     );
@@ -64,7 +64,7 @@ function RequestRow({
   };
 
   return (
-    <div id={`signal-hand-${request.id}`} className="rounded-md border border-border bg-background scroll-mt-4">
+    <div id={`signal-hand-${request.id}`} className="rounded-2xl border border-border bg-card shadow-sm scroll-mt-4">
       <InlineExpandRow
         defaultExpanded={request.status === "open"}
         trigger={
@@ -117,7 +117,7 @@ function RequestRow({
               </div>
             </div>
 
-            <div className="rounded-md border border-border bg-background p-4 text-sm text-foreground">
+            <div className="rounded-2xl border border-border bg-card p-4 text-sm text-foreground shadow-sm">
               {request.message}
             </div>
 

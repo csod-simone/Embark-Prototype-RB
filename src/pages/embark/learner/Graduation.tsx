@@ -82,7 +82,7 @@ export default function Graduation() {
         </PageContainer>
 
         {/* Record card */}
-        <PageContainer as="div" className="mt-8 space-y-2 rounded-2xl border border-border bg-card py-6 shadow-sm">
+        <PageContainer as="div" className="mt-8 max-w-[880px] space-y-2 rounded-2xl border border-border bg-card py-6 shadow-sm">
           <div className="text-[11px] font-semibold tracking-wide text-muted-foreground mb-2">
             Graduation record
           </div>

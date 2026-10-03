@@ -79,7 +79,7 @@ export default function Settings() {
   return (
     <LearnerSurface header={<GlobalHeader title="Profile settings" />}>
       <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-        <PageContainer as="div" className="max-w-[880px] space-y-6">
+        <PageContainer as="div" className="space-y-6">
           <Card className="rounded-2xl shadow-sm">
             <CardHeader>
               <CardTitle className="text-base">Notification Preferences</CardTitle>

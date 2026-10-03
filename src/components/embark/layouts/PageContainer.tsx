@@ -14,7 +14,8 @@ export const PageContainer = forwardRef<HTMLElement, PageContainerProps>(
       <Component
         ref={ref}
         className={cn(
-          "mx-auto w-full max-w-[1088px]",
+          // 928px including px-6 leaves an 880px column, the learner dashboard width.
+          "mx-auto w-full max-w-[928px]",
           !noPadding && "px-6",
           className,
         )}

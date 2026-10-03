@@ -167,7 +167,7 @@ function EditedLabel() {
 function SageNote({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-2 rounded-md border border-primary/30 bg-primary/5 p-3">
-      <SageTag className="shrink-0 mt-0.5" />
+      <SageTag label="AI" className="shrink-0 mt-0.5" />
       <p className="text-sm text-foreground">{children}</p>
     </div>
   );
@@ -370,7 +370,7 @@ export default function JourneyForm({
 
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="min-w-0 flex-1">
-            <h1 className="text-2xl font-semibold text-foreground">{heading}</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground">{heading}</h1>
             <p className="mt-1 text-sm text-muted-foreground">{subLabel}</p>
           </div>
           {showAiGenerate && (
@@ -398,7 +398,7 @@ export default function JourneyForm({
           <div className={generating ? "space-y-6 pointer-events-none select-none opacity-60" : "space-y-6"} aria-hidden={generating}>
             {bannerVisible && (
               <div className="flex items-start gap-2 rounded-md border border-primary/30 bg-primary/5 p-3">
-                <SageTag className="shrink-0 mt-0.5" />
+                <SageTag label="AI" className="shrink-0 mt-0.5" />
                 <p className="text-sm text-foreground flex-1">
                   Sage has generated your journey based on your description. Review all fields
                   below and make any edits before saving.
@@ -415,7 +415,7 @@ export default function JourneyForm({
             )}
 
             {/* Section 1: Journey Details */}
-            <Card className="p-6 space-y-5">
+            <Card className="rounded-2xl p-6 space-y-5">
               <h2 className="text-base font-semibold text-foreground">Journey Details</h2>
 
               <div className="space-y-1.5">
@@ -509,7 +509,7 @@ export default function JourneyForm({
             </Card>
 
             {/* Section 2: Journey Structure */}
-            <Card className="p-6 space-y-4">
+            <Card className="rounded-2xl p-6 space-y-4">
               <div className="flex items-center justify-between gap-3">
                 <h2 className="text-base font-semibold text-foreground">
                   Journey Structure
@@ -571,7 +571,7 @@ export default function JourneyForm({
                           ? attemptsByAssessment[item.id] ?? defaultAttempts
                           : null;
                       return (
-                        <div key={`${item.type}-${item.id}`} className="flex items-center gap-3 rounded-md border border-border bg-background p-3">
+                        <div key={`${item.type}-${item.id}`} className="flex items-center gap-3 rounded-2xl border border-border bg-card shadow-sm p-3">
                           <GripVertical className="h-4 w-4 text-muted-foreground shrink-0" aria-hidden="true" />
                           <div className="flex flex-col">
                             <Button size="icon" variant="ghost" className="h-5 w-5" onClick={() => move(idx, -1)} disabled={idx === 0} aria-label="Move up">
@@ -654,7 +654,7 @@ export default function JourneyForm({
             </Card>
 
             {/* Section 3: Journey Settings */}
-            <Card className="p-6 space-y-5">
+            <Card className="rounded-2xl p-6 space-y-5">
               <div>
                 <h2 className="text-base font-semibold text-foreground">Journey Settings</h2>
                 <p className="mt-1 text-xs text-muted-foreground">Configure how learners experience and progress through this journey.</p>
@@ -761,7 +761,7 @@ export default function JourneyForm({
             </Card>
 
             {/* Section 4: Role-Play Configuration */}
-            <Card className="p-6 space-y-5">
+            <Card className="rounded-2xl p-6 space-y-5">
               <div>
                 <h2 className="text-base font-semibold text-foreground">Role-Play Configuration</h2>
                 <p className="mt-1 text-xs text-muted-foreground">

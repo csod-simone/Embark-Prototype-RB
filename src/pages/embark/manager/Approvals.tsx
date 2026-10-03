@@ -106,7 +106,7 @@ export default function Approvals() {
         {/* Header */}
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-foreground">Approval Requests</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground">Approval Requests</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Review and action pending requests from learners and the system.
             </p>
@@ -128,17 +128,17 @@ export default function Approvals() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div className="rounded-md border border-border bg-background p-4">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
             <div className="text-xs tracking-wide text-muted-foreground">Pending</div>
             <div className="mt-1 text-2xl font-bold text-warning-foreground dark:text-warning">{pendingCount}</div>
             <div className="mt-1 text-xs text-muted-foreground">Awaiting your action</div>
           </div>
-          <div className="rounded-md border border-border bg-background p-4">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
             <div className="text-xs tracking-wide text-muted-foreground">Approved this month</div>
             <div className="mt-1 text-2xl font-bold text-success-dark">{approvedCount}</div>
             <div className="mt-1 text-xs text-muted-foreground">Across all cohorts</div>
           </div>
-          <div className="rounded-md border border-border bg-background p-4">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
             <div className="text-xs tracking-wide text-muted-foreground">Declined this month</div>
             <div className="mt-1 text-2xl font-bold text-muted-foreground">{declinedCount}</div>
             <div className="mt-1 text-xs text-muted-foreground">Across all cohorts</div>
@@ -167,7 +167,7 @@ export default function Approvals() {
               return (
                 <div
                   key={r.id}
-                  className={`rounded-md border border-border p-4 ${tint}`}
+                  className={`rounded-2xl border border-border p-4 shadow-sm ${tint}`}
                 >
                   <div className="flex items-center justify-between gap-4">
                     <Badge variant={chipVariant[r.type]}>{r.typeLabel}</Badge>
@@ -183,7 +183,7 @@ export default function Approvals() {
                   <div className="mt-3">
                     <LeftBorderCard borderVariant="brand" padding="sm">
                       <div className="flex items-center gap-2">
-                        <SageTag />
+                        <SageTag label="AI" />
                         <span className="text-sm font-medium text-primary">Sage insight:</span>
                       </div>
                       <p className="mt-1 text-sm text-muted-foreground">{r.sage}</p>
@@ -333,7 +333,7 @@ export default function Approvals() {
           </div>
 
           <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-3 rounded-md border border-border bg-background px-4 py-3">
+            <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 shadow-sm">
               <span className="inline-flex items-center gap-1.5 text-sm text-destructive font-medium">
                 <X className="h-4 w-4" aria-hidden />
                 Declined

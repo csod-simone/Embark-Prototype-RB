@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import { SageAvatar } from "@/components/embark/AskSageIcon";
+import { SageAvatar, AskSageIcon } from "@/components/embark/AskSageIcon";
 import { ApprovalReviewSheet, type ApprovalStatus } from "@/components/embark/manager/ApprovalReviewSheet";
 import { HandReviewSheet } from "@/components/embark/manager/HandReviewSheet";
 import { PageContainer } from "@/components/embark/layouts/PageContainer";
@@ -173,15 +173,25 @@ const upcoming: Upcoming[] = [
 function SectionCard({
   title,
   description,
+  flag,
   children,
 }: {
   title: string;
   description: string;
+  flag?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-lg border border-border bg-card p-6">
-      <h2 className="text-base font-semibold text-foreground">{title}</h2>
+    <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <div className="flex flex-wrap items-center gap-2">
+        <h2 className="text-base font-semibold text-foreground">{title}</h2>
+        {flag && (
+          <Badge variant="ai" className="gap-1 border-transparent px-2.5 py-0.5 text-xs font-medium">
+            <AskSageIcon size={14} />
+            AI
+          </Badge>
+        )}
+      </div>
       <p className="mt-1 text-sm text-muted-foreground">{description}</p>
       <div className="mt-4">{children}</div>
     </section>
@@ -226,7 +236,7 @@ function AttentionCard({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-lg border border-border bg-card p-4 md:p-6">
+    <section className="rounded-2xl border border-border bg-card p-4 shadow-sm md:p-6">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <h4 className="text-base font-semibold text-foreground">{title}</h4>
@@ -432,6 +442,7 @@ export default function ManagerOverview() {
           <SectionCard
             title="Sage Insights"
             description="AI-generated insights from Sage to help you support your team."
+            flag
           >
             {insights.length === 0 ? (
               <EmptyText>

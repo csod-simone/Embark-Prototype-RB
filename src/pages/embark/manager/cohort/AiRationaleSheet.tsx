@@ -48,7 +48,7 @@ export function AiRationaleSheet({
 
         <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6">
           <div className="inline-flex items-center gap-2">
-            <SageTag />
+            <SageTag label="AI" />
           </div>
 
           <section>

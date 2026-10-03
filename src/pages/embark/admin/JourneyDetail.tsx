@@ -108,7 +108,7 @@ export default function JourneyDetail() {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-2xl font-semibold text-foreground">{journey.name}</h1>
+              <h1 className="text-3xl font-semibold tracking-tight text-foreground">{journey.name}</h1>
               {statusBadge(journey.status)}
               {isVersionedJourney(journey.id) && <VersionMarkers scope="journey" />}
             </div>
@@ -132,21 +132,21 @@ export default function JourneyDetail() {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           {summary.map((s) => (
-            <div key={s.label} className="rounded-md border border-border bg-background p-4">
+            <div key={s.label} className="rounded-2xl border border-border bg-card shadow-sm p-4">
               <div className="text-xs tracking-wide text-muted-foreground">{s.label}</div>
               <div className="mt-1 text-2xl font-bold text-foreground">{s.value}</div>
             </div>
           ))}
         </div>
 
-        <Card className="p-6 space-y-4">
+        <Card className="rounded-2xl p-6 space-y-4">
           <h2 className="text-base font-semibold text-foreground">Paths</h2>
           <div className="space-y-2">
             {journey.curriculaIds.map((id, idx) => {
               const c = findCurriculum(id);
               if (!c) return null;
               return (
-                <div key={id} className="flex items-center gap-3 rounded-md border border-border bg-background p-3">
+                <div key={id} className="flex items-center gap-3 rounded-2xl border border-border bg-card shadow-sm p-3">
                   <span className="text-xs text-muted-foreground w-6 text-center shrink-0">{idx + 1}</span>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
@@ -170,13 +170,13 @@ export default function JourneyDetail() {
         </Card>
 
         {journey.liveEvents && journey.liveEvents.length > 0 && (
-          <Card className="p-6 space-y-4">
+          <Card className="rounded-2xl p-6 space-y-4">
             <h2 className="text-base font-semibold text-foreground">Live Events</h2>
             <div className="space-y-2">
               {journey.liveEvents.map((ev) => (
                 <div
                   key={ev.id}
-                  className="flex items-center gap-3 rounded-md border border-border bg-background p-3"
+                  className="flex items-center gap-3 rounded-2xl border border-border bg-card shadow-sm p-3"
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
@@ -195,7 +195,7 @@ export default function JourneyDetail() {
 
 
 
-        <Card className="p-6 space-y-4">
+        <Card className="rounded-2xl p-6 space-y-4">
           <h2 className="text-base font-semibold text-foreground">Journey Settings</h2>
           <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
             <Row
@@ -238,12 +238,12 @@ export default function JourneyDetail() {
           </dl>
         </Card>
 
-        <Card className="p-6 space-y-4">
+        <Card className="rounded-2xl p-6 space-y-4">
           <h2 className="text-base font-semibold text-foreground">Assigned Cohorts</h2>
           {cohorts.length === 0 ? (
             <p className="text-sm text-muted-foreground">This journey has not been assigned to any cohorts yet.</p>
           ) : (
-            <div className="rounded-md border border-border overflow-x-auto">
+            <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
               <Table>
                 <TableHeader>
                   <TableRow>

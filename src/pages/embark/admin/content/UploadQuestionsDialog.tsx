@@ -139,7 +139,7 @@ export function UploadQuestionsDialog({
 
           {stage === "done" && (
             <div className="space-y-4">
-              <div className="flex items-center justify-between gap-3 rounded-md border border-border bg-background px-4 py-3">
+              <div className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card shadow-sm px-4 py-3">
                 <div className="flex items-center gap-3 min-w-0">
                   <FileText className="h-5 w-5 text-primary shrink-0" />
                   <div className="min-w-0">

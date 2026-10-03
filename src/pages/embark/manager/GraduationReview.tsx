@@ -141,7 +141,7 @@ export default function GraduationReview() {
   return (
     <PageContainer as="div" className="py-6 space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-foreground">Graduation Review</h1>
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground">Graduation Review</h1>
         <p className="mt-1 text-sm text-muted-foreground max-w-2xl">
           Learners ready for graduation. Embark recommends a level for each person, with the evidence
           and the rationale. Review that recommendation, then record your decision.
@@ -150,17 +150,17 @@ export default function GraduationReview() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div className="rounded-md border border-border bg-background p-4">
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
           <div className="text-xs tracking-wide text-muted-foreground">Awaiting review</div>
           <div className="mt-1 text-2xl font-bold text-foreground">{awaiting}</div>
           <div className="mt-1 text-xs text-muted-foreground">Ready for your decision</div>
         </div>
-        <div className="rounded-md border border-border bg-background p-4">
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
           <div className="text-xs tracking-wide text-muted-foreground">Sign-off recorded</div>
           <div className="mt-1 text-2xl font-bold text-success-dark">{approved}</div>
           <div className="mt-1 text-xs text-muted-foreground">Approve only · certificate still needs CISI Level 4</div>
         </div>
-        <div className="rounded-md border border-border bg-background p-4">
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
           <div className="text-xs tracking-wide text-muted-foreground">CISI Level 4 on record</div>
           <div className="mt-1 text-2xl font-bold text-foreground">0</div>
           <div className="mt-1 text-xs text-muted-foreground">Passed outside Embark</div>
@@ -173,7 +173,7 @@ export default function GraduationReview() {
           const meta = recommendationMeta[learner.recommendation];
           const outcome = decision ? outcomeCopy(decision, learner.name) : null;
           return (
-            <section key={learner.id} className="rounded-lg border border-border bg-card p-5 space-y-4">
+            <section key={learner.id} className="rounded-2xl border border-border bg-card p-5 shadow-sm space-y-4">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <h2 className="text-base font-semibold text-foreground">{learner.name}</h2>
@@ -200,7 +200,7 @@ export default function GraduationReview() {
 
               <LeftBorderCard borderVariant={meta.border}>
                 <div className="flex items-start gap-2">
-                  <SageTag className="mt-0.5 flex-shrink-0" />
+                  <SageTag label="AI" className="mt-0.5 flex-shrink-0" />
                   <div>
                     <div className="text-sm font-medium text-foreground">AI rationale</div>
                     <p className="mt-1 text-sm text-muted-foreground">{learner.rationale}</p>

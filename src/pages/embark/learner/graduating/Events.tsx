@@ -4,7 +4,7 @@ import { PageContainer } from "@/components/embark/layouts/PageContainer";
 export default function GraduatingEvents() {
   return (
     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-        <PageContainer as="div" className="max-w-[880px] space-y-6 pb-10 pt-4">
+        <PageContainer as="div" className="space-y-6 pb-10 pt-4">
           <header className="space-y-2">
             <h1 className="text-3xl font-semibold tracking-tight text-foreground">Live events</h1>
             <p className="text-sm text-muted-foreground">

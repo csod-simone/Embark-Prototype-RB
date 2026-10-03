@@ -208,7 +208,7 @@ function LearnerRow({
   );
 
   const content = (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-muted/40 rounded-md p-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 rounded-2xl border border-border bg-card p-4 shadow-sm">
       <div>
         <div className="text-[11px] font-semibold tracking-wide text-muted-foreground mb-2">Top factors</div>
         {extras.topFactors.length ? (

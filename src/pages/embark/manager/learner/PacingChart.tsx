@@ -41,11 +41,11 @@ export function PacingChart({ learner }: { learner: LearnerRecord }) {
   const yTicks = [0, 50, 100];
 
   return (
-    <section className="rounded-md border border-border bg-background p-4">
+    <section className="rounded-2xl border border-border bg-card p-4 shadow-sm">
       <div className="text-xs tracking-wide font-medium text-muted-foreground mb-3">
         Pacing vs. expected
       </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" role="img" aria-label="Pacing chart">
+      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto max-h-36 w-full" role="img" aria-label="Pacing chart">
         {/* Grid Y ticks + labels */}
         {yTicks.map((y) => (
           <g key={`y-${y}`}>

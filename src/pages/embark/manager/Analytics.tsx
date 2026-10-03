@@ -204,7 +204,7 @@ export default function Analytics() {
         {/* Page header */}
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-foreground">Analytics</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground">Analytics</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Track cohort performance, learner progress, and risk signals across all cohorts you manage.
             </p>
@@ -324,8 +324,9 @@ export default function Analytics() {
             label="Total Learners"
             value={53}
             subLabel="Across all active cohorts"
+            className="rounded-2xl shadow-sm"
           />
-          <div className="rounded-lg border border-border bg-background px-4 py-3">
+          <div className="rounded-2xl border border-border bg-card px-4 py-3 shadow-sm">
             <div className="text-[11px] font-semibold tracking-wide text-muted-foreground">
               Avg Completion
             </div>
@@ -336,7 +337,7 @@ export default function Analytics() {
               <span>+6% vs last month</span>
             </div>
           </div>
-          <div className="rounded-lg border border-border bg-background px-4 py-3">
+          <div className="rounded-2xl border border-border bg-card px-4 py-3 shadow-sm">
             <div className="text-[11px] font-semibold tracking-wide text-muted-foreground">
               At-Risk Learners
             </div>
@@ -347,7 +348,7 @@ export default function Analytics() {
               <span>+2 vs last month</span>
             </div>
           </div>
-          <div className="rounded-lg border border-border bg-background px-4 py-3">
+          <div className="rounded-2xl border border-border bg-card px-4 py-3 shadow-sm">
             <div className="text-[11px] font-semibold tracking-wide text-muted-foreground">
               Avg Assessment Score
             </div>
@@ -366,7 +367,7 @@ export default function Analytics() {
           <h3 className="text-base font-semibold text-foreground">Cohort Completion Overview</h3>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {/* Left: bar chart */}
-            <div className="rounded-lg border border-border bg-background p-5">
+            <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
               <div className="text-sm font-medium text-foreground">Completion Rate by Cohort</div>
               <div className="mt-4 space-y-4">
                 {visibleCohortBars.map((row) => {
@@ -390,7 +391,7 @@ export default function Analytics() {
             </div>
 
             {/* Right: risk distribution */}
-            <div className="rounded-lg border border-border bg-background p-5">
+            <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
               <div className="text-sm font-medium text-foreground">Learner Risk Distribution</div>
               <div className="mt-0.5 text-xs text-muted-foreground">Across all active cohorts</div>
               <div className="mt-4 flex h-2.5 w-full overflow-hidden rounded-full">
@@ -424,7 +425,7 @@ export default function Analytics() {
         </section>
 
         {/* Section 3: Completion trend */}
-        <div className="rounded-lg border border-border bg-background p-5">
+        <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between gap-4">
             <div className="text-sm font-medium text-foreground">Completion Trend</div>
             <Tabs value={trendMode} onValueChange={(v) => setTrendMode(v as "weekly" | "monthly")}>
@@ -517,7 +518,7 @@ export default function Analytics() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-lg border border-border bg-background">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -622,10 +623,10 @@ export default function Analytics() {
         </section>
 
         {/* Section 5: Sage Insights */}
-        <div className="rounded-lg border border-border bg-background p-5">
+        <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between gap-4">
             <div className="text-sm font-medium text-foreground">Sage Insights</div>
-            <SageTag label="Powered by Sage" />
+            <SageTag label="AI" />
           </div>
           <div className="space-y-3">
             <LeftBorderCard borderVariant="warning">
@@ -661,7 +662,7 @@ export default function Analytics() {
             <LeftBorderCard borderVariant="brand">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                  <SageTag />
+                  <SageTag label="AI" />
                   <span>Cohort B outperforming benchmark</span>
                 </div>
                 <Link to="/manager/cohorts/cohort-b" className="shrink-0 text-sm text-primary hover:underline">

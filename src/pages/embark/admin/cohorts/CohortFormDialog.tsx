@@ -359,7 +359,7 @@ export function CohortFormDialog({ open, onOpenChange, mode, initial, onSubmit }
               <div className="space-y-2">
                 <Label>Primary Trainer <span className="text-destructive">*</span></Label>
                 {primaryTrainer ? (
-                  <div className="flex items-center gap-3 rounded-md border border-border bg-background p-3">
+                  <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-3 shadow-sm">
                     <Avatar name={primaryTrainer.name} />
                     <div className="min-w-0">
                       <div className="text-sm font-medium text-foreground truncate">
@@ -742,7 +742,7 @@ export function CohortFormDialog({ open, onOpenChange, mode, initial, onSubmit }
                     under their &lsquo;My Cohorts&rsquo; view and receive risk and progress notifications.
                   </p>
                   {selectedManager ? (
-                    <div className="flex items-center gap-3 rounded-md border border-border bg-background p-3">
+                    <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-3 shadow-sm">
                       <Avatar name={selectedManager.name} />
                       <div className="min-w-0">
                         <div className="text-sm font-medium text-foreground truncate">
@@ -1069,7 +1069,7 @@ export function CohortFormDialog({ open, onOpenChange, mode, initial, onSubmit }
                 <div className="text-xs tracking-wide text-muted-foreground mb-2">
                   Cohort Details
                 </div>
-                <dl className="rounded-md border border-border bg-background px-3">
+                <dl className="rounded-2xl border border-border bg-card px-3 shadow-sm">
                   <ReviewRow label="Cohort Name" value={name} />
                   <ReviewRow label="Journey" value={journey} />
                   {false && (
@@ -1125,7 +1125,7 @@ export function CohortFormDialog({ open, onOpenChange, mode, initial, onSubmit }
                   <div className="text-xs tracking-wide text-muted-foreground mb-2">
                     Events and Sessions
                   </div>
-                  <dl className="rounded-md border border-border bg-background px-3">
+                  <dl className="rounded-2xl border border-border bg-card px-3 shadow-sm">
                     {journeyEvents.map((ev) => {
                       const config = eventConfigs.find((c) => c.eventId === ev.id);
                       const session = findJourneyLiveEventSession(config?.sessionId);
@@ -1151,7 +1151,7 @@ export function CohortFormDialog({ open, onOpenChange, mode, initial, onSubmit }
                 <div className="text-xs tracking-wide text-muted-foreground mb-2">
                   Welcome Screen
                 </div>
-                <dl className="rounded-md border border-border bg-background px-3">
+                <dl className="rounded-2xl border border-border bg-card px-3 shadow-sm">
                   <ReviewRow label="Welcome Headline" value={welcome.headline} />
                   <ReviewRow label="CTA Button Label" value={welcome.cta} />
                 </dl>

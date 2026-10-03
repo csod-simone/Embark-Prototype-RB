@@ -94,7 +94,7 @@ export function AssessmentFlowList({
       {items.map((item, i) => (
         <li
           key={item.id}
-          className="flex items-center gap-3 rounded-md border border-border p-4"
+          className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm"
         >
           <span className="text-xs font-semibold text-muted-foreground w-5">{i + 1}</span>
           <div className="flex-1 min-w-0">
@@ -224,7 +224,7 @@ export function SectionedQuestionList({
       {sections.map((section, sIndex) => {
         const sectionQuestions = questions.filter((q) => q.sectionId === section.id);
         return (
-          <div key={section.id} className="rounded-md border border-border p-4 space-y-3">
+          <div key={section.id} className="rounded-2xl border border-border bg-card p-4 shadow-sm space-y-3">
             <div className="flex flex-wrap items-center gap-2">
               <Label htmlFor={`section-${section.id}`} className="sr-only">
                 Section name

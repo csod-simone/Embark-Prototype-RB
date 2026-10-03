@@ -321,7 +321,7 @@ export default function EditAssessment() {
           </Button>
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h2 className="text-xl font-semibold text-foreground">{initialTitle}</h2>
+              <h2 className="text-3xl font-semibold tracking-tight text-foreground">{initialTitle}</h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Edit questions, adjust settings, or add new questions to this assessment.
               </p>
@@ -344,7 +344,7 @@ export default function EditAssessment() {
           {typeDefaults && (
             <p className="text-xs text-muted-foreground">{typeDefaults.description}</p>
           )}
-          <div className="rounded-md border border-border bg-background p-5 space-y-5">
+          <div className="rounded-2xl border border-border bg-card shadow-sm p-5 space-y-5">
             <div className="space-y-2">
               <Label htmlFor="a-title" className="text-sm">
                 Assessment Title <span className="text-destructive">*</span>
@@ -585,7 +585,7 @@ export default function EditAssessment() {
               assessment.
             </p>
             {contentItem && (
-              <div className="rounded-md border border-border p-4">
+              <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
                 <div className="text-sm font-medium text-foreground">{contentItem.title}</div>
                 <div className="text-xs text-muted-foreground mt-0.5">
                   {contentItem.type} · {contentItem.durationMin} min

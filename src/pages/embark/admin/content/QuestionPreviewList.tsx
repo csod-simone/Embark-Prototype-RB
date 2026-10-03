@@ -20,7 +20,7 @@ export function QuestionPreviewList({
         return (
           <li
             key={q.id}
-            className="rounded-md border border-border bg-background p-4 flex items-start gap-3"
+            className="rounded-2xl border border-border bg-card shadow-sm p-4 flex items-start gap-3"
           >
             <Checkbox
               id={`prev-${q.id}`}

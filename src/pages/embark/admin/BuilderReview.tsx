@@ -301,7 +301,7 @@ export default function BuilderReview() {
               correct="A"
               objective="HMO vs PPO distinction"
             />
-            <div className="border border-border rounded p-4">
+            <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
               <div className="flex gap-2 items-center mb-2">
                 <span className="text-xs text-muted-foreground">Q2</span>
                 <span className="text-xs bg-muted rounded-full px-2 py-0.5">Scenario</span>
@@ -312,7 +312,7 @@ export default function BuilderReview() {
               </LeftBorderCard>
               <p className="text-xs text-success-dark mt-2">✓ Correct: B</p>
             </div>
-            <div className="border border-border rounded p-4">
+            <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
               <div className="flex gap-2 items-center mb-2">
                 <span className="text-xs text-muted-foreground">Q3</span>
                 <span className="text-xs bg-muted rounded-full px-2 py-0.5">Open-ended</span>
@@ -382,7 +382,7 @@ function QCard({ n, tags, question, options, correct, objective }: {
   n: string; tags: string[]; question: string; options: string[]; correct: string; objective: string;
 }) {
   return (
-    <div className="border border-border rounded p-4">
+    <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
       <div className="flex gap-2 items-center mb-2">
         <span className="text-xs text-muted-foreground">{n}</span>
         {tags.map((t) => <span key={t} className="text-xs bg-muted rounded-full px-2 py-0.5">{t}</span>)}

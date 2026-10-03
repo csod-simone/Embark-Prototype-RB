@@ -292,7 +292,7 @@ export default function BuilderIngest() {
         )}
         {/* LEFT — sourcing controls */}
         <div className="p-6 border-r border-border lg:sticky lg:top-0 lg:self-start">
-          <div className="rounded-md border border-border p-4 space-y-4">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm space-y-4">
             <div>
               <h3 className="font-medium">Add to Path</h3>
               <p className="mt-1 text-xs text-muted-foreground">
@@ -327,7 +327,7 @@ export default function BuilderIngest() {
         <div className="p-6 overflow-y-auto space-y-4">
           {bannerVisible && (
             <div className="flex items-start gap-2 rounded-md border border-primary/30 bg-primary/5 p-3">
-              <SageTag className="shrink-0 mt-0.5" />
+              <SageTag label="AI" className="shrink-0 mt-0.5" />
               <p className="text-sm text-foreground flex-1">
                 Sage has generated your path based on your description. Review all fields
                 below and make any edits before saving.
@@ -406,7 +406,7 @@ export default function BuilderIngest() {
           )}
 
           {sections.map((section, sIdx) => (
-            <div key={section.id} className="rounded-md border border-border">
+            <div key={section.id} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
               <div className="flex items-center gap-3 border-b border-border p-3">
                 <div className="min-w-0 flex-1">
                   {editingSectionId === section.id ? (
@@ -564,7 +564,7 @@ export default function BuilderIngest() {
 
           {wasGenerated && (
             <div className="flex items-start gap-2 rounded-md border border-primary/30 bg-primary/5 p-3">
-              <SageTag className="shrink-0 mt-0.5" />
+              <SageTag label="AI" className="shrink-0 mt-0.5" />
               <p className="text-sm text-foreground">
                 I've structured this path to build knowledge progressively — starting with a
                 high-level plan benefits overview, then drilling into each topic individually before

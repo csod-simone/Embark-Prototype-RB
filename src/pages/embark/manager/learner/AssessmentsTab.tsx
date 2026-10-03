@@ -63,7 +63,7 @@ export function AssessmentsTab({
           </LeftBorderCard>
         ))}
 
-      <div className="rounded-md border border-border bg-background overflow-hidden">
+      <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-muted/40 text-left text-xs tracking-wide text-muted-foreground">
@@ -101,7 +101,7 @@ export function AssessmentsTab({
         </table>
       </div>
 
-      <section className="rounded-md border border-border bg-background p-4">
+      <section className="rounded-2xl border border-border bg-card p-4 shadow-sm">
         <div className="text-xs tracking-wide font-medium text-muted-foreground mb-3">
           Comprehension check summary
         </div>

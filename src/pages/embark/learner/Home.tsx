@@ -119,15 +119,15 @@ export default function Home() {
   const brandOptions: { id: Brand; label: string; dot: string }[] = [];
 
   const TopHeader = (
-    <header className="grid grid-cols-[minmax(0,1fr)_minmax(0,max-content)_minmax(0,1fr)] items-center gap-3 px-4 sm:px-8 h-16 border-b border-border bg-card">
-      <div className="col-start-1 flex items-center gap-3 min-w-0 justify-self-start">
+    <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-8 h-16 border-b border-border bg-card">
+      <div className="col-start-1 flex shrink-0 items-center gap-3 justify-self-start">
         <a href="#" aria-label="Rathbones home" className="inline-flex items-center">
           <BrandLogo />
         </a>
         <DemoUserSwitcher variant="inline" />
       </div>
       {!askAI.open && (
-        <nav className="col-start-2 hidden md:flex items-center justify-center gap-1 h-full min-w-0" role="tablist" aria-label="Sections">
+        <nav className="col-start-2 hidden md:flex items-center justify-center gap-1 h-full min-w-0 overflow-x-auto" role="tablist" aria-label="Sections">
           {tabs.map((t) => {
             const active = t.id === activeTab;
             return (

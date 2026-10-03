@@ -77,7 +77,7 @@ export default function Enrollment() {
             <ArrowLeft aria-hidden="true" />
             Back to Cohort Management
           </Button>
-          <h1 className="text-2xl font-semibold text-foreground">Manage Enrollment</h1>
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground">Manage Enrollment</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             Add or remove learners from this cohort, and review current enrollment status.
           </p>
@@ -96,19 +96,21 @@ export default function Enrollment() {
 
         {/* Stat row */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-          <StatTile label="Total Enrolled" value={enrolledCount} subLabel="Active learners in this cohort" />
-          <StatTile label="In Progress" value={enrolled.filter((l) => l.status === "in_progress").length} subLabel="Currently working through the journey" />
+          <StatTile label="Total Enrolled" value={enrolledCount} subLabel="Active learners in this cohort" className="rounded-2xl shadow-sm" />
+          <StatTile label="In Progress" value={enrolled.filter((l) => l.status === "in_progress").length} subLabel="Currently working through the journey" className="rounded-2xl shadow-sm" />
           <StatTile
             label="Completed"
             value={enrolled.filter((l) => l.status === "completed").length}
             variant="success"
             subLabel="Have finished the full programme"
+            className="rounded-2xl shadow-sm"
           />
           <StatTile
             label="Not Started"
             value={enrolled.filter((l) => l.status === "not_started").length}
             variant="warning"
             subLabel="Enrolled but yet to begin"
+            className="rounded-2xl shadow-sm"
           />
         </div>
 
@@ -143,7 +145,7 @@ export default function Enrollment() {
             </div>
           </div>
 
-          <div className="rounded-md border border-border overflow-x-auto">
+          <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
             <Table>
               <TableHeader>
                 <TableRow>

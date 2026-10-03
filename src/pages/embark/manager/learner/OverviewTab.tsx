@@ -54,7 +54,7 @@ function RolePlayHistorySection({ learner }: { learner: LearnerRecord }) {
   }));
   const anyEscalation = attempts.some((a) => a.escalated);
   return (
-    <section className="rounded-lg border border-border bg-card p-5 space-y-4">
+    <section className="rounded-2xl border border-border bg-card p-5 shadow-sm space-y-4">
       <div>
         <h3 className="text-base font-semibold text-foreground">Role-Play History</h3>
         <p className="mt-1 text-xs text-muted-foreground">
@@ -72,7 +72,7 @@ function RolePlayHistorySection({ learner }: { learner: LearnerRecord }) {
 
       <div className="space-y-3">
         {attempts.map((a) => (
-          <div key={a.id} className="rounded-md border border-border bg-background p-4 space-y-2">
+          <div key={a.id} className="rounded-2xl border border-border bg-card p-4 shadow-sm space-y-2">
             <div className="flex items-start justify-between gap-3 flex-wrap">
               <div className="min-w-0">
                 <div className="text-sm font-medium text-foreground">{a.scenario}</div>
@@ -121,27 +121,24 @@ export function OverviewTab({
     : [];
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6">
-        <div className="flex flex-col gap-6 min-w-0">
-          {signals.map((signal) => (
-            <div key={signal.id} id={signal.id} className="scroll-mt-4 rounded-md">
-              <LeftBorderCard borderVariant={signal.tone}>
-                <p className="text-sm text-foreground">{signal.detail}</p>
-                <button
-                  type="button"
-                  onClick={() => setDismissed((prev) => ({ ...prev, [signal.id]: true }))}
-                  className="mt-3 text-sm text-muted-foreground hover:text-foreground"
-                >
-                  Dismiss
-                </button>
-              </LeftBorderCard>
-            </div>
-          ))}
-          <JourneyTrack learner={learner} promptCheckIn={promptCheckIn} />
-          <PacingChart learner={learner} />
+    <div className="flex flex-col gap-4">
+      {signals.map((signal) => (
+        <div key={signal.id} id={signal.id} className="scroll-mt-4 rounded-md">
+          <LeftBorderCard borderVariant={signal.tone}>
+            <p className="text-sm text-foreground">{signal.detail}</p>
+            <button
+              type="button"
+              onClick={() => setDismissed((prev) => ({ ...prev, [signal.id]: true }))}
+              className="mt-3 text-sm text-muted-foreground hover:text-foreground"
+            >
+              Dismiss
+            </button>
+          </LeftBorderCard>
         </div>
-        <div className="flex flex-col gap-6 min-w-0">
+      ))}
+      <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+        <JourneyTrack learner={learner} promptCheckIn={promptCheckIn} />
+        <div className="flex min-w-0 flex-col gap-4">
           <ActiveFlagsCard learner={learner} />
           <AiDecisionsCard
             forceOpen={forceAiRationale}
@@ -150,7 +147,10 @@ export function OverviewTab({
           />
         </div>
       </div>
-      <RolePlayHistorySection learner={learner} />
+      <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+        <PacingChart learner={learner} />
+        <RolePlayHistorySection learner={learner} />
+      </div>
     </div>
   );
 }

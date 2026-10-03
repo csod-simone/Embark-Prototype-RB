@@ -77,7 +77,7 @@ export default function RolePlayStructuredForm() {
         <div className="text-xs font-semibold tracking-wide text-muted-foreground">
           NEW ROLE-PLAY
         </div>
-        <h2 className="mt-1 text-xl font-semibold text-foreground">Structured Form</h2>
+        <h2 className="mt-1 text-3xl font-semibold tracking-tight text-foreground">Structured Form</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Provide your authoring intent across structured fields and review the generated blueprint.
         </p>

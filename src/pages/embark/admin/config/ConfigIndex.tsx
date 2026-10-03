@@ -32,6 +32,12 @@ export default function ConfigIndex() {
 
   return (
     <PageContainer as="div" className="py-6 space-y-6">
+      <div>
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground">Configuration</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Manage assessments, the learner experience, feature flags, and notifications.
+        </p>
+      </div>
       <ConfigSectionWidget
         title="Assessments"
         description="Control how learners interact with assessment questions."

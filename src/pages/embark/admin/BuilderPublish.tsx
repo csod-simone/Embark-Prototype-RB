@@ -72,7 +72,7 @@ export default function BuilderPublish() {
 
         <div>
           <h3 className="font-medium mb-3">Publish Summary</h3>
-          <div className="border border-border rounded-md p-4 space-y-3">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm space-y-3">
             {[
               ["Path:", "Aetna CSR Onboarding — Commercial"],
               ["Journey:", "CSR Onboarding"],

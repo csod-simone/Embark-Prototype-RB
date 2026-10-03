@@ -82,8 +82,8 @@ export function ReadinessTopHeader() {
   };
 
   return (
-    <header className="grid grid-cols-[minmax(0,1fr)_minmax(0,max-content)_minmax(0,1fr)] items-center gap-3 px-4 sm:px-6 h-14 border-b border-border bg-card flex-shrink-0">
-      <div className="col-start-1 flex items-center gap-3 min-w-0 justify-self-start">
+    <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-6 h-14 border-b border-border bg-card flex-shrink-0">
+      <div className="col-start-1 flex shrink-0 items-center gap-3 justify-self-start">
         <a href="/readiness/dashboard" aria-label="Rathbones home" className="inline-flex items-center">
           <BrandLogo />
         </a>

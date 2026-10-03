@@ -88,8 +88,8 @@ export default function RolePlayDesignWithAI() {
           NEW ROLE-PLAY
         </div>
         <div className="mt-1 flex items-center gap-2">
-          <h2 className="text-xl font-semibold text-foreground">Design with AI</h2>
-          <AiFlag />
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground">Design with AI</h2>
+          <AiFlag label="AI" />
         </div>
         <p className="mt-1 text-sm text-muted-foreground">
           Start with a rough description. The assistant will identify gaps and ask one question at a
@@ -100,7 +100,7 @@ export default function RolePlayDesignWithAI() {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         {/* Left column */}
         <div className="space-y-4">
-          <Card className="p-4">
+          <Card className="rounded-2xl p-4">
             <div className="flex items-start gap-3">
               <SageAvatar size="sm" />
               <div>
@@ -114,7 +114,7 @@ export default function RolePlayDesignWithAI() {
             </div>
           </Card>
 
-          <Card className="p-4">
+          <Card className="rounded-2xl p-4">
             <PhaseProgressStepper phases={phases} />
           </Card>
 
@@ -129,7 +129,7 @@ export default function RolePlayDesignWithAI() {
             <div className="mt-1 text-xs text-muted-foreground">PDF, DOCX, TXT up to 10MB</div>
           </button>
 
-          <Card className="p-4 max-h-[420px] overflow-y-auto space-y-4">
+          <Card className="rounded-2xl p-4 max-h-[420px] overflow-y-auto space-y-4">
             {messages.map((m) =>
               m.role === "assistant" ? (
                 <div key={m.id} className="flex items-start gap-3">
@@ -175,7 +175,7 @@ export default function RolePlayDesignWithAI() {
         </div>
 
         {/* Right column */}
-        <Card className="p-4 h-fit">
+        <Card className="rounded-2xl p-4 h-fit">
           <div className="flex items-center gap-2">
             <h3 className="text-base font-semibold text-foreground">Experience Type</h3>
             <Tooltip>

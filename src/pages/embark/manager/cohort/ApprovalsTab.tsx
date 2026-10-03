@@ -99,7 +99,7 @@ function SkipCard({
 }) {
   const [confirmRevert, setConfirmRevert] = useState(false);
   return (
-    <div className="rounded-md border border-border bg-background p-4 space-y-3">
+    <div className="rounded-2xl border border-border bg-card p-4 shadow-sm space-y-3">
       <div className="text-sm font-medium text-foreground">{skip.learnerName}</div>
       <div className="text-xs text-muted-foreground">Module skipped: {skip.moduleName}</div>
       <p className="text-xs text-foreground">
@@ -142,7 +142,7 @@ function RetakeCard({
   const [denyOpen, setDenyOpen] = useState(false);
   const [reason, setReason] = useState("");
   return (
-    <div className="rounded-md border border-border bg-background p-4 space-y-3">
+    <div className="rounded-2xl border border-border bg-card p-4 shadow-sm space-y-3">
       <div className="text-sm font-medium text-foreground">{retake.learnerName}</div>
       <div className="text-xs text-muted-foreground">
         Module: {retake.moduleName} · Attempt {retake.attemptNumber} · Current score: {retake.currentScore}%

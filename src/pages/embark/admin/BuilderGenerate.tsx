@@ -84,7 +84,7 @@ export default function BuilderGenerate() {
         <div className="space-y-4">
           <div className="bg-secondary/20 rounded-md p-4">
             <div className="flex items-center gap-2 mb-1">
-              <SageTag />
+              <SageTag label="AI" />
               <span className="font-medium">{complete ? "Path ready to review" : "Building your path"}</span>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -93,7 +93,7 @@ export default function BuilderGenerate() {
                 : "We're analysing your 3 source files and structuring modules based on learning objectives. This usually takes 3–5 minutes for materials of this size."}
             </p>
           </div>
-          <div className="border border-border rounded-md p-4">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
             <p className="text-sm">💡 You can edit any part of the generated structure before publishing — the AI gives you a starting point, not a final answer.</p>
             <div className="mt-3 flex justify-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-foreground" />

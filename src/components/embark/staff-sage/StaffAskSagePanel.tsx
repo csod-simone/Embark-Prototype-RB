@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { ArrowLeft, ArrowUp, MessageSquarePlus } from "lucide-react";
 import { AskSageIcon } from "@/components/embark/AskSageIcon";
+import { Badge } from "@/components/ui/badge";
 import { LearnerBubble } from "@/components/embark/LearnerBubble";
 import { TutorBubble } from "@/components/embark/TutorBubble";
 import { cn } from "@/lib/utils";
@@ -87,7 +88,7 @@ export function StaffAskSagePanel({
   const showEmpty = !messages.some((message) => message.role === "learner");
 
   return (
-    <div className="flex-1 flex min-h-0 bg-background">
+    <div className={cn("flex min-h-0 flex-1", scope === "manager" || scope === "admin" ? "bg-[#f4f5f8]" : "bg-background")}>
       <aside className="hidden md:flex w-[280px] flex-shrink-0 flex-col border-r border-border bg-card">
         <div className="px-4 pt-4 pb-3">
           <button
@@ -136,6 +137,12 @@ export function StaffAskSagePanel({
                   Hi {firstName}, I'm Sage.
                 </h1>
               </div>
+              {(scope === "manager" || scope === "admin") && (
+                <Badge variant="ai" className="mt-4 gap-1 border-transparent px-2.5 py-0.5 text-xs font-medium">
+                  <AskSageIcon size={14} />
+                  AI
+                </Badge>
+              )}
               <p className="mt-3 text-base text-muted-foreground max-w-xl">
                 Ask for a status update, a readiness report, or who is behind — on a learner, cohort, track, assessment, or journey.
               </p>

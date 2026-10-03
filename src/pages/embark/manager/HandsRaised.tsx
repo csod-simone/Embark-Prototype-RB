@@ -231,7 +231,7 @@ export default function HandsRaised() {
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-foreground">Hands Raised</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground">Hands Raised</h1>
             <p className="mt-1 text-sm text-muted-foreground max-w-2xl">
               Learners who have signalled they need help or have unresolved questions escalated
               from Sage. Review and take action before issues affect progress.
@@ -272,24 +272,24 @@ export default function HandsRaised() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-          <div className="rounded-md border border-border bg-background p-4">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
             <div className="text-xs tracking-wide text-muted-foreground">Open</div>
             <div className="mt-1 text-2xl font-bold text-destructive">{openCount}</div>
             <div className="mt-1 text-xs text-muted-foreground">Awaiting action</div>
           </div>
-          <div className="rounded-md border border-border bg-background p-4">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
             <div className="text-xs tracking-wide text-muted-foreground">In progress</div>
             <div className="mt-1 text-2xl font-bold text-status-warning-fg">{inProgressCount}</div>
             <div className="mt-1 text-xs text-muted-foreground">Being actioned</div>
           </div>
-          <div className="rounded-md border border-border bg-background p-4">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
             <div className="text-xs tracking-wide text-muted-foreground">
               Resolved today
             </div>
             <div className="mt-1 text-2xl font-bold text-success-dark">{resolvedTodayCount}</div>
             <div className="mt-1 text-xs text-muted-foreground">Closed in the last 24 hours</div>
           </div>
-          <div className="rounded-md border border-border bg-background p-4">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
             <div className="text-xs tracking-wide text-muted-foreground">
               Avg response time
             </div>
@@ -321,7 +321,7 @@ export default function HandsRaised() {
                 return (
                   <div
                     key={h.id}
-                    className="rounded-md border border-border bg-muted/40 px-4 py-3 flex flex-wrap items-center gap-3"
+                    className="rounded-2xl border border-border bg-card px-4 py-3 shadow-sm flex flex-wrap items-center gap-3"
                   >
                     <Avatar initials={h.initials} />
                     <div className="min-w-0 flex-1">
@@ -376,7 +376,7 @@ export default function HandsRaised() {
                   <div className="mt-3">
                     <LeftBorderCard borderVariant="brand" padding="sm">
                       <div className="flex items-center gap-1.5 text-sm font-medium text-primary">
-                        <SageTag />
+                        <SageTag label="AI" />
                         Sage context:
                       </div>
                       <p className="mt-1 text-sm text-muted-foreground">{h.sage}</p>
@@ -489,7 +489,7 @@ export default function HandsRaised() {
             {resolvedRows.map((r) => {
               const isOpen = expandedResolved === r.id;
               return (
-                <div key={r.id} className="rounded-md border border-border bg-muted/40">
+                <div key={r.id} className="rounded-2xl border border-border bg-card shadow-sm">
                   <div className="flex flex-wrap items-center gap-3 px-4 py-3">
                     <Avatar initials={r.initials} />
                     <div className="min-w-0 flex-1">

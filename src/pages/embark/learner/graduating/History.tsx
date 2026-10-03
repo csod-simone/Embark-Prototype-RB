@@ -81,7 +81,7 @@ const data: HistoryData = {
 export default function GraduatingHistory() {
   return (
     <div className="flex-1 overflow-y-auto">
-      <PageContainer as="div" className="max-w-[880px] py-6">
+      <PageContainer as="div" className="py-6">
         <HistoryView data={data} journeyName="Investment Manager Full Onboarding Journey" />
       </PageContainer>
     </div>

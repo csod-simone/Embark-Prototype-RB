@@ -106,7 +106,7 @@ export function AiGenerateQuestionsDialog({
       <DialogContent className="sm:max-w-2xl max-h-[90vh] p-0 flex flex-col overflow-hidden">
         <DialogHeader className="px-6 pt-6 pb-3 border-b border-border">
           <DialogTitle className="flex items-center gap-2">
-            <SageTag />
+            <SageTag label="AI" />
             AI Generate Questions
           </DialogTitle>
           <DialogDescription>

@@ -105,7 +105,7 @@ export function CurriculumTree({
 
   return (
     <TooltipProvider>
-    <div className="divide-y divide-border rounded-md border border-border bg-card">
+    <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
       {modules.map((m) => {
         const open = expanded[m.id];
         return (

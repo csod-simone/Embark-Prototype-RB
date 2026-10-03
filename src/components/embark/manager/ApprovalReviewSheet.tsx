@@ -140,7 +140,7 @@ function RequestDetail({
         : "bg-background";
 
   return (
-    <div className={`rounded-md border border-border p-4 ${tint}`}>
+    <div className={`rounded-2xl border border-border p-4 shadow-sm ${tint}`}>
       <div className="flex items-center justify-between gap-4">
         <Badge variant={chipVariant[r.type]}>{r.typeLabel}</Badge>
         <span className="text-xs text-muted-foreground">{r.submitted}</span>
@@ -155,7 +155,7 @@ function RequestDetail({
       <div className="mt-3">
         <LeftBorderCard borderVariant="brand" padding="sm">
           <div className="flex items-center gap-2">
-            <SageTag />
+            <SageTag label="AI" />
             <span className="text-sm font-medium text-primary">Sage insight:</span>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">{r.sage}</p>

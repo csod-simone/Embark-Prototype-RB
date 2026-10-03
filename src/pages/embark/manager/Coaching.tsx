@@ -70,7 +70,7 @@ export default function Coaching() {
                 AI-generated coaching recommendations based on learner performance and risk signals
               </p>
             </div>
-            <SageTag label="Powered by Sage" className="shrink-0" />
+            <SageTag label="AI" className="shrink-0" />
           </div>
 
           <div className="space-y-3">

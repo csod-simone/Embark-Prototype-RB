@@ -184,7 +184,7 @@ export default function ContentEditor() {
 
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="min-w-0">
-            <h2 className="text-xl font-semibold text-foreground">{item.title}</h2>
+            <h2 className="text-3xl font-semibold tracking-tight text-foreground">{item.title}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{subLabel}</p>
           </div>
           <Badge variant={item.status === "Active" ? "success" : "secondary"}>
@@ -193,7 +193,7 @@ export default function ContentEditor() {
         </div>
 
         {isVersionedContent(item.id) && (
-          <section className="rounded-md border border-border bg-background p-4 space-y-2">
+          <section className="rounded-2xl border border-border bg-card shadow-sm p-4 space-y-2">
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="text-base font-semibold text-foreground">Version {item.version}</h3>
               <Badge variant="success">Current</Badge>
@@ -233,7 +233,7 @@ function UsageSection({ item }: { item: EnrichedItem }) {
   return (
     <section className="space-y-3">
       <h3 className="text-base font-semibold text-foreground">Usage</h3>
-      <div className="rounded-md border border-border bg-background p-4 space-y-3">
+      <div className="rounded-2xl border border-border bg-card shadow-sm p-4 space-y-3">
         <div className="flex items-start justify-between gap-4">
           <span className="text-xs tracking-wide text-muted-foreground">
             Used in curricula
@@ -339,7 +339,7 @@ function FullEditMode({
     <>
       <section className="space-y-4">
         <h3 className="text-base font-semibold text-foreground">Content Details</h3>
-        <div className="space-y-4 rounded-md border border-border bg-background p-4">
+        <div className="space-y-4 rounded-2xl border border-border bg-card shadow-sm p-4">
           <div>
             <Label className="text-sm font-medium text-foreground">Content Type</Label>
             <Select value={type} onValueChange={setType}>
@@ -411,7 +411,7 @@ function FullEditMode({
         <>
           <section className="space-y-4">
             <h3 className="text-base font-semibold text-foreground">Scenario Details</h3>
-            <div className="space-y-4 rounded-md border border-border bg-background p-4">
+            <div className="space-y-4 rounded-2xl border border-border bg-card shadow-sm p-4">
               <div>
                 <Label className="text-sm font-medium text-foreground">Persona Name</Label>
                 <Input
@@ -459,7 +459,7 @@ function FullEditMode({
                 Define the skills that will be assessed during this role-play. Learners are scored against these skills after each interaction.
               </p>
             </div>
-            <div className="space-y-3 rounded-md border border-border bg-background p-4">
+            <div className="space-y-3 rounded-2xl border border-border bg-card shadow-sm p-4">
               {rubric.map((s) => (
                 <div key={s.id} className="flex items-end gap-2">
                   <div className="flex-1">
@@ -515,7 +515,7 @@ function FullEditMode({
       {type === "URL" ? (
         <section className="space-y-4">
           <h3 className="text-base font-semibold text-foreground">External URL</h3>
-          <div className="rounded-md border border-border bg-background p-4">
+          <div className="rounded-2xl border border-border bg-card shadow-sm p-4">
             <Label className="text-sm font-medium text-foreground" htmlFor="edit-content-url">
               External URL
             </Label>
@@ -532,7 +532,7 @@ function FullEditMode({
       ) : (
         <section className="space-y-4">
           <h3 className="text-base font-semibold text-foreground">Content File</h3>
-          <div className="rounded-md border border-border bg-background p-4 space-y-4">
+          <div className="rounded-2xl border border-border bg-card shadow-sm p-4 space-y-4">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 min-w-0">
                 <FileText className="h-5 w-5 text-muted-foreground shrink-0" />
@@ -701,7 +701,7 @@ function HybridMode({
     <>
       <section className="space-y-4">
         <SectionHeader title="Content Details" chip="Managed in Cornerstone Learn" />
-        <div className="rounded-md border border-border bg-background p-4 space-y-3">
+        <div className="rounded-2xl border border-border bg-card shadow-sm p-4 space-y-3">
           <ReadOnlyRow label="Content Title" value={item.title} />
           <ReadOnlyRow label="Content Type" value={item.contentTypeLabel} />
           <ReadOnlyRow label="Duration" value={`${item.duration} min`} />
@@ -714,7 +714,7 @@ function HybridMode({
 
       <section className="space-y-4">
         <SectionHeader title="Content File" chip="Managed in Cornerstone Learn" />
-        <div className="rounded-md border border-border bg-background p-4">
+        <div className="rounded-2xl border border-border bg-card shadow-sm p-4">
           <div className="flex items-center gap-3">
             <FileText className="h-5 w-5 text-muted-foreground shrink-0" />
             <div>
@@ -730,7 +730,7 @@ function HybridMode({
         <p className="text-sm text-muted-foreground -mt-2">
           These settings are specific to the Embark platform and can be edited independently of Cornerstone Learn.
         </p>
-        <div className="rounded-md border border-border bg-background p-4 space-y-4">
+        <div className="rounded-2xl border border-border bg-card shadow-sm p-4 space-y-4">
           <div>
             <LineOfBusinessField value={lob} onChange={setLob} />
             <p className="mt-1 text-xs text-muted-foreground">

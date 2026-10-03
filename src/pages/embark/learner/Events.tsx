@@ -21,7 +21,7 @@ export default function Events() {
   return (
     <LearnerSurface header={<GlobalHeader title="Live Events" />}>
       <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-        <PageContainer as="div" className="max-w-[880px] pb-10 pt-2">
+        <PageContainer as="div" className="pb-10 pt-2">
           <Card className="space-y-5 rounded-2xl border-border p-6 shadow-sm">
               <div className="space-y-3">
                 <h2 className="text-lg font-semibold text-foreground">

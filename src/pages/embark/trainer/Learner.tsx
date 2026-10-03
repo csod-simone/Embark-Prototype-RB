@@ -43,17 +43,15 @@ export default function TrainerLearner() {
 
   return (
     <>
-      <LearnerHeader
-        learner={learner}
-        helpBadge={openHands}
-        onRespondToHelp={() => setActiveTab("help_requests")}
-        onViewAiRationale={() => setRationaleOpen(true)}
-        backTo="/trainer/learners"
-      />
-      <div className="px-6 pt-4 bg-background">
+      <PageContainer as="div" className="space-y-4 py-4">
+        <LearnerHeader
+          learner={learner}
+          helpBadge={openHands}
+          onRespondToHelp={() => setActiveTab("help_requests")}
+          onViewAiRationale={() => setRationaleOpen(true)}
+          backTo="/trainer/learners"
+        />
         <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
-      </div>
-      <PageContainer as="div" className="py-6">
         {activeTab === "overview" && (
           <OverviewTab learner={learner} forceAiRationale={forceAiRationale} />
         )}

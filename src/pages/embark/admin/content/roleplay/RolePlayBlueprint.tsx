@@ -416,7 +416,7 @@ export default function RolePlayBlueprint({
       ) : null}
 
       {/* Guardrails — collapsed by default; click to reveal */}
-      <div className="rounded-xl border border-border bg-background">
+      <div className="rounded-2xl border border-border bg-card shadow-sm">
         <button
           type="button"
           onClick={() => setGuardrailsOpen((o) => !o)}

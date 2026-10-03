@@ -73,7 +73,7 @@ export default function Curricula() {
         {/* Header */}
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-foreground">Paths</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground">Paths</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Create and manage paths. Each path groups the content, assessments and activities
               that make up part of a journey.
@@ -119,7 +119,7 @@ export default function Curricula() {
 
 
 
-        <div className="overflow-x-auto rounded-lg border border-border bg-card">
+        <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
           <table className="w-full text-sm">
             <thead className="bg-muted/40">
               <tr className="text-xs text-muted-foreground">
@@ -226,7 +226,7 @@ export default function Curricula() {
               { v: "v1.1", meta: "Published Jul 10, 2026 by Admin User", enrolled: "12 enrolled" },
               { v: "v1.0", meta: "Published Jul 1, 2026 by Admin User", enrolled: "0 enrolled" },
             ].map((v) => (
-              <div key={v.v} className="border border-border rounded-md p-3">
+              <div key={v.v} className="rounded-2xl border border-border bg-card p-3 shadow-sm">
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-sm">{v.v}</span>
                   {v.current && <span className="rounded-full bg-success-dark/15 text-success-dark text-[10px] font-semibold px-2 py-0.5">Current</span>}
@@ -258,7 +258,7 @@ function StatBox({
   const color =
     tone === "success" ? "text-success-dark" : tone === "muted" ? "text-muted-foreground" : "text-foreground";
   return (
-    <div className="rounded-md border border-border bg-background p-4">
+    <div className="rounded-2xl border border-border bg-card shadow-sm p-4">
       <div className="text-xs tracking-wide text-muted-foreground">{label}</div>
       <div className={`mt-1 text-2xl font-bold ${color}`}>{value}</div>
     </div>

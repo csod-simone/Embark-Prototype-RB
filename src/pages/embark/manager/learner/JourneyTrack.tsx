@@ -141,7 +141,7 @@ export function JourneyTrack({
           </LeftBorderCard>
         </div>
       ))}
-      <div className="rounded-md border border-border bg-background">
+      <div className="rounded-2xl border border-border bg-card shadow-sm">
         {learner.weeks.map((m, weekIndex) => {
           const time = times[weekIndex];
           const ordered = m.items;

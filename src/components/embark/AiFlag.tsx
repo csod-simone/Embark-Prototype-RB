@@ -96,6 +96,7 @@ export const AiFlag = React.forwardRef<HTMLSpanElement, AiFlagProps>(function Ai
         : undefined;
 
   const useLegacy = legacyIcon ?? complianceContext !== "eu-ai-act";
+  const designSystemFlag = label === "AI" && complianceContext !== "eu-ai-act";
 
   const flag = (
     <span
@@ -103,9 +104,11 @@ export const AiFlag = React.forwardRef<HTMLSpanElement, AiFlagProps>(function Ai
       aria-label={ARIA_LABELS[variant]}
       className={cn(
         "inline-flex items-center align-middle font-semibold select-none whitespace-nowrap rounded-full border transition-colors",
-        useLegacy
-          ? "border-primary/30 bg-primary/10 text-primary"
-          : "border-accent-foreground/30 bg-accent text-accent-foreground",
+        designSystemFlag
+          ? "border-transparent bg-status-ai font-medium text-status-ai-fg"
+          : useLegacy
+            ? "border-primary/30 bg-primary/10 text-primary"
+            : "border-accent-foreground/30 bg-accent text-accent-foreground",
         tooltip &&
           "cursor-help focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         sparkleClass,
@@ -116,7 +119,7 @@ export const AiFlag = React.forwardRef<HTMLSpanElement, AiFlagProps>(function Ai
       role={tooltip ? "button" : undefined}
       {...rest}
     >
-      {useLegacy ? (
+      {designSystemFlag || useLegacy ? (
         <AskSageIcon size={size === "xs" ? 12 : size === "lg" ? 16 : 14} />
       ) : (
         <span aria-hidden="true" className="ai-flag-icon leading-none">

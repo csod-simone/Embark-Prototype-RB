@@ -234,7 +234,7 @@ function NewRequestStep1({
 
   return (
     <div className="flex-1 overflow-y-auto px-4 py-8 sm:px-6">
-      <PageContainer as="div" className="max-w-[880px] space-y-5">
+      <PageContainer as="div" className="space-y-5">
         <div>
           <h2 className="text-3xl font-semibold tracking-tight text-foreground">Raise a hand</h2>
           <p className="text-xs text-muted-foreground mt-1">

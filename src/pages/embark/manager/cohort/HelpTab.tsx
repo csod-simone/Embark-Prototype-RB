@@ -139,7 +139,7 @@ function HelpCardBody({
         </div>
       ) : (
         isJordan && (
-          <div className="space-y-2 rounded-md border border-border p-3 bg-background">
+          <div className="space-y-2 rounded-2xl border border-border bg-card p-3 shadow-sm">
             <Textarea
               autoFocus={autoFocus}
               placeholder="Write your response to Jordan..."

@@ -162,7 +162,7 @@ function InfoCard({
   trailing?: ReactNode;
 }) {
   return (
-    <div className="mb-3 rounded-xl border border-border bg-card px-4 py-3.5">
+    <div className="mb-3 rounded-2xl border border-border bg-card shadow-sm px-4 py-3.5">
       <div className="flex flex-wrap items-center justify-between gap-2 text-[0.9rem] font-semibold text-foreground">
         <span>{title}</span>
         {trailing}
@@ -964,7 +964,7 @@ function VersionsStage({ draft, onBack, onContinue }: StagePaneProps) {
               {comparison.fields.map((field) => (
                 <div
                   key={field.fieldPath}
-                  className="overflow-hidden rounded-xl border border-border bg-card"
+                  className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-muted/30 px-3.5 py-2.5">
                     <span className="text-sm font-semibold text-foreground">{field.fieldLabel}</span>

@@ -7,7 +7,7 @@ export function BrandLogo({ className }: { className?: string }) {
     <img
       src={logoRathbones}
       alt="Rathbones"
-      className={cn("h-7 w-auto bg-white object-contain dark:rounded-sm dark:p-0.5", className)}
+      className={cn("h-7 w-auto max-w-none shrink-0 bg-white object-contain dark:rounded-sm dark:p-0.5", className)}
     />
   );
 }

@@ -74,7 +74,7 @@ export function EmbarkConfigPanel() {
   };
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4 mb-6">
+    <div className="rounded-2xl border border-border bg-card p-4 shadow-sm mb-6">
       <h3 className="text-base font-semibold text-foreground">Embark Configuration</h3>
       <p className="text-sm text-muted-foreground mt-1">
         These settings are specific to how this path is delivered.
@@ -157,7 +157,7 @@ export function EmbarkAdditionsSection() {
   const { draft, update, pendingInsertion, clearPendingInsertion, addItems, removeAddition } = ctx;
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4">
+    <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
       <h3 className="text-base font-semibold text-foreground">Additional Checks &amp; Assessments</h3>
       <p className="text-sm text-muted-foreground mt-1">
         Add Embark-specific knowledge checks, role-plays, and assessments directly into the path structure. Position each item where it should appear in the learner's journey. These are managed entirely within Embark.
@@ -317,7 +317,7 @@ function AiSuggestionDialog({
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <SageTag />
+            <SageTag label="AI" />
             Suggested checks &amp; assessments
           </DialogTitle>
         </DialogHeader>

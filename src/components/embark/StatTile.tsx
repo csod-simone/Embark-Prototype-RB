@@ -15,15 +15,17 @@ export function StatTile({
   variant = "default",
   subLabel,
   supporting,
+  className,
 }: {
   label: string;
   value: string | number;
   variant?: "default" | "brand" | "danger" | "success" | "warning" | "muted";
   subLabel?: string;
   supporting?: string;
+  className?: string;
 }) {
   return (
-    <div className="rounded-lg border border-border bg-card px-4 py-3">
+    <div className={cn("rounded-lg border border-border bg-card px-4 py-3", className)}>
       <div className="text-[11px] font-semibold tracking-wide text-muted-foreground">
         {label}
       </div>

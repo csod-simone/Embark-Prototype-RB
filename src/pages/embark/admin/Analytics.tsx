@@ -175,7 +175,7 @@ export default function Analytics() {
         {/* Page header */}
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-foreground">Analytics</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground">Analytics</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Organisation-wide learning performance across all journeys, cohorts, managers, and learners.
             </p>
@@ -220,9 +220,9 @@ export default function Analytics() {
 
         {/* Section 1: Stat row */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          <StatTile label="Total Learners" value={53} subLabel="Enrolled across all active cohorts" />
-          <StatTile label="Active Cohorts" value={2} variant="brand" subLabel="Currently in progress" />
-          <div className="rounded-lg border border-border bg-background px-4 py-3">
+          <StatTile label="Total Learners" value={53} subLabel="Enrolled across all active cohorts" className="rounded-2xl shadow-sm" />
+          <StatTile label="Active Cohorts" value={2} variant="brand" subLabel="Currently in progress" className="rounded-2xl shadow-sm" />
+          <div className="rounded-2xl border border-border bg-card shadow-sm px-4 py-3">
             <div className="text-[11px] font-semibold tracking-wide text-muted-foreground">Avg Completion</div>
             <div className="mt-1 text-2xl font-bold leading-tight text-foreground">44%</div>
             <div className="mt-0.5 text-xs text-muted-foreground">Across all active cohorts</div>
@@ -230,7 +230,7 @@ export default function Analytics() {
               <ArrowUp size={12} aria-hidden="true" /><span>+6% vs last month</span>
             </div>
           </div>
-          <div className="rounded-lg border border-border bg-background px-4 py-3">
+          <div className="rounded-2xl border border-border bg-card shadow-sm px-4 py-3">
             <div className="text-[11px] font-semibold tracking-wide text-muted-foreground">At-Risk Learners</div>
             <div className="mt-1 text-2xl font-bold leading-tight text-warning-foreground dark:text-warning">8</div>
             <div className="mt-0.5 text-xs text-muted-foreground">Flagged across all cohorts</div>
@@ -238,7 +238,7 @@ export default function Analytics() {
               <ArrowUp size={12} aria-hidden="true" /><span>+2 vs last month</span>
             </div>
           </div>
-          <div className="rounded-lg border border-border bg-background px-4 py-3">
+          <div className="rounded-2xl border border-border bg-card shadow-sm px-4 py-3">
             <div className="text-[11px] font-semibold tracking-wide text-muted-foreground">Avg Assessment Score</div>
             <div className="mt-1 text-2xl font-bold leading-tight text-foreground">76%</div>
             <div className="mt-0.5 text-xs text-muted-foreground">Across all submitted assessments</div>
@@ -253,7 +253,7 @@ export default function Analytics() {
           <h3 className="text-base font-semibold text-foreground">Journey &amp; Cohort Performance</h3>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {/* Left: bar chart */}
-            <div className="rounded-lg border border-border bg-background p-5">
+            <div className="rounded-2xl border border-border bg-card shadow-sm p-5">
               <div className="text-sm font-medium text-foreground">Completion Rate by Cohort</div>
               <div className="mt-4 space-y-4">
                 {journeyGroups.map((group) => (
@@ -286,7 +286,7 @@ export default function Analytics() {
             </div>
 
             {/* Right: risk distribution */}
-            <div id="risk-distribution" className="rounded-lg border border-border bg-background p-5">
+            <div id="risk-distribution" className="rounded-2xl border border-border bg-card shadow-sm p-5">
               <div className="text-sm font-medium text-foreground">Learner Risk Distribution</div>
               <div className="mt-0.5 text-xs text-muted-foreground">Across all active cohorts — 42 enrolled learners</div>
               <div className="mt-4 flex h-3 w-full overflow-hidden rounded-full">
@@ -334,7 +334,7 @@ export default function Analytics() {
         </section>
 
         {/* Section 3: Completion Trend */}
-        <div id="completion-trend" className="rounded-lg border border-border bg-background p-5">
+        <div id="completion-trend" className="rounded-2xl border border-border bg-card shadow-sm p-5">
           <div className="mb-4 flex items-center justify-between gap-4">
             <div className="text-sm font-medium text-foreground">Completion Trend — Organisation Wide</div>
             <Tabs value={trendMode} onValueChange={(v) => setTrendMode(v as "weekly" | "monthly")}>
@@ -377,7 +377,7 @@ export default function Analytics() {
             <h3 className="text-base font-semibold text-foreground">Manager Performance</h3>
             <p className="mt-1 text-sm text-muted-foreground">Completion rates and risk signals by cohort manager</p>
           </div>
-          <div className="overflow-hidden rounded-lg border border-border bg-background">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -433,7 +433,7 @@ export default function Analytics() {
               Average scores per module across all cohorts — identifies content areas where learners are struggling.
             </p>
           </div>
-          <div className="overflow-hidden rounded-lg border border-border bg-background">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -478,10 +478,10 @@ export default function Analytics() {
         </section>
 
         {/* Section 6: Sage Insights */}
-        <div className="rounded-lg border border-border bg-background p-5">
+        <div className="rounded-2xl border border-border bg-card shadow-sm p-5">
           <div className="mb-4 flex items-center justify-between gap-4">
             <div className="text-sm font-medium text-foreground">Sage Insights</div>
-            <SageTag label="Powered by Sage" />
+            <SageTag label="AI" />
           </div>
           <div className="space-y-3">
             <LeftBorderCard borderVariant="warning">
@@ -577,10 +577,10 @@ export default function Analytics() {
 
           {/* Summary stat row */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <StatTile label="Skills Being Developed" value={12} variant="brand" subLabel="Across all active journeys" />
-            <StatTile label="Skills Demonstrated" value={7} variant="success" subLabel="Evidenced by assessment performance" />
-            <StatTile label="Skills In Progress" value={5} variant="default" subLabel="Partially evidenced — still developing" />
-            <div className="rounded-lg border border-border bg-background px-4 py-3">
+            <StatTile label="Skills Being Developed" value={12} variant="brand" subLabel="Across all active journeys" className="rounded-2xl shadow-sm" />
+            <StatTile label="Skills Demonstrated" value={7} variant="success" subLabel="Evidenced by assessment performance" className="rounded-2xl shadow-sm" />
+            <StatTile label="Skills In Progress" value={5} variant="default" subLabel="Partially evidenced — still developing" className="rounded-2xl shadow-sm" />
+            <div className="rounded-2xl border border-border bg-card shadow-sm px-4 py-3">
               <div className="text-[11px] font-semibold tracking-wide text-muted-foreground">Avg Skill Readiness</div>
               <div className="mt-1 text-2xl font-bold leading-tight text-foreground">64%</div>
               <div className="mt-0.5 text-xs text-muted-foreground">Across all learners and skills</div>
@@ -596,7 +596,7 @@ export default function Analytics() {
               { title: "Medicare CSR Onboarding", learners: 42, rows: medicareSkills, insight: "Coverage determination and coordination of benefits are the lowest-developed skills across this journey — consistent with Module 3 assessment performance. 8 learners have not yet demonstrated these skills." },
               { title: "General New Hire Onboarding", learners: 18, rows: generalSkills, insight: "Organisational culture and policy compliance are demonstrating strong across this cohort. Systems proficiency is in progress — most learners have engaged with the content but have not yet completed the Module 1 assessment to evidence the skill." },
             ].map((col) => (
-              <div key={col.title} className="rounded-lg border border-border bg-background p-5">
+              <div key={col.title} className="rounded-2xl border border-border bg-card shadow-sm p-5">
                 <div className="flex items-center justify-between gap-3">
                   <div className="text-sm font-medium text-foreground">{col.title}</div>
                   <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
@@ -610,7 +610,7 @@ export default function Analytics() {
                   {col.rows.map((row) => <SkillBarRow key={row.name} row={row} />)}
                 </div>
                 <div className="mt-4 flex items-start gap-2 border-t border-border pt-3">
-                  <SageTag className="mt-0.5 shrink-0" />
+                  <SageTag label="AI" className="mt-0.5 shrink-0" />
                   <div className="text-xs">
                     <span className="font-medium text-primary">Sage: </span>
                     <span className="text-muted-foreground">{col.insight}</span>
@@ -621,7 +621,7 @@ export default function Analytics() {
           </div>
 
           {/* Heatmap */}
-          <div id="skill-cohort-heatmap" className="rounded-lg border border-border bg-background p-5 scroll-mt-20">
+          <div id="skill-cohort-heatmap" className="rounded-2xl border border-border bg-card shadow-sm p-5 scroll-mt-20">
             <div className="mb-4 flex items-start justify-between gap-3">
               <div>
                 <div className="text-sm font-medium text-foreground">Skill Readiness by Cohort</div>
@@ -674,7 +674,7 @@ export default function Analytics() {
               { title: "Strongest Skills", sub: "Highest average readiness across your learner population", data: strongestSkills, color: "text-success-dark", fill: "bg-success" },
               { title: "Skill Gaps", sub: "Lowest average readiness — skills most in need of intervention", data: skillGaps, color: "text-destructive", fill: "bg-destructive" },
             ].map((col) => (
-              <div key={col.title} className="rounded-lg border border-border bg-background p-5">
+              <div key={col.title} className="rounded-2xl border border-border bg-card shadow-sm p-5">
                 <div className="text-sm font-medium text-foreground">{col.title}</div>
                 <p className="mt-0.5 text-xs text-muted-foreground">{col.sub}</p>
                 <div className="mt-3 divide-y divide-border">
@@ -694,10 +694,10 @@ export default function Analytics() {
           </div>
 
           {/* Sage Skill Insights */}
-          <div className="rounded-lg border border-border bg-background p-5">
+          <div className="rounded-2xl border border-border bg-card shadow-sm p-5">
             <div className="mb-4 flex items-center justify-between gap-4">
               <div className="text-sm font-medium text-foreground">Sage Skill Insights</div>
-              <SageTag label="Powered by Sage" />
+              <SageTag label="AI" />
             </div>
             <div className="space-y-3">
               <LeftBorderCard borderVariant="warning">

@@ -55,18 +55,20 @@ export default function Cohort() {
       </div>
       <div className="pt-4 space-y-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          <StatTile label="ENROLLED" value={String(enrolledCount)} />
+          <StatTile label="ENROLLED" value={String(enrolledCount)} className="rounded-2xl shadow-sm" />
           <button type="button" onClick={() => filters.setBand("At Risk")} className="text-left">
-            <StatTile label="AT RISK" value="2" variant="danger" />
+            <StatTile label="AT RISK" value="2" variant="danger" className="rounded-2xl shadow-sm" />
           </button>
-          <StatTile label="ON TRACK" value="3" variant="success" />
-          <StatTile label="COMPLETE" value="0" variant="muted" />
+          <StatTile label="ON TRACK" value="3" variant="success" className="rounded-2xl shadow-sm" />
+          <StatTile label="COMPLETE" value="0" variant="muted" className="rounded-2xl shadow-sm" />
         </div>
-        <ReadinessDistributionStrip
-          counts={{ atRisk: 2, needsAttention: 1, onTrack: 3, ready: 1, fastTracker: 1 }}
-          total={8}
-          onSegmentClick={filters.setBand}
-        />
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+          <ReadinessDistributionStrip
+            counts={{ atRisk: 2, needsAttention: 1, onTrack: 3, ready: 1, fastTracker: 1 }}
+            total={8}
+            onSegmentClick={filters.setBand}
+          />
+        </div>
         <div className="flex justify-end gap-2">
           <Button variant="secondary">Assign coaching</Button>
           <Button variant="secondary">Export cohort CSV</Button>

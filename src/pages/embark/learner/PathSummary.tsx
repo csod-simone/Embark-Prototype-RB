@@ -106,7 +106,7 @@ export default function LearnerPathSummary() {
 
   return (
     <LearnerSurface>
-    <PageContainer as="div" className="flex max-w-[880px] flex-1 flex-col gap-6 overflow-y-auto py-8">
+    <PageContainer as="div" className="flex flex-1 flex-col gap-6 overflow-y-auto py-8">
       <header className="space-y-2">
         <span className="inline-flex items-center rounded-full border border-border bg-card px-2.5 py-1 text-xs font-medium text-muted-foreground">
           Personalized by {tutorName}

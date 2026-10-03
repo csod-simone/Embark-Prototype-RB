@@ -322,7 +322,7 @@ export default function GraduatingHome() {
   return (
     <>
       <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-        <PageContainer as="div" className="max-w-[880px] space-y-8 pb-10 pt-8">
+        <PageContainer as="div" className="space-y-8 pb-10 pt-8">
           <header className="space-y-2 text-center">
             <p className="text-sm text-muted-foreground">
               Good {dayPart()}, {firstName}

@@ -42,7 +42,7 @@ export function AiActivityTab({ learner }: { learner: LearnerRecord }) {
         )}
       </LeftBorderCard>
 
-      <div className="rounded-md border border-border bg-background overflow-hidden">
+      <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-muted/40 text-left text-xs tracking-wide text-muted-foreground">

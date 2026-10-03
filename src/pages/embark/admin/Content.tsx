@@ -13,13 +13,14 @@ import { cn } from "@/lib/utils";
 import { LeftBorderCard } from "@/components/embark/LeftBorderCard";
 import { ChipInput } from "@/components/embark/ChipInput";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { useCornerstoneIntegration } from "@/hooks/use-cornerstone-integration";
 import { useLinesOfBusiness } from "@/hooks/use-lines-of-business";
 import { AddAssessmentDialog } from "./content/AddAssessmentDialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
+import { Badge, badgeVariants } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -143,14 +144,34 @@ function StatBox({
   sub: string;
   tone?: "primary" | "warning";
 }) {
-  const color =
-    tone === "primary" ? "text-primary" : tone === "warning" ? "text-warning-foreground dark:text-warning" : "text-foreground";
+  const warning = tone === "warning";
+  const featured = !tone;
   return (
-    <div className="rounded-md border border-border bg-background p-4">
-      <div className="text-xs tracking-wide text-muted-foreground">{label}</div>
-      <div className={`mt-1 text-2xl font-bold ${color}`}>{value}</div>
-      <div className="mt-1 text-xs text-muted-foreground">{sub}</div>
-    </div>
+    <Card
+      className={cn(
+        "rounded-2xl p-5",
+        featured && "border-0 bg-accent shadow-none",
+        tone === "primary" && "border-border shadow-sm",
+        warning && "border-status-warning-outline bg-status-warning shadow-sm",
+      )}
+    >
+      <div className={cn("flex items-center gap-2 text-sm", warning ? "text-status-warning-fg" : "text-muted-foreground")}>
+        {tone === "primary" && <span className="h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden />}
+        {warning && <span className="h-2 w-2 shrink-0 rounded-full bg-status-warning-fg" aria-hidden />}
+        {label}
+      </div>
+      <div
+        className={cn(
+          "mt-2 text-3xl font-semibold tracking-tight",
+          featured && "text-primary",
+          tone === "primary" && "text-foreground",
+          warning && "text-status-warning-fg",
+        )}
+      >
+        {value}
+      </div>
+      <div className={cn("mt-1 text-xs", warning ? "text-status-warning-fg" : "text-muted-foreground")}>{sub}</div>
+    </Card>
   );
 }
 
@@ -237,18 +258,21 @@ function ReviewRecommendedChip({ itemId, onDismiss }: { itemId: string; onDismis
       <PopoverTrigger asChild>
         <button
           type="button"
-          className="inline-flex items-center gap-1 rounded-sm -mx-1 px-1 text-xs text-warning-foreground dark:text-warning cursor-pointer hover:bg-warning/10 transition-colors"
-          aria-label="Why Sage recommends review"
+          className={cn(
+            badgeVariants({ variant: "warning" }),
+            "cursor-pointer gap-1 whitespace-nowrap font-medium hover:bg-status-warning",
+          )}
+          aria-label="Review recommended: why Sage recommends review"
         >
-          <AlertTriangle className="h-3.5 w-3.5" />
+          <AlertTriangle className="h-3.5 w-3.5" aria-hidden="true" />
           <span>Review recommended</span>
-          <Info className="h-3 w-3 opacity-70" />
+          <Info className="h-3 w-3" aria-hidden="true" />
         </button>
       </PopoverTrigger>
       <PopoverContent side="bottom" align="start" className="w-80 p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-2">
-            <SageTag />
+            <SageTag label="AI" />
             <span className="text-sm font-medium text-foreground">Sage recommends review</span>
           </div>
           <button
@@ -382,10 +406,10 @@ export default function Content() {
         <TypeBadge type={item.type} />
       </TableCell>
       
-      <TableCell className="text-sm text-muted-foreground">
+      <TableCell className="whitespace-nowrap text-sm text-muted-foreground">
         {format(new Date(item.updated), "d MMM yyyy")}
       </TableCell>
-      <TableCell className="text-sm text-muted-foreground">
+      <TableCell className="whitespace-nowrap text-sm text-muted-foreground">
         {item.lastUsed ? (
           format(new Date(item.lastUsed), "d MMM yyyy")
         ) : (
@@ -396,7 +420,7 @@ export default function Content() {
       <TableCell>
         <ScoreCell score={item.avgScore} />
       </TableCell>
-      <TableCell>
+      <TableCell className="px-2">
         {item.flagged && !dismissedIds.has(item.id) ? (
           <ReviewRecommendedChip
             itemId={item.id}
@@ -410,7 +434,7 @@ export default function Content() {
           />
         ) : null}
       </TableCell>
-      <TableCell className="text-right">
+      <TableCell className="px-2 text-right">
         <div className="flex items-center justify-end gap-3">
           <button
             type="button"
@@ -443,70 +467,11 @@ export default function Content() {
     <>
       <PageContainer as="div" className="py-6 space-y-6">
         {/* Header */}
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <h2 className="text-xl font-semibold text-foreground">Content</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Manage all content and assessments available in your Embark. Review Sage-flagged content gaps and quality signals.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="w-40">
-              <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v as typeof typeFilter)}>
-                <SelectTrigger aria-label="Filter by content type">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="article">Article</SelectItem>
-                  <SelectItem value="assessment">Assessment</SelectItem>
-                  <SelectItem value="resource">Course</SelectItem>
-                  <SelectItem value="video">Video</SelectItem>
-                  <SelectItem value="roleplay">Role-Play</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="w-52">
-              <Select value={lastUpdatedFilter} onValueChange={(v) => setLastUpdatedFilter(v as typeof lastUpdatedFilter)}>
-                <SelectTrigger aria-label="Filter by last updated">
-                  <span className="text-muted-foreground">Last Updated:</span>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Any Time</SelectItem>
-                  <SelectItem value="7d">Last 7 days</SelectItem>
-                  <SelectItem value="30d">Last 30 days</SelectItem>
-                  <SelectItem value="90d">Last 90 days</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="w-44">
-              <Select value={sageSignalsFilter} onValueChange={(v) => setSageSignalsFilter(v as typeof sageSignalsFilter)}>
-                <SelectTrigger aria-label="Filter by Sage signals">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Signals</SelectItem>
-                  <SelectItem value="flagged">Flagged by Sage</SelectItem>
-                  <SelectItem value="not_flagged">Not flagged</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            {!integrationEnabled && (
-              <Button onClick={() => setDialogOpen(true)}>
-                <Plus className="h-4 w-4 mr-1" />
-                Add Content
-              </Button>
-            )}
-            <Button onClick={() => setAssessmentDialogOpen(true)}>
-              <Plus className="h-4 w-4 mr-1" />
-              Add Assessment
-            </Button>
-            <Button onClick={() => navigate("/admin/content/roleplay/new")}>
-              <Plus className="h-4 w-4 mr-1" />
-              Add Role-Play
-            </Button>
-          </div>
+        <div>
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground">Content</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Manage all content and assessments available in your Embark. Review Sage-flagged content gaps and quality signals.
+          </p>
         </div>
 
         {integrationEnabled && !bannerDismissed && (
@@ -540,7 +505,7 @@ export default function Content() {
         )}
 
         {/* Stat row */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
           <StatBox label="Total Content Items" value={27} sub="Across all journeys" />
           <StatBox label="Articles" value={14} sub="Published learning articles" tone="primary" />
           <StatBox label="Assessments" value={8} sub="Knowledge checks and gates" tone="primary" />
@@ -578,6 +543,68 @@ export default function Content() {
           </div>
         </section>
 
+        <Card className="space-y-3 rounded-2xl border-0 bg-accent p-4 shadow-none sm:p-5">
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="w-40">
+              <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v as typeof typeFilter)}>
+                <SelectTrigger aria-label="Filter by content type" className="bg-card">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Types</SelectItem>
+                  <SelectItem value="article">Article</SelectItem>
+                  <SelectItem value="assessment">Assessment</SelectItem>
+                  <SelectItem value="resource">Course</SelectItem>
+                  <SelectItem value="video">Video</SelectItem>
+                  <SelectItem value="roleplay">Role-Play</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="w-52">
+              <Select value={lastUpdatedFilter} onValueChange={(v) => setLastUpdatedFilter(v as typeof lastUpdatedFilter)}>
+                <SelectTrigger aria-label="Filter by last updated" className="bg-card">
+                  <span className="text-muted-foreground">Last Updated:</span>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Any Time</SelectItem>
+                  <SelectItem value="7d">Last 7 days</SelectItem>
+                  <SelectItem value="30d">Last 30 days</SelectItem>
+                  <SelectItem value="90d">Last 90 days</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="w-44">
+              <Select value={sageSignalsFilter} onValueChange={(v) => setSageSignalsFilter(v as typeof sageSignalsFilter)}>
+                <SelectTrigger aria-label="Filter by Sage signals" className="bg-card">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Signals</SelectItem>
+                  <SelectItem value="flagged">Flagged by Sage</SelectItem>
+                  <SelectItem value="not_flagged">Not flagged</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            {!integrationEnabled && (
+              <Button className="px-5" onClick={() => setDialogOpen(true)}>
+                <Plus className="h-4 w-4 mr-1" />
+                Add Content
+              </Button>
+            )}
+            <Button className="px-5" onClick={() => setAssessmentDialogOpen(true)}>
+              <Plus className="h-4 w-4 mr-1" />
+              Add Assessment
+            </Button>
+            <Button className="px-5" onClick={() => navigate("/admin/content/roleplay/new")}>
+              <Plus className="h-4 w-4 mr-1" />
+              Add Role-Play
+            </Button>
+          </div>
+        </Card>
+
         {/* Content library */}
         <section className="space-y-3" ref={tableRef}>
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -605,7 +632,7 @@ export default function Content() {
             </div>
           </div>
 
-          <div className="rounded-md border border-border overflow-x-auto">
+          <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -615,8 +642,8 @@ export default function Content() {
                   <TableHead>Last Used</TableHead>
 
                   <TableHead>Avg Score</TableHead>
-                  <TableHead>Sage Signal</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead className="px-2">Sage Signal</TableHead>
+                  <TableHead className="px-2 text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -998,7 +1025,7 @@ function UploadNewContentForm({
         </div>
 
         <div className="flex items-start gap-2 rounded-md border border-border bg-muted/30 p-3">
-          <SageTag className="mt-0.5 flex-shrink-0" />
+          <SageTag label="AI" className="mt-0.5 flex-shrink-0" />
           <p className="text-xs text-muted-foreground">
             Skills were auto-generated based on your content title, description, and uploaded
             material. Review and refine the proposals below before saving.

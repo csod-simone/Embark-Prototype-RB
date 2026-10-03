@@ -146,7 +146,7 @@ export default function Cohorts() {
     <>
       <PageContainer as="div" className="py-6 space-y-8">
         <div>
-          <h1 className="text-2xl font-semibold text-foreground">My Cohorts</h1>
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground">My Cohorts</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             You are managing {cohorts.length} active cohorts
           </p>
@@ -161,7 +161,7 @@ export default function Cohorts() {
                 AI-generated based on cohort progress, risk signals, and upcoming milestones
               </p>
             </div>
-            <SageTag label="Powered by Sage" className="shrink-0" />
+            <SageTag label="AI" className="shrink-0" />
           </div>
 
           <div className="space-y-3">
@@ -231,7 +231,7 @@ export default function Cohorts() {
                     navigate(`/manager/cohorts/${c.id}`);
                   }
                 }}
-                className="rounded-md border border-border bg-background p-4 cursor-pointer transition hover:shadow-sm hover:border-primary/40 focus:outline-none focus:ring-2 focus:ring-ring"
+                className="rounded-2xl border border-border bg-card p-4 shadow-sm cursor-pointer transition hover:shadow-md hover:border-primary/40 focus:outline-none focus:ring-2 focus:ring-ring"
               >
                 <div className="flex items-center justify-between gap-4">
                   <h3 className="text-base font-semibold text-foreground">{c.name}</h3>

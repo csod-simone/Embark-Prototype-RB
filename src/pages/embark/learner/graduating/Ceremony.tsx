@@ -89,7 +89,7 @@ export default function GraduatingCeremony() {
         </PageContainer>
 
         {/* Summary card */}
-        <PageContainer as="div" className="mt-8 rounded-2xl border border-border bg-card py-6 shadow-sm">
+        <PageContainer as="div" className="mt-8 max-w-[880px] rounded-2xl border border-border bg-card py-6 shadow-sm">
           <div className="text-[11px] font-semibold tracking-wide text-muted-foreground text-center mb-3">
             Your journey summary
           </div>

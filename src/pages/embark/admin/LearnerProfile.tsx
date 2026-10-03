@@ -48,10 +48,10 @@ export default function AdminLearnerProfile() {
           Back to {cohort?.name ?? "cohort"}
         </Link>
         <div>
-          <h1 className="text-2xl font-semibold text-foreground">{versioned.name}</h1>
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground">{versioned.name}</h1>
           <p className="mt-1 text-sm text-muted-foreground">{versioned.email}</p>
         </div>
-        <div className="rounded-md border border-border bg-background p-4 space-y-3 max-w-2xl">
+        <div className="rounded-2xl border border-border bg-card shadow-sm p-4 space-y-3 max-w-2xl">
           <div className="flex flex-wrap items-center gap-2">
             <h2 className="text-base font-semibold text-foreground">{VERSIONED_CONTENT_TITLE}</h2>
             <Badge variant={versioned.versionId === currentContentVersion().id ? "success" : "secondary"}>{versioned.versionId}</Badge>
@@ -107,19 +107,17 @@ export default function AdminLearnerProfile() {
 
   return (
     <>
-      <LearnerHeader
-        learner={learner}
-        helpBadge={openHands}
-        onRespondToHelp={() => setActiveTab("help_requests")}
-        onViewAiRationale={() => setRationaleOpen(true)}
-        readOnly
-        backTo="/admin/cohorts"
-        backLabel="Back to cohorts"
-      />
-      <div className="px-6 pt-4 bg-background">
+      <PageContainer as="div" className="space-y-4 py-4">
+        <LearnerHeader
+          learner={learner}
+          helpBadge={openHands}
+          onRespondToHelp={() => setActiveTab("help_requests")}
+          onViewAiRationale={() => setRationaleOpen(true)}
+          readOnly
+          backTo="/admin/cohorts"
+          backLabel="Back to cohorts"
+        />
         <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
-      </div>
-      <PageContainer as="div" className="py-6">
         {activeTab === "overview" && (
           <OverviewTab learner={learner} forceAiRationale={false} readOnly />
         )}

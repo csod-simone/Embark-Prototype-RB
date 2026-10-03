@@ -25,7 +25,7 @@ export default function RolePlayMethodSelect() {
         <div className="text-xs font-semibold tracking-wide text-muted-foreground">
           NEW ROLE-PLAY
         </div>
-        <h2 className="mt-1 text-xl font-semibold text-foreground">Create a Role-Play</h2>
+        <h2 className="mt-1 text-3xl font-semibold tracking-tight text-foreground">Create a Role-Play</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Choose how you'd like to build your role-play.
         </p>
@@ -37,11 +37,11 @@ export default function RolePlayMethodSelect() {
           tabIndex={0}
           onClick={() => navigate("/admin/content/roleplay/new/ai")}
           onKeyDown={(e) => e.key === "Enter" && navigate("/admin/content/roleplay/new/ai")}
-          className="p-5 cursor-pointer transition-colors hover:bg-muted/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="rounded-2xl p-5 cursor-pointer transition-colors hover:bg-muted/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <div className="flex items-center justify-between gap-2">
             <AskSageIcon size={20} className="text-primary" />
-            <AiFlag />
+            <AiFlag label="AI" />
           </div>
           <h3 className="mt-3 text-base font-semibold text-foreground">Design with AI</h3>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -55,7 +55,7 @@ export default function RolePlayMethodSelect() {
           tabIndex={0}
           onClick={() => navigate("/admin/content/roleplay/new/form")}
           onKeyDown={(e) => e.key === "Enter" && navigate("/admin/content/roleplay/new/form")}
-          className="p-5 cursor-pointer transition-colors hover:bg-muted/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="rounded-2xl p-5 cursor-pointer transition-colors hover:bg-muted/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <div className="flex items-center gap-2">
             <FileText className="h-5 w-5 text-primary" aria-hidden="true" />

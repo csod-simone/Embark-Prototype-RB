@@ -40,7 +40,6 @@ import {
 import {
   CURRICULA_OPTIONS,
   JOURNEYS,
-  LINES_OF_BUSINESS,
   findCurriculum,
   formatDate,
   type Journey,
@@ -76,7 +75,6 @@ export default function Journeys() {
   const [items, setItems] = useState<Journey[]>(JOURNEYS);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<string>("all");
-  const [lob, setLob] = useState<string>("all");
   const [curriculumFilter, setCurriculumFilter] = useState<string>("all");
   const [deleting, setDeleting] = useState<Journey | null>(null);
   const [page, setPage] = useState(1);
@@ -97,11 +95,10 @@ export default function Journeys() {
     return items.filter((j) => {
       if (q && !j.name.toLowerCase().includes(q)) return false;
       if (status !== "all" && j.status !== status) return false;
-      if (lob !== "all" && !j.lineOfBusiness.includes(lob as never)) return false;
       if (curriculumFilter !== "all" && !j.curriculaIds.includes(curriculumFilter)) return false;
       return true;
     });
-  }, [items, search, status, lob, curriculumFilter]);
+  }, [items, search, status, curriculumFilter]);
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / TABLE_PAGE_SIZE));
   const currentPage = Math.min(page, pageCount);
@@ -131,7 +128,7 @@ export default function Journeys() {
       <PageContainer as="div" className="py-6 space-y-8">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-foreground">Journeys</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground">Journeys</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Create and manage learning journeys. Each journey combines one or more paths into a
               structured end-to-end learning experience.
@@ -171,19 +168,6 @@ export default function Journeys() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="w-52">
-              <Select value={lob} onValueChange={setLob}>
-                <SelectTrigger aria-label="Filter by line of business">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Lines of Business</SelectItem>
-                  {LINES_OF_BUSINESS.map((l) => (
-                    <SelectItem key={l} value={l}>{l}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
             <div className="w-64">
               <Select value={curriculumFilter} onValueChange={setCurriculumFilter}>
                 <SelectTrigger aria-label="Filter by path included">
@@ -199,7 +183,7 @@ export default function Journeys() {
             </div>
           </div>
 
-          <div className="rounded-md border border-border overflow-x-auto">
+          <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -304,7 +288,7 @@ function StatBox({
   const color =
     tone === "success" ? "text-success-dark" : tone === "muted" ? "text-muted-foreground" : "text-foreground";
   return (
-    <div className="rounded-md border border-border bg-background p-4">
+    <div className="rounded-2xl border border-border bg-card shadow-sm p-4">
       <div className="text-xs tracking-wide text-muted-foreground">{label}</div>
       <div className={`mt-1 text-2xl font-bold ${color}`}>{value}</div>
     </div>

@@ -72,7 +72,7 @@ export function QuestionCard({
 
   if (!editing) {
     return (
-      <div className="rounded-md border border-border bg-background p-4">
+      <div className="rounded-2xl border border-border bg-card shadow-sm p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs font-medium text-muted-foreground">Q{index + 1}</span>
@@ -255,7 +255,7 @@ export function QuestionCard({
   };
 
   return (
-    <div className="rounded-md border border-border bg-background p-4 space-y-4">
+    <div className="rounded-2xl border border-border bg-card shadow-sm p-4 space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-medium text-muted-foreground">Q{index + 1}</span>
